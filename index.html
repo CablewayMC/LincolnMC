@@ -3,585 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LincolnMC — Dev Portfolio</title>
+<title>CablewayMC — Dev Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --dirt: #7a5230;
-    --dirt-light: #9b6b3a;
-    --grass: #5a8a2e;
-    --grass-light: #6db33f;
-    --stone: #888888;
-    --stone-light: #aaaaaa;
-    --stone-dark: #555555;
-    --wood: #a07840;
-    --sky: #6ca0dc;
-    --sky-dark: #3a6aa0;
-    --coal: #1a1a1a;
-    --white: #f0f0f0;
-    --yellow: #f8c81c;
-    --red: #c03020;
-    --pixel: 4px;
-    --bg: #1a1a2e;
-    --panel: #2a2a3e;
-    --border: #555577;
+    --dirt: #7a5230; --dirt-light: #9b6b3a;
+    --grass: #5a8a2e; --grass-light: #6db33f;
+    --stone: #888888; --stone-light: #aaaaaa; --stone-dark: #555555;
+    --wood: #a07840; --yellow: #f8c81c; --red: #c03020;
+    --pixel: 4px; --bg: #1a1a2e; --panel: #2a2a3e;
   }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:#f0f0f0; font-family:'VT323',monospace; font-size:20px; overflow-x:hidden; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  .pixel-box { border:var(--pixel) solid var(--stone-light); box-shadow:inset -4px -4px 0 var(--stone-dark),inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.6); background:var(--panel); }
+  .grass-box { border:var(--pixel) solid var(--grass-light); box-shadow:inset -4px -4px 0 #3a5a1a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#1e2e10; }
+  .dirt-box  { border:var(--pixel) solid var(--dirt-light); box-shadow:inset -4px -4px 0 #4a3010,inset 4px 4px 0 rgba(255,255,255,0.08),4px 4px 0 rgba(0,0,0,0.6); background:#2a1e0e; }
+  .wood-box  { border:var(--pixel) solid #c09050; box-shadow:inset -4px -4px 0 #6a4820,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#201408; }
+  .blue-box  { border:var(--pixel) solid #4488cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#0e1828; }
+  .purple-box{ border:var(--pixel) solid #8855cc; box-shadow:inset -4px -4px 0 #3a1a5a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#180e28; }
+  .obsidian-box { border:var(--pixel) solid #6644aa; box-shadow:inset -4px -4px 0 #1a0a2a,inset 4px 4px 0 rgba(255,255,255,0.08),4px 4px 0 rgba(0,0,0,0.7); background:#0e0818; }
 
-  body {
-    background-color: var(--bg);
-    color: var(--white);
-    font-family: 'VT323', monospace;
-    font-size: 20px;
-    image-rendering: pixelated;
-    overflow-x: hidden;
-  }
+  .mc-btn { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); background:#5a7a28; border:var(--pixel) solid #88bb44; box-shadow:inset -4px -4px 0 #3a5010,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.5); padding:8px 16px; cursor:pointer; display:inline-block; text-decoration:none; transition:filter 0.1s,transform 0.1s; letter-spacing:1px; text-shadow:2px 2px 0 rgba(0,0,0,0.5); }
+  .mc-btn:hover { filter:brightness(1.25); transform:translateY(-2px); }
+  .mc-btn.blue { background:#3a5888; border-color:#6688cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.5); }
+  .mc-btn.ghost { background:#333; border-color:#666; color:#aaa; box-shadow:inset -4px -4px 0 #222,inset 4px 4px 0 rgba(255,255,255,0.05),4px 4px 0 rgba(0,0,0,0.4); }
 
-  /* ── PIXEL BORDER MIXIN ── */
-  .pixel-box {
-    border: var(--pixel) solid var(--stone-light);
-    box-shadow:
-      inset -4px -4px 0 var(--stone-dark),
-      inset 4px 4px 0 rgba(255,255,255,0.15),
-      4px 4px 0 rgba(0,0,0,0.6);
-    background: var(--panel);
-  }
+  .stars { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(1px 1px at 10% 15%,rgba(255,255,255,0.8) 0%,transparent 100%),radial-gradient(2px 2px at 40% 8%,rgba(255,255,255,0.9) 0%,transparent 100%),radial-gradient(1px 1px at 70% 20%,rgba(255,255,255,0.7) 0%,transparent 100%),radial-gradient(2px 2px at 85% 70%,rgba(255,255,255,0.8) 0%,transparent 100%),radial-gradient(1px 1px at 32% 72%,rgba(255,255,255,0.4) 0%,transparent 100%),linear-gradient(180deg,#0a0a1a 0%,#111130 100%); }
 
-  .grass-box {
-    border: var(--pixel) solid var(--grass-light);
-    box-shadow:
-      inset -4px -4px 0 #3a5a1a,
-      inset 4px 4px 0 rgba(255,255,255,0.1),
-      4px 4px 0 rgba(0,0,0,0.6);
-    background: #1e2e10;
-  }
+  nav { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:56px; background:#111122; border-bottom:4px solid var(--grass); box-shadow:0 4px 0 #3a5010,0 8px 0 #2a1a08; }
+  .nav-logo { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); text-shadow:2px 2px 0 #c08000,4px 4px 0 rgba(0,0,0,0.5); }
+  .nav-logo span { color:var(--grass-light); }
+  .nav-links { display:flex; gap:20px; list-style:none; }
+  .nav-links a { font-family:'Press Start 2P',monospace; font-size:7px; color:var(--stone-light); text-decoration:none; padding:6px 8px; transition:color 0.15s; }
+  .nav-links a:hover { color:var(--yellow); }
 
-  .dirt-box {
-    border: var(--pixel) solid var(--dirt-light);
-    box-shadow:
-      inset -4px -4px 0 #4a3010,
-      inset 4px 4px 0 rgba(255,255,255,0.08),
-      4px 4px 0 rgba(0,0,0,0.6);
-    background: #2a1e0e;
-  }
+  #hero { position:relative; z-index:1; min-height:90vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; text-align:center; padding:60px 24px; }
+  .hero-title { font-family:'Press Start 2P',monospace; font-size:clamp(18px,4vw,42px); color:var(--yellow); text-shadow:3px 3px 0 #a07800,6px 6px 0 rgba(0,0,0,0.5); line-height:1.5; animation:fadeDown 0.6s ease both; }
+  .hero-sub { font-size:clamp(20px,3vw,30px); color:var(--grass-light); letter-spacing:2px; animation:fadeDown 0.6s 0.2s ease both; }
+  .hero-desc { max-width:600px; font-size:22px; color:var(--stone-light); line-height:1.6; animation:fadeDown 0.6s 0.35s ease both; }
+  .hero-btns { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; animation:fadeDown 0.6s 0.5s ease both; }
+  .creeper { font-size:80px; animation:float 3s ease-in-out infinite,fadeDown 0.6s 0.1s ease both; filter:drop-shadow(0 0 16px rgba(90,200,50,0.4)); }
 
-  .wood-box {
-    border: var(--pixel) solid #c09050;
-    box-shadow:
-      inset -4px -4px 0 #6a4820,
-      inset 4px 4px 0 rgba(255,255,255,0.1),
-      4px 4px 0 rgba(0,0,0,0.6);
-    background: #201408;
-  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ── PIXEL BUTTON ── */
-  .mc-btn {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    color: var(--yellow);
-    background: #5a7a28;
-    border: var(--pixel) solid #88bb44;
-    box-shadow:
-      inset -4px -4px 0 #3a5010,
-      inset 4px 4px 0 rgba(255,255,255,0.15),
-      4px 4px 0 rgba(0,0,0,0.5);
-    padding: 8px 16px;
-    cursor: pointer;
-    display: inline-block;
-    text-decoration: none;
-    transition: filter 0.1s, transform 0.1s;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
-  }
-  .mc-btn:hover {
-    filter: brightness(1.25);
-    transform: translateY(-2px);
-  }
-  .mc-btn:active {
-    transform: translateY(2px);
-    box-shadow:
-      inset -2px -2px 0 #3a5010,
-      inset 2px 2px 0 rgba(255,255,255,0.1),
-      2px 2px 0 rgba(0,0,0,0.4);
-  }
+  .divider { position:relative; z-index:1; height:32px; background:repeating-linear-gradient(90deg,var(--grass) 0px,var(--grass) 32px,var(--grass-light) 32px,var(--grass-light) 64px); border-top:4px solid #88cc44; border-bottom:4px solid #3a5010; }
+  .divider.dirt { background:repeating-linear-gradient(90deg,var(--dirt) 0px,var(--dirt) 32px,var(--dirt-light) 32px,var(--dirt-light) 64px); border-top-color:var(--dirt-light); border-bottom-color:#3a2008; }
+  .divider.stone { background:repeating-linear-gradient(90deg,var(--stone-dark) 0px,var(--stone-dark) 32px,var(--stone) 32px,var(--stone) 64px); border-top-color:var(--stone-light); border-bottom-color:#333; }
+  .divider.wood { background:repeating-linear-gradient(90deg,#6a4820 0px,#6a4820 32px,var(--wood) 32px,var(--wood) 64px); border-top-color:#c09050; border-bottom-color:#3a2008; }
+  .divider.obsidian { background:repeating-linear-gradient(90deg,#1a0a2a 0px,#1a0a2a 32px,#2a1040 32px,#2a1040 64px); border-top-color:#6644aa; border-bottom-color:#0a0010; }
 
-  /* ── STARFIELD BG ── */
-  .stars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background:
-      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.8) 0%, transparent 100%),
-      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.6) 0%, transparent 100%),
-      radial-gradient(2px 2px at 40% 8%, rgba(255,255,255,0.9) 0%, transparent 100%),
-      radial-gradient(1px 1px at 55% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.7) 0%, transparent 100%),
-      radial-gradient(2px 2px at 85% 70%, rgba(255,255,255,0.8) 0%, transparent 100%),
-      radial-gradient(1px 1px at 92% 35%, rgba(255,255,255,0.6) 0%, transparent 100%),
-      radial-gradient(1px 1px at 5% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(2px 2px at 60% 90%, rgba(255,255,255,0.7) 0%, transparent 100%),
-      radial-gradient(1px 1px at 32% 72%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      linear-gradient(180deg, #0a0a1a 0%, #111130 100%);
-  }
+  section { position:relative; z-index:1; padding:72px 24px; max-width:1100px; margin:0 auto; }
+  .section-title { font-family:'Press Start 2P',monospace; font-size:clamp(12px,2.5vw,22px); color:var(--yellow); text-shadow:2px 2px 0 #a07800,4px 4px 0 rgba(0,0,0,0.4); margin-bottom:48px; display:flex; align-items:center; gap:16px; }
+  .section-title::before { content:'▶'; color:var(--grass-light); font-size:0.8em; }
 
-  /* ── NAVBAR ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    height: 56px;
-    background: #111122;
-    border-bottom: 4px solid var(--grass);
-    box-shadow: 0 4px 0 #3a5010, 0 8px 0 #2a1a08;
-  }
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  @media(max-width:700px){.about-grid{grid-template-columns:1fr}}
+  .about-bio { padding:24px; font-size:21px; line-height:1.7; color:var(--stone-light); }
+  .about-bio p { margin-bottom:14px; }
+  .about-bio strong { color:var(--yellow); }
+  .skills-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  .skill-badge { font-family:'Press Start 2P',monospace; font-size:7px; padding:8px 12px; display:flex; align-items:center; gap:6px; }
 
-  .nav-logo {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 13px;
-    color: var(--yellow);
-    text-shadow: 2px 2px 0 #c08000, 4px 4px 0 rgba(0,0,0,0.5);
-    letter-spacing: 2px;
-  }
+  .timeline { display:flex; flex-direction:column; }
+  .timeline-item { display:grid; grid-template-columns:80px 1fr; gap:0 16px; }
+  .timeline-year { font-family:'Press Start 2P',monospace; font-size:7px; color:var(--grass-light); text-align:right; padding-top:6px; white-space:nowrap; }
+  .timeline-body { border-left:4px solid var(--grass); padding:4px 0 24px 20px; position:relative; }
+  .timeline-body::before { content:''; position:absolute; left:-10px; top:6px; width:16px; height:16px; background:var(--grass-light); border:3px solid var(--bg); }
+  .timeline-label { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--yellow); margin-bottom:6px; }
+  .timeline-text { font-size:19px; color:var(--stone-light); line-height:1.5; }
 
-  .nav-logo span { color: var(--grass-light); }
+  .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; }
+  .project-card { padding:20px; transition:transform 0.15s,filter 0.15s; cursor:pointer; position:relative; }
+  .project-card:hover { transform:translateY(-4px); filter:brightness(1.1); }
+  .project-card::after { content:'[ click for details ]'; font-family:'Press Start 2P',monospace; font-size:6px; color:var(--grass-light); opacity:0; position:absolute; bottom:12px; right:14px; transition:opacity 0.2s; }
+  .project-card:hover::after { opacity:1; }
+  .project-icon { font-size:40px; margin-bottom:12px; display:block; }
+  .project-name { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; text-shadow:1px 1px 0 #a07800; }
+  .project-desc { font-size:19px; color:var(--stone-light); line-height:1.5; margin-bottom:16px; }
+  .tag { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 8px; background:#2a3a18; border:2px solid var(--grass); color:var(--grass-light); margin:3px 3px 3px 0; box-shadow:2px 2px 0 rgba(0,0,0,0.4); }
+  .tag.blue { background:#101830; border-color:#4488cc; color:#88aaff; }
+  .tag.red  { background:#2a1010; border-color:#cc4444; color:#ff8888; }
+  .tag.purple { background:#1a1030; border-color:#8855cc; color:#bb88ff; }
+  .tag.orange { background:#2a1800; border-color:#cc8844; color:#ffaa66; }
+  .tag.obsidian { background:#0e0818; border-color:#6644aa; color:#cc99ff; }
 
-  .nav-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-  }
+  .modal-overlay { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity 0.2s; }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal { max-width:620px; width:100%; padding:28px; position:relative; transform:translateY(20px); transition:transform 0.2s; max-height:85vh; overflow-y:auto; }
+  .modal-overlay.open .modal { transform:translateY(0); }
+  .modal-close { position:absolute; top:14px; right:14px; font-family:'Press Start 2P',monospace; font-size:10px; background:var(--red); border:3px solid #ff4444; color:#fff; padding:6px 10px; cursor:pointer; }
+  .modal-close:hover { filter:brightness(1.2); }
+  .modal-icon { font-size:48px; margin-bottom:12px; display:block; }
+  .modal-title { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); margin-bottom:16px; text-shadow:2px 2px 0 #a07800; }
+  .modal-body { font-size:20px; color:var(--stone-light); line-height:1.65; margin-bottom:20px; }
+  .modal-body p { margin-bottom:10px; }
+  .modal-tags { margin-bottom:20px; }
+  .modal-links { display:flex; gap:12px; flex-wrap:wrap; }
 
-  .nav-links a {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: var(--stone-light);
-    text-decoration: none;
-    padding: 6px 10px;
-    transition: color 0.15s, text-shadow 0.15s;
-  }
+  .devlog-list { display:flex; flex-direction:column; gap:20px; }
+  .devlog-entry { padding:20px 24px; display:grid; grid-template-columns:auto 1fr; gap:16px 24px; align-items:start; }
+  .devlog-date { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--grass-light); white-space:nowrap; margin-top:4px; }
+  .devlog-title { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; }
+  .devlog-text { color:var(--stone-light); font-size:20px; line-height:1.55; }
 
-  .nav-links a:hover {
-    color: var(--yellow);
-    text-shadow: 0 0 8px rgba(248,200,28,0.5);
-  }
+  .socials-grid { display:flex; flex-wrap:wrap; gap:20px; }
+  .social-card { padding:20px 28px; display:flex; align-items:center; gap:16px; text-decoration:none; transition:transform 0.15s,filter 0.15s; }
+  .social-card:hover { transform:translateY(-4px); filter:brightness(1.15); }
+  .social-icon { font-size:36px; }
+  .social-name { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); display:block; margin-bottom:6px; }
+  .social-handle { color:var(--stone-light); font-size:20px; }
 
-  /* ── HERO ── */
-  #hero {
-    position: relative;
-    z-index: 1;
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    text-align: center;
-    padding: 60px 24px;
-  }
+  footer { position:relative; z-index:1; text-align:center; padding:32px 16px; background:#0a0a15; border-top:4px solid var(--stone-dark); font-family:'Press Start 2P',monospace; font-size:7px; color:var(--stone); letter-spacing:1px; line-height:2; }
+  .healthbar { display:flex; gap:4px; justify-content:center; margin-bottom:12px; }
+  .heart { font-size:18px; animation:heartbeat 1.5s ease-in-out infinite; }
+  .heart:nth-child(2){animation-delay:0.1s} .heart:nth-child(3){animation-delay:0.2s} .heart:nth-child(4){animation-delay:0.3s} .heart:nth-child(5){animation-delay:0.4s}
+  @keyframes heartbeat { 0%,90%,100%{transform:scale(1)} 95%{transform:scale(1.2)} }
 
-  .hero-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(18px, 4vw, 42px);
-    color: var(--yellow);
-    text-shadow:
-      3px 3px 0 #a07800,
-      6px 6px 0 rgba(0,0,0,0.5);
-    line-height: 1.5;
-    animation: fadeDown 0.6s ease both;
-  }
-
-  .hero-sub {
-    font-family: 'VT323', monospace;
-    font-size: clamp(20px, 3vw, 30px);
-    color: var(--grass-light);
-    letter-spacing: 2px;
-    animation: fadeDown 0.6s 0.2s ease both;
-  }
-
-  .hero-desc {
-    max-width: 560px;
-    font-size: 22px;
-    color: var(--stone-light);
-    line-height: 1.6;
-    animation: fadeDown 0.6s 0.35s ease both;
-  }
-
-  .hero-btns {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeDown 0.6s 0.5s ease both;
-  }
-
-  /* Creeper face decoration */
-  .creeper {
-    font-size: 80px;
-    line-height: 1;
-    animation: float 3s ease-in-out infinite, fadeDown 0.6s 0.1s ease both;
-    filter: drop-shadow(0 0 16px rgba(90,200,50,0.4));
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── PIXEL DIVIDER ── */
-  .divider {
-    position: relative;
-    z-index: 1;
-    height: 32px;
-    background: repeating-linear-gradient(
-      90deg,
-      var(--grass) 0px, var(--grass) 32px,
-      var(--grass-light) 32px, var(--grass-light) 64px
-    );
-    border-top: 4px solid #88cc44;
-    border-bottom: 4px solid #3a5010;
-    margin: 0;
-  }
-  .divider.dirt {
-    background: repeating-linear-gradient(
-      90deg,
-      var(--dirt) 0px, var(--dirt) 32px,
-      var(--dirt-light) 32px, var(--dirt-light) 64px
-    );
-    border-top-color: var(--dirt-light);
-    border-bottom-color: #3a2008;
-  }
-  .divider.stone {
-    background: repeating-linear-gradient(
-      90deg,
-      var(--stone-dark) 0px, var(--stone-dark) 32px,
-      var(--stone) 32px, var(--stone) 64px
-    );
-    border-top-color: var(--stone-light);
-    border-bottom-color: #333;
-  }
-
-  /* ── SECTIONS ── */
-  section {
-    position: relative;
-    z-index: 1;
-    padding: 72px 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(12px, 2.5vw, 22px);
-    color: var(--yellow);
-    text-shadow: 2px 2px 0 #a07800, 4px 4px 0 rgba(0,0,0,0.4);
-    margin-bottom: 48px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .section-title::before {
-    content: '▶';
-    color: var(--grass-light);
-    font-size: 0.8em;
-  }
-
-  /* ── PROJECTS GRID ── */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-  }
-
-  .project-card {
-    padding: 20px;
-    transition: transform 0.15s, filter 0.15s;
-    cursor: pointer;
-  }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-    filter: brightness(1.1);
-  }
-
-  .project-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
-    display: block;
-  }
-
-  .project-name {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    color: var(--yellow);
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 0 #a07800;
-  }
-
-  .project-desc {
-    font-size: 19px;
-    color: var(--stone-light);
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-
-  .tag {
-    display: inline-block;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
-    padding: 4px 8px;
-    background: #2a3a18;
-    border: 2px solid var(--grass);
-    color: var(--grass-light);
-    margin: 3px 3px 3px 0;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
-  }
-
-  .tag.blue {
-    background: #101830;
-    border-color: #4488cc;
-    color: #88aaff;
-  }
-
-  .tag.red {
-    background: #2a1010;
-    border-color: #cc4444;
-    color: #ff8888;
-  }
-
-  /* ── DEVLOG ── */
-  .devlog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .devlog-entry {
-    padding: 20px 24px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 16px 24px;
-    align-items: start;
-  }
-
-  .devlog-date {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: var(--grass-light);
-    white-space: nowrap;
-    margin-top: 4px;
-  }
-
-  .devlog-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    color: var(--yellow);
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 0 #a07800;
-  }
-
-  .devlog-text {
-    color: var(--stone-light);
-    font-size: 20px;
-    line-height: 1.55;
-  }
-
-  /* ── CONTACT / SOCIALS ── */
-  .socials-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .social-card {
-    padding: 20px 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    text-decoration: none;
-    transition: transform 0.15s, filter 0.15s;
-  }
-
-  .social-card:hover {
-    transform: translateY(-4px);
-    filter: brightness(1.15);
-  }
-
-  .social-icon { font-size: 36px; }
-
-  .social-info {}
-
-  .social-name {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    color: var(--yellow);
-    display: block;
-    margin-bottom: 6px;
-    text-shadow: 1px 1px 0 #a07800;
-  }
-
-  .social-handle {
-    color: var(--stone-light);
-    font-size: 20px;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 32px 16px;
-    background: #0a0a15;
-    border-top: 4px solid var(--stone-dark);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
-    color: var(--stone);
-    letter-spacing: 1px;
-    line-height: 2;
-  }
-
-  /* ── HEALTH BAR DECORATION ── */
-  .healthbar {
-    display: flex;
-    gap: 4px;
-    justify-content: center;
-    margin-bottom: 12px;
-  }
-
-  .heart { font-size: 18px; animation: heartbeat 1.5s ease-in-out infinite; }
-  .heart:nth-child(2) { animation-delay: 0.1s; }
-  .heart:nth-child(3) { animation-delay: 0.2s; }
-  .heart:nth-child(4) { animation-delay: 0.3s; }
-  .heart:nth-child(5) { animation-delay: 0.4s; }
-
-  @keyframes heartbeat {
-    0%, 90%, 100% { transform: scale(1); }
-    95% { transform: scale(1.2); }
-  }
-
-  /* ── PIXEL CURSOR ── */
-  body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='4' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='8' width='4' height='4' fill='%23f8c81c'/%3E%3Crect y='4' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='12' y='4' width='4' height='4' fill='%23f8c81c'/%3E%3Crect y='8' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='12' y='8' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='4' y='12' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='8' y='12' width='4' height='4' fill='%23f8c81c'/%3E%3C/svg%3E") 8 8, crosshair; }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── TYPING CURSOR ── */
-  .cursor-blink {
-    display: inline-block;
-    width: 10px;
-    height: 22px;
-    background: var(--yellow);
-    vertical-align: middle;
-    margin-left: 4px;
-    animation: blink 1s step-start infinite;
-  }
-
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.5s ease,transform 0.5s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .cursor-blink { display:inline-block; width:10px; height:22px; background:var(--yellow); vertical-align:middle; margin-left:4px; animation:blink 1s step-start infinite; }
+  @keyframes blink { 50%{opacity:0} }
+  ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#111} ::-webkit-scrollbar-thumb{background:var(--grass)}
 </style>
 </head>
 <body>
-
 <div class="stars"></div>
 
-<!-- NAV -->
 <nav>
-  <span class="nav-logo">Lincoln<span>MC</span></span>
+  <span class="nav-logo">Cableway<span>MC</span></span>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#devlog">Devlog</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <div id="hero">
   <div class="creeper">🟩</div>
   <h1 class="hero-title">Hey, I'm Lincoln<span class="cursor-blink"></span></h1>
-  <p class="hero-sub">// Minecraft Dev & Builder</p>
-  <p class="hero-desc">
-    I build Minecraft clients, servers, tools, and mods. Dutch dev, 15 years old, learning C and low-level programming on the side.
-  </p>
+  <p class="hero-sub">// Minecraft Dev & Low-Level Programmer</p>
+  <p class="hero-desc">Dutch developer from The Hague. I build Minecraft clients, plugins, and tools — and I'm diving into C, kernels, and low-level programming on the side.</p>
   <div class="hero-btns">
     <a href="#projects" class="mc-btn">[ View Projects ]</a>
-    <a href="#contact" class="mc-btn" style="background:#3a5888; border-color:#6688cc; box-shadow: inset -4px -4px 0 #1a2848, inset 4px 4px 0 rgba(255,255,255,0.15), 4px 4px 0 rgba(0,0,0,0.5);">[ Contact Me ]</a>
+    <a href="#contact" class="mc-btn blue">[ Contact Me ]</a>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <h2 class="section-title reveal">Projects</h2>
-  <div class="projects-grid">
-
-    <div class="project-card grass-box reveal">
-      <span class="project-icon">⚔️</span>
-      <div class="project-name">Unworthiest Client</div>
-      <p class="project-desc">A custom Fabric client for Minecraft 1.21.1 with a dark UI, purple accents, and configurable keybinds. Built from the ground up.</p>
-      <span class="tag">Fabric</span>
-      <span class="tag">Java</span>
-      <span class="tag blue">1.21.1</span>
-      <br><br>
-      <a href="#" class="mc-btn" style="font-size:7px;">[ View on GitHub ]</a>
+<section id="about">
+  <h2 class="section-title reveal">About Me</h2>
+  <div class="about-grid">
+    <div class="about-bio grass-box reveal">
+      <p>I'm <strong>Lincoln</strong>, a 15-year-old developer from <strong>The Hague, Netherlands</strong>. Got my first PC at 10 and went straight into coding — C# first, then Java, Python, and now C.</p>
+      <p>I've coded plugins and scripts for <strong>10–20 live Minecraft servers</strong>, built custom clients, done hardware security work with ESP32s, and explored deep technical Minecraft mechanics like bedrock breaking.</p>
+      <p>I'm finishing middelbare school (kader) and starting <strong>Software Development at ROC Mondriaan</strong> in Delft. Long term I'm aiming for HBO — Software Engineering or Cyber Security.</p>
+      <p>I tried flipping a 2008 Intel laptop into a home server. It did not survive. That's just how it goes sometimes.</p>
+      <div class="skills-row">
+        <span class="skill-badge grass-box">☕ Java</span>
+        <span class="skill-badge dirt-box">🐍 Python</span>
+        <span class="skill-badge pixel-box">⚙️ C</span>
+        <span class="skill-badge blue-box">🔷 C#</span>
+        <span class="skill-badge wood-box">🎮 Unity</span>
+        <span class="skill-badge purple-box">📡 ESP32</span>
+        <span class="skill-badge pixel-box">🧱 Skript</span>
+        <span class="skill-badge grass-box">🐧 Linux</span>
+      </div>
     </div>
-
-    <div class="project-card dirt-box reveal">
-      <span class="project-icon">🔧</span>
-      <div class="project-name">MacroForge</div>
-      <p class="project-desc">Python macro tool for Minecraft automation with randomized delays to avoid detection. Highly configurable.</p>
-      <span class="tag">Python</span>
-      <span class="tag red">Automation</span>
-      <br><br>
-      <a href="#" class="mc-btn" style="font-size:7px;">[ View on GitHub ]</a>
+    <div class="reveal">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-body">
+            <div class="timeline-label">First PC & C#</div>
+            <div class="timeline-text">Got my first PC at age 10. Started with C# and spent 3–4 years learning programming through game dev in Unity.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022–24</div>
+          <div class="timeline-body">
+            <div class="timeline-label">Minecraft Plugin Dev</div>
+            <div class="timeline-text">Coded plugins and Skripts for 10–20 Minecraft servers — custom economies, minigames, combat systems, and more.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-body">
+            <div class="timeline-label">New PC & ESP32</div>
+            <div class="timeline-text">Built a new rig. Started ESP32 microcontroller experiments for WiFi and Bluetooth security research.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Jan 2026</div>
+          <div class="timeline-body">
+            <div class="timeline-label">Linux experiment</div>
+            <div class="timeline-text">Ran Linux for 2 months. Learned a lot, switched back. WSL2 on Windows 11 is the sweet spot.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2026</div>
+          <div class="timeline-body">
+            <div class="timeline-label">Low-Level & Clients</div>
+            <div class="timeline-text">Building custom Fabric clients, diving into C and kernel fundamentals. Inspired by Terry Davis and TempleOS.</div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="project-card wood-box reveal">
-      <span class="project-icon">🌐</span>
-      <div class="project-name">Server Tunnel Bot</div>
-      <p class="project-desc">Batch script that starts an ngrok TCP tunnel, grabs the URL, and posts it to a Discord webhook automatically.</p>
-      <span class="tag">Batch</span>
-      <span class="tag blue">ngrok</span>
-      <span class="tag blue">Discord</span>
-      <br><br>
-      <a href="#" class="mc-btn" style="font-size:7px;">[ View on GitHub ]</a>
-    </div>
-
-    <div class="project-card pixel-box reveal">
-      <span class="project-icon">🪨</span>
-      <div class="project-name">Your Project Here</div>
-      <p class="project-desc">Got another project? Drop it in. This card is waiting to be filled with something awesome.</p>
-      <span class="tag">???</span>
-      <br><br>
-      <a href="#" class="mc-btn" style="font-size:7px; background:#444; border-color:#666; box-shadow: inset -4px -4px 0 #222, inset 4px 4px 0 rgba(255,255,255,0.1), 4px 4px 0 rgba(0,0,0,0.4); color:#aaa;">[ Coming Soon ]</a>
-    </div>
-
   </div>
 </section>
 
 <div class="divider dirt"></div>
 
-<!-- DEVLOG -->
+<section id="projects">
+  <h2 class="section-title reveal">Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card grass-box reveal" onclick="openModal('unworthiest')">
+      <span class="project-icon">⚔️</span>
+      <div class="project-name">Unworthiest Client</div>
+      <p class="project-desc">Custom Fabric Minecraft client with a dark UI and purple accents.</p>
+      <span class="tag">Fabric</span><span class="tag">Java</span><span class="tag blue">1.21.1</span>
+    </div>
+
+    <div class="project-card dirt-box reveal" onclick="openModal('macroforge')">
+      <span class="project-icon">🔧</span>
+      <div class="project-name">MacroForge</div>
+      <p class="project-desc">Python macro tool for Minecraft with randomized delays and full configurability.</p>
+      <span class="tag">Python</span><span class="tag red">Automation</span>
+    </div>
+
+    <div class="project-card wood-box reveal" onclick="openModal('tunnelbot')">
+      <span class="project-icon">🌐</span>
+      <div class="project-name">Server Tunnel Bot</div>
+      <p class="project-desc">Auto-starts an ngrok tunnel and posts the URL to Discord via webhook.</p>
+      <span class="tag">Batch</span><span class="tag blue">ngrok</span><span class="tag blue">Discord</span>
+    </div>
+
+    <div class="project-card blue-box reveal" onclick="openModal('plugins')">
+      <span class="project-icon">🧩</span>
+      <div class="project-name">Server Plugins</div>
+      <p class="project-desc">Custom plugins and Skripts built for 10–20 live Minecraft servers.</p>
+      <span class="tag">Java</span><span class="tag orange">Skript</span><span class="tag blue">Spigot</span>
+    </div>
+
+    <div class="project-card purple-box reveal" onclick="openModal('unity')">
+      <span class="project-icon">🎮</span>
+      <div class="project-name">Unity Games</div>
+      <p class="project-desc">2–3 years of game development in Unity with C#. Personal projects, never released.</p>
+      <span class="tag purple">Unity</span><span class="tag blue">C#</span>
+    </div>
+
+    <div class="project-card pixel-box reveal" onclick="openModal('esp32')">
+      <span class="project-icon">📡</span>
+      <div class="project-name">ESP32 Security</div>
+      <p class="project-desc">WiFi and Bluetooth security research using ESP32 microcontrollers.</p>
+      <span class="tag red">Cyber Security</span><span class="tag orange">ESP32</span><span class="tag">C</span>
+    </div>
+
+    <div class="project-card obsidian-box reveal" onclick="openModal('bedrock')">
+      <span class="project-icon">🪨</span>
+      <div class="project-name">Bedrock Breaking</div>
+      <p class="project-desc">Technical Minecraft research — obtaining bedrock in survival using game mechanic exploits in 1.12.2.</p>
+      <span class="tag obsidian">Technical MC</span><span class="tag blue">1.12.2</span><span class="tag purple">Game Mechanics</span>
+    </div>
+
+  </div>
+</section>
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
+  <div class="modal pixel-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕ Close</button>
+    <span class="modal-icon" id="modal-icon"></span>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-tags" id="modal-tags"></div>
+    <div class="modal-links" id="modal-links"></div>
+  </div>
+</div>
+
+<div class="divider stone"></div>
+
 <section id="devlog">
   <h2 class="section-title reveal">Devlog</h2>
   <div class="devlog-list">
@@ -589,117 +293,150 @@
     <div class="devlog-entry grass-box reveal">
       <div class="devlog-date">23 MAR<br>2026</div>
       <div>
-        <div class="devlog-title">Site is live!</div>
-        <p class="devlog-text">Launched this portfolio. Built with plain HTML, CSS and JS — no frameworks, no bloat. Pixel aesthetic because Minecraft. More posts incoming as I keep building stuff.</p>
+        <div class="devlog-title">Portfolio is live!</div>
+        <p class="devlog-text">Launched this site. Plain HTML/CSS/JS, no frameworks. Minecraft pixel aesthetic because of course. More posts incoming.</p>
       </div>
     </div>
 
     <div class="devlog-entry dirt-box reveal">
-      <div class="devlog-date">15 MAR<br>2026</div>
+      <div class="devlog-date">MAR<br>2026</div>
       <div>
         <div class="devlog-title">Unworthiest Client UI overhaul</div>
-        <p class="devlog-text">Spent a week rebuilding the entire UI of my Fabric client. Dark theme, purple accents, smooth animations on the settings screen. Keybind config now works properly. Package rename is done too.</p>
+        <p class="devlog-text">Rebuilt the entire UI — dark theme, purple accents, smooth animations, working keybind config. Full package rename done.</p>
+      </div>
+    </div>
+
+    <div class="devlog-entry obsidian-box reveal">
+      <div class="devlog-date">2024</div>
+      <div>
+        <div class="devlog-title">Bedrock in survival — actually got it</div>
+        <p class="devlog-text">Spent a long time studying Minecraft's chunk and block update systems in 1.12.2. Used game mechanic exploits involving update order and block interactions to obtain bedrock in a solo survival world. Same category of research SciCraft has done publicly for years.</p>
       </div>
     </div>
 
     <div class="devlog-entry wood-box reveal">
-      <div class="devlog-date">02 MAR<br>2026</div>
+      <div class="devlog-date">FEB<br>2026</div>
       <div>
-        <div class="devlog-title">ngrok Discord webhook automation</div>
-        <p class="devlog-text">Got tired of manually copy-pasting the tunnel URL every time I started the server. Wrote a batch script that does it automatically — starts server, grabs ngrok URL, posts to Discord. Done in under an hour.</p>
+        <div class="devlog-title">ngrok Discord bot</div>
+        <p class="devlog-text">Batch script that starts the server, grabs the ngrok URL, and posts it to Discord. Done in under an hour.</p>
       </div>
     </div>
 
     <div class="devlog-entry pixel-box reveal">
-      <div class="devlog-date">10 FEB<br>2026</div>
+      <div class="devlog-date">FEB<br>2026</div>
       <div>
         <div class="devlog-title">Started learning C</div>
-        <p class="devlog-text">Terry Davis and TempleOS got me interested in low-level programming. Moved past Python basics into C — pointers, memory, bit arithmetic. WSL2 on Windows 11 for the dev environment. Wild how much you learn by going lower level.</p>
+        <p class="devlog-text">Terry Davis and TempleOS got me into low-level programming. Pointers, memory, bit architecture, kernel basics. It's addictive.</p>
       </div>
     </div>
 
   </div>
 </section>
 
-<div class="divider stone"></div>
+<div class="divider wood"></div>
 
-<!-- CONTACT -->
 <section id="contact">
   <h2 class="section-title reveal">Contact & Socials</h2>
   <div class="socials-grid">
-
-    <a href="https://github.com/" target="_blank" class="social-card grass-box reveal">
+    <a href="https://github.com/CablewayMC" target="_blank" class="social-card grass-box reveal">
       <span class="social-icon">🐙</span>
-      <div class="social-info">
-        <span class="social-name">GitHub</span>
-        <span class="social-handle">@yourhandle</span>
-      </div>
+      <div><span class="social-name">GitHub</span><span class="social-handle">@CablewayMC</span></div>
     </a>
-
-    <a href="https://discord.com/" target="_blank" class="social-card dirt-box reveal">
+    <a href="#" class="social-card dirt-box reveal">
       <span class="social-icon">💬</span>
-      <div class="social-info">
-        <span class="social-name">Discord</span>
-        <span class="social-handle">yourhandle</span>
-      </div>
+      <div><span class="social-name">Discord</span><span class="social-handle">yourhandle</span></div>
     </a>
-
-    <a href="https://youtube.com/" target="_blank" class="social-card wood-box reveal">
+    <a href="#" class="social-card wood-box reveal">
       <span class="social-icon">📺</span>
-      <div class="social-info">
-        <span class="social-name">YouTube</span>
-        <span class="social-handle">@yourchannel</span>
-      </div>
+      <div><span class="social-name">YouTube</span><span class="social-handle">@yourchannel</span></div>
     </a>
-
     <a href="mailto:your@email.com" class="social-card pixel-box reveal">
       <span class="social-icon">📬</span>
-      <div class="social-info">
-        <span class="social-name">Email</span>
-        <span class="social-handle">your@email.com</span>
-      </div>
+      <div><span class="social-name">Email</span><span class="social-handle">your@email.com</span></div>
     </a>
-
   </div>
 </section>
 
-<!-- FOOTER -->
-<div class="divider"></div>
+<div class="divider obsidian"></div>
 <footer>
   <div class="healthbar">
-    <span class="heart">❤️</span>
-    <span class="heart">❤️</span>
-    <span class="heart">❤️</span>
-    <span class="heart">❤️</span>
-    <span class="heart">❤️</span>
+    <span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span>
   </div>
-  <div>LincolnMC · Made with 🧱 and too much coffee</div>
-  <div style="margin-top:8px; color:#444;">Built in plain HTML — no frameworks needed</div>
+  <div>CablewayMC · Made with 🧱 and too much coffee</div>
+  <div style="margin-top:8px;color:#444;">Built in plain HTML — no frameworks needed</div>
 </footer>
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
+const projects = {
+  unworthiest: {
+    icon:'⚔️', title:'Unworthiest Client',
+    body:`<p>A fully custom Fabric-based Minecraft client for 1.21.1. Built from a ported base with a complete package rename and total UI overhaul.</p><p>Features a dark theme with purple accents, smooth animations on the settings screen, and a fully configurable keybind system. Every visual element redesigned from scratch.</p><p>This is my main ongoing client project — I keep adding modules and refining the UI as I learn more about Fabric's rendering pipeline.</p>`,
+    tags:['Fabric','Java','1.21.1','UI Design'], cls:['','','blue','blue'],
+    links:[{label:'[ GitHub ]',href:'#'},{label:'[ Download ]',href:'#',cls:'ghost'}]
+  },
+  macroforge: {
+    icon:'🔧', title:'MacroForge',
+    body:`<p>A Python macro tool for Minecraft automation. The key feature is randomized delay injection between actions to produce more human-like input patterns.</p><p>Fully configurable — actions, timings, sequences, and randomization ranges can all be tuned.</p>`,
+    tags:['Python','Automation'], cls:['','red'],
+    links:[{label:'[ GitHub ]',href:'#'}]
+  },
+  tunnelbot: {
+    icon:'🌐', title:'Server Tunnel Bot',
+    body:`<p>A batch script that automates the Minecraft server startup flow. Launches the server, starts an ngrok TCP tunnel, pulls the public URL from ngrok's local API, and posts it to a Discord channel via webhook.</p><p>Saves manually copy-pasting the tunnel URL every session. Runs automatically right after server boot.</p>`,
+    tags:['Batch','ngrok','Discord','TCP'], cls:['','blue','blue','blue'],
+    links:[{label:'[ GitHub ]',href:'#'}]
+  },
+  plugins: {
+    icon:'🧩', title:'Minecraft Server Plugins',
+    body:`<p>From 2022 to 2024 I coded custom plugins and Skripts for 10–20 different Minecraft servers — from small QoL features to full custom game mechanics.</p><p>Work included custom economy systems, minigame logic, combat mechanics, NPC interactions, and event-driven scripting in Skript alongside Java plugins on Spigot/Paper.</p><p>Working on live servers with real player bases taught me a lot about performance, pressure debugging, and communicating with clients.</p>`,
+    tags:['Java','Skript','Spigot','Paper'], cls:['','orange','blue','blue'],
+    links:[]
+  },
+  unity: {
+    icon:'🎮', title:'Unity Game Projects',
+    body:`<p>Spent 2–3 years (2020–2023) building games in Unity with C#. Started learning C# at age 10 and Unity became the main way to turn ideas into reality.</p><p>Built multiple full game projects — platformers, top-down games, experimental mechanics. None were released publicly. The goal was always to build things I thought about, not to ship products.</p><p>This period built the core foundation: OOP thinking, debugging, and the satisfaction of a system actually working.</p>`,
+    tags:['Unity','C#','Game Dev'], cls:['purple','blue',''],
+    links:[]
+  },
+  esp32: {
+    icon:'📡', title:'ESP32 Security Research',
+    body:`<p>Worked with ESP32 microcontrollers to explore WiFi and Bluetooth security concepts — scanning, probing, and understanding how wireless protocols behave at a low level.</p><p>A hands-on intro to hardware hacking and cyber security. Programming the ESP32 in C also fed into my broader interest in low-level and embedded programming.</p><p>Part of a long-term interest in cyber security I plan to pursue formally at HBO level after MBO.</p>`,
+    tags:['ESP32','C','WiFi','Bluetooth','Cyber Security'], cls:['orange','','blue','blue','red'],
+    links:[]
+  },
+  bedrock: {
+    icon:'🪨', title:'Bedrock Breaking Research',
+    body:`<p>A deep dive into Minecraft's internal block and chunk update systems in version 1.12.2. Bedrock is flagged as unbreakable by the game — but the game's own mechanics can be turned against that assumption.</p>
+    <p>By studying update order, block interaction timing, and how certain game events handle chunk data, I was able to obtain bedrock as an item in a solo survival world — no cheats, no mods, just the game's own mechanics exploited precisely.</p>
+    <p>This is the same category of technical research the SciCraft server is famous for. Their work on headless pistons, update priority, and block replacement mechanics is well-documented and referenced in Mojang's own bug tracker. Most of these methods only work in specific version windows before Mojang patches them.</p>
+    <p>Studying this stuff taught me a huge amount about how Minecraft actually works under the hood — chunk loading, entity processing, block tick scheduling. It's essentially reverse engineering a live system without access to the source code.</p>`,
+    tags:['Technical MC','1.12.2','Game Mechanics','Research'], cls:['obsidian','blue','purple',''],
+    links:[{label:'[ MC Wiki — Breaking Bedrock ]', href:'https://minecraft.wiki/w/Tutorial:Breaking_bedrock'}]
+  }
+};
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+function openModal(id) {
+  const p = projects[id]; if(!p) return;
+  document.getElementById('modal-icon').textContent = p.icon;
+  document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-body').innerHTML = p.body;
+  document.getElementById('modal-tags').innerHTML = p.tags.map((t,i)=>`<span class="tag ${p.cls[i]||''}">${t}</span>`).join('');
+  document.getElementById('modal-links').innerHTML = p.links.map(l=>`<a href="${l.href}" class="mc-btn ${l.cls||''}" target="_blank">${l.label}</a>`).join('');
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
+function closeModalOnBg(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
 
-  // Smooth scroll nav
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); observer.unobserve(e.target); } });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{ const t=document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});} });
+});
 </script>
 </body>
 </html>
