@@ -16,17 +16,17 @@
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:#f0f0f0; font-family:'VT323',monospace; font-size:20px; overflow-x:hidden; }
 
-  .pixel-box { border:var(--pixel) solid var(--stone-light); box-shadow:inset -4px -4px 0 var(--stone-dark),inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.6); background:var(--panel); }
-  .grass-box { border:var(--pixel) solid var(--grass-light); box-shadow:inset -4px -4px 0 #3a5a1a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#1e2e10; }
-  .dirt-box  { border:var(--pixel) solid var(--dirt-light); box-shadow:inset -4px -4px 0 #4a3010,inset 4px 4px 0 rgba(255,255,255,0.08),4px 4px 0 rgba(0,0,0,0.6); background:#2a1e0e; }
-  .wood-box  { border:var(--pixel) solid #c09050; box-shadow:inset -4px -4px 0 #6a4820,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#201408; }
-  .blue-box  { border:var(--pixel) solid #4488cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#0e1828; }
-  .purple-box{ border:var(--pixel) solid #8855cc; box-shadow:inset -4px -4px 0 #3a1a5a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#180e28; }
+  .pixel-box    { border:var(--pixel) solid var(--stone-light); box-shadow:inset -4px -4px 0 var(--stone-dark),inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.6); background:var(--panel); }
+  .grass-box    { border:var(--pixel) solid var(--grass-light); box-shadow:inset -4px -4px 0 #3a5a1a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#1e2e10; }
+  .dirt-box     { border:var(--pixel) solid var(--dirt-light); box-shadow:inset -4px -4px 0 #4a3010,inset 4px 4px 0 rgba(255,255,255,0.08),4px 4px 0 rgba(0,0,0,0.6); background:#2a1e0e; }
+  .wood-box     { border:var(--pixel) solid #c09050; box-shadow:inset -4px -4px 0 #6a4820,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#201408; }
+  .blue-box     { border:var(--pixel) solid #4488cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#0e1828; }
+  .purple-box   { border:var(--pixel) solid #8855cc; box-shadow:inset -4px -4px 0 #3a1a5a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#180e28; }
   .obsidian-box { border:var(--pixel) solid #6644aa; box-shadow:inset -4px -4px 0 #1a0a2a,inset 4px 4px 0 rgba(255,255,255,0.08),4px 4px 0 rgba(0,0,0,0.7); background:#0e0818; }
 
   .mc-btn { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); background:#5a7a28; border:var(--pixel) solid #88bb44; box-shadow:inset -4px -4px 0 #3a5010,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.5); padding:8px 16px; cursor:pointer; display:inline-block; text-decoration:none; transition:filter 0.1s,transform 0.1s; letter-spacing:1px; text-shadow:2px 2px 0 rgba(0,0,0,0.5); }
   .mc-btn:hover { filter:brightness(1.25); transform:translateY(-2px); }
-  .mc-btn.blue { background:#3a5888; border-color:#6688cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.5); }
+  .mc-btn.blue  { background:#3a5888; border-color:#6688cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.5); }
   .mc-btn.ghost { background:#333; border-color:#666; color:#aaa; box-shadow:inset -4px -4px 0 #222,inset 4px 4px 0 rgba(255,255,255,0.05),4px 4px 0 rgba(0,0,0,0.4); }
 
   .stars { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(1px 1px at 10% 15%,rgba(255,255,255,0.8) 0%,transparent 100%),radial-gradient(2px 2px at 40% 8%,rgba(255,255,255,0.9) 0%,transparent 100%),radial-gradient(1px 1px at 70% 20%,rgba(255,255,255,0.7) 0%,transparent 100%),radial-gradient(2px 2px at 85% 70%,rgba(255,255,255,0.8) 0%,transparent 100%),radial-gradient(1px 1px at 32% 72%,rgba(255,255,255,0.4) 0%,transparent 100%),linear-gradient(180deg,#0a0a1a 0%,#111130 100%); }
@@ -49,15 +49,26 @@
   @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
 
   .divider { position:relative; z-index:1; height:32px; background:repeating-linear-gradient(90deg,var(--grass) 0px,var(--grass) 32px,var(--grass-light) 32px,var(--grass-light) 64px); border-top:4px solid #88cc44; border-bottom:4px solid #3a5010; }
-  .divider.dirt { background:repeating-linear-gradient(90deg,var(--dirt) 0px,var(--dirt) 32px,var(--dirt-light) 32px,var(--dirt-light) 64px); border-top-color:var(--dirt-light); border-bottom-color:#3a2008; }
-  .divider.stone { background:repeating-linear-gradient(90deg,var(--stone-dark) 0px,var(--stone-dark) 32px,var(--stone) 32px,var(--stone) 64px); border-top-color:var(--stone-light); border-bottom-color:#333; }
-  .divider.wood { background:repeating-linear-gradient(90deg,#6a4820 0px,#6a4820 32px,var(--wood) 32px,var(--wood) 64px); border-top-color:#c09050; border-bottom-color:#3a2008; }
+  .divider.dirt     { background:repeating-linear-gradient(90deg,var(--dirt) 0px,var(--dirt) 32px,var(--dirt-light) 32px,var(--dirt-light) 64px); border-top-color:var(--dirt-light); border-bottom-color:#3a2008; }
+  .divider.stone    { background:repeating-linear-gradient(90deg,var(--stone-dark) 0px,var(--stone-dark) 32px,var(--stone) 32px,var(--stone) 64px); border-top-color:var(--stone-light); border-bottom-color:#333; }
+  .divider.wood     { background:repeating-linear-gradient(90deg,#6a4820 0px,#6a4820 32px,var(--wood) 32px,var(--wood) 64px); border-top-color:#c09050; border-bottom-color:#3a2008; }
   .divider.obsidian { background:repeating-linear-gradient(90deg,#1a0a2a 0px,#1a0a2a 32px,#2a1040 32px,#2a1040 64px); border-top-color:#6644aa; border-bottom-color:#0a0010; }
 
   section { position:relative; z-index:1; padding:72px 24px; max-width:1100px; margin:0 auto; }
+
   .section-title { font-family:'Press Start 2P',monospace; font-size:clamp(12px,2.5vw,22px); color:var(--yellow); text-shadow:2px 2px 0 #a07800,4px 4px 0 rgba(0,0,0,0.4); margin-bottom:48px; display:flex; align-items:center; gap:16px; }
   .section-title::before { content:'▶'; color:var(--grass-light); font-size:0.8em; }
 
+  /* subsection label */
+  .sub-label { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--stone-light); margin-bottom:20px; margin-top:48px; display:flex; align-items:center; gap:10px; letter-spacing:1px; }
+  .sub-label::before { content:''; display:inline-block; width:24px; height:4px; background:var(--grass-light); }
+  .sub-label.old::before { background:var(--stone); }
+
+  /* WIP badge */
+  .wip-badge { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 10px; background:#3a2200; border:2px solid #f8a800; color:#f8c81c; margin-bottom:12px; animation:wip-pulse 1.5s ease-in-out infinite; box-shadow:0 0 8px rgba(248,200,28,0.3); }
+  @keyframes wip-pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+  /* ABOUT */
   .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
   @media(max-width:700px){.about-grid{grid-template-columns:1fr}}
   .about-bio { padding:24px; font-size:21px; line-height:1.7; color:var(--stone-light); }
@@ -66,6 +77,7 @@
   .skills-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
   .skill-badge { font-family:'Press Start 2P',monospace; font-size:7px; padding:8px 12px; display:flex; align-items:center; gap:6px; }
 
+  /* TIMELINE */
   .timeline { display:flex; flex-direction:column; }
   .timeline-item { display:grid; grid-template-columns:80px 1fr; gap:0 16px; }
   .timeline-year { font-family:'Press Start 2P',monospace; font-size:7px; color:var(--grass-light); text-align:right; padding-top:6px; white-space:nowrap; }
@@ -74,6 +86,7 @@
   .timeline-label { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--yellow); margin-bottom:6px; }
   .timeline-text { font-size:19px; color:var(--stone-light); line-height:1.5; }
 
+  /* PROJECTS */
   .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; }
   .project-card { padding:20px; transition:transform 0.15s,filter 0.15s; cursor:pointer; position:relative; }
   .project-card:hover { transform:translateY(-4px); filter:brightness(1.1); }
@@ -82,50 +95,54 @@
   .project-icon { font-size:40px; margin-bottom:12px; display:block; }
   .project-name { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; text-shadow:1px 1px 0 #a07800; }
   .project-desc { font-size:19px; color:var(--stone-light); line-height:1.5; margin-bottom:16px; }
-  .tag { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 8px; background:#2a3a18; border:2px solid var(--grass); color:var(--grass-light); margin:3px 3px 3px 0; box-shadow:2px 2px 0 rgba(0,0,0,0.4); }
-  .tag.blue { background:#101830; border-color:#4488cc; color:#88aaff; }
-  .tag.red  { background:#2a1010; border-color:#cc4444; color:#ff8888; }
-  .tag.purple { background:#1a1030; border-color:#8855cc; color:#bb88ff; }
-  .tag.orange { background:#2a1800; border-color:#cc8844; color:#ffaa66; }
-  .tag.obsidian { background:#0e0818; border-color:#6644aa; color:#cc99ff; }
 
+  .tag { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 8px; background:#2a3a18; border:2px solid var(--grass); color:var(--grass-light); margin:3px 3px 3px 0; box-shadow:2px 2px 0 rgba(0,0,0,0.4); }
+  .tag.blue    { background:#101830; border-color:#4488cc; color:#88aaff; }
+  .tag.red     { background:#2a1010; border-color:#cc4444; color:#ff8888; }
+  .tag.purple  { background:#1a1030; border-color:#8855cc; color:#bb88ff; }
+  .tag.orange  { background:#2a1800; border-color:#cc8844; color:#ffaa66; }
+  .tag.obsidian{ background:#0e0818; border-color:#6644aa; color:#cc99ff; }
+
+  /* MODAL */
   .modal-overlay { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity 0.2s; }
   .modal-overlay.open { opacity:1; pointer-events:all; }
   .modal { max-width:620px; width:100%; padding:28px; position:relative; transform:translateY(20px); transition:transform 0.2s; max-height:85vh; overflow-y:auto; }
   .modal-overlay.open .modal { transform:translateY(0); }
   .modal-close { position:absolute; top:14px; right:14px; font-family:'Press Start 2P',monospace; font-size:10px; background:var(--red); border:3px solid #ff4444; color:#fff; padding:6px 10px; cursor:pointer; }
   .modal-close:hover { filter:brightness(1.2); }
-  .modal-icon { font-size:48px; margin-bottom:12px; display:block; }
-  .modal-title { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); margin-bottom:16px; text-shadow:2px 2px 0 #a07800; }
-  .modal-body { font-size:20px; color:var(--stone-light); line-height:1.65; margin-bottom:20px; }
+  .modal-icon  { font-size:48px; margin-bottom:12px; display:block; }
+  .modal-title { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); margin-bottom:16px; text-shadow:2px 2px 0 #a07800; line-height:1.5; }
+  .modal-body  { font-size:20px; color:var(--stone-light); line-height:1.65; margin-bottom:20px; }
   .modal-body p { margin-bottom:10px; }
-  .modal-tags { margin-bottom:20px; }
+  .modal-tags  { margin-bottom:20px; }
   .modal-links { display:flex; gap:12px; flex-wrap:wrap; }
 
+  /* DEVLOG */
   .devlog-list { display:flex; flex-direction:column; gap:20px; }
   .devlog-entry { padding:20px 24px; display:grid; grid-template-columns:auto 1fr; gap:16px 24px; align-items:start; }
-  .devlog-date { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--grass-light); white-space:nowrap; margin-top:4px; }
+  .devlog-date  { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--grass-light); white-space:nowrap; margin-top:4px; }
   .devlog-title { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; }
-  .devlog-text { color:var(--stone-light); font-size:20px; line-height:1.55; }
+  .devlog-text  { color:var(--stone-light); font-size:20px; line-height:1.55; }
 
+  /* CONTACT */
   .socials-grid { display:flex; flex-wrap:wrap; gap:20px; }
-  .social-card { padding:20px 28px; display:flex; align-items:center; gap:16px; text-decoration:none; transition:transform 0.15s,filter 0.15s; }
+  .social-card  { padding:20px 28px; display:flex; align-items:center; gap:16px; text-decoration:none; transition:transform 0.15s,filter 0.15s; }
   .social-card:hover { transform:translateY(-4px); filter:brightness(1.15); }
-  .social-icon { font-size:36px; }
-  .social-name { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); display:block; margin-bottom:6px; }
-  .social-handle { color:var(--stone-light); font-size:20px; }
+  .social-icon  { font-size:36px; }
+  .social-name  { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); display:block; margin-bottom:6px; }
+  .social-handle{ color:var(--stone-light); font-size:20px; }
 
   footer { position:relative; z-index:1; text-align:center; padding:32px 16px; background:#0a0a15; border-top:4px solid var(--stone-dark); font-family:'Press Start 2P',monospace; font-size:7px; color:var(--stone); letter-spacing:1px; line-height:2; }
   .healthbar { display:flex; gap:4px; justify-content:center; margin-bottom:12px; }
   .heart { font-size:18px; animation:heartbeat 1.5s ease-in-out infinite; }
-  .heart:nth-child(2){animation-delay:0.1s} .heart:nth-child(3){animation-delay:0.2s} .heart:nth-child(4){animation-delay:0.3s} .heart:nth-child(5){animation-delay:0.4s}
-  @keyframes heartbeat { 0%,90%,100%{transform:scale(1)} 95%{transform:scale(1.2)} }
+  .heart:nth-child(2){animation-delay:0.1s}.heart:nth-child(3){animation-delay:0.2s}.heart:nth-child(4){animation-delay:0.3s}.heart:nth-child(5){animation-delay:0.4s}
+  @keyframes heartbeat{0%,90%,100%{transform:scale(1)}95%{transform:scale(1.2)}}
 
   .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.5s ease,transform 0.5s ease; }
   .reveal.visible { opacity:1; transform:translateY(0); }
   .cursor-blink { display:inline-block; width:10px; height:22px; background:var(--yellow); vertical-align:middle; margin-left:4px; animation:blink 1s step-start infinite; }
-  @keyframes blink { 50%{opacity:0} }
-  ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#111} ::-webkit-scrollbar-thumb{background:var(--grass)}
+  @keyframes blink{50%{opacity:0}}
+  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#111}::-webkit-scrollbar-thumb{background:var(--grass)}
 </style>
 </head>
 <body>
@@ -141,6 +158,7 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <div id="hero">
   <div class="creeper">🟩</div>
   <h1 class="hero-title">Hey, I'm Lincoln<span class="cursor-blink"></span></h1>
@@ -154,6 +172,7 @@
 
 <div class="divider"></div>
 
+<!-- ABOUT -->
 <section id="about">
   <h2 class="section-title reveal">About Me</h2>
   <div class="about-grid">
@@ -217,16 +236,35 @@
 
 <div class="divider dirt"></div>
 
+<!-- PROJECTS -->
 <section id="projects">
   <h2 class="section-title reveal">Projects</h2>
+
+  <!-- CURRENT -->
+  <div class="sub-label reveal">Current Projects</div>
   <div class="projects-grid">
 
-    <div class="project-card grass-box reveal" onclick="openModal('unworthiest')">
+    <div class="project-card grass-box reveal" onclick="openModal('server')">
+      <div class="wip-badge">⚡ IN PROGRESS</div>
+      <span class="project-icon">🖥️</span>
+      <div class="project-name">Friends SMP Server</div>
+      <p class="project-desc">Private Minecraft SMP hosted on a laptop with 16GB RAM. Custom setup, plugins, and configuration for me and my friends.</p>
+      <span class="tag">Java</span><span class="tag blue">Spigot</span><span class="tag orange">Self-hosted</span>
+    </div>
+
+    <div class="project-card purple-box reveal" onclick="openModal('unworthiest')">
+      <div class="wip-badge">⚡ IN PROGRESS</div>
       <span class="project-icon">⚔️</span>
       <div class="project-name">Unworthiest Client</div>
-      <p class="project-desc">Custom Fabric Minecraft client with a dark UI and purple accents.</p>
+      <p class="project-desc">Custom Fabric Minecraft client with a dark UI and purple accents. Ongoing development.</p>
       <span class="tag">Fabric</span><span class="tag">Java</span><span class="tag blue">1.21.1</span>
     </div>
+
+  </div>
+
+  <!-- OLDER -->
+  <div class="sub-label old reveal">Older Projects</div>
+  <div class="projects-grid">
 
     <div class="project-card dirt-box reveal" onclick="openModal('macroforge')">
       <span class="project-icon">🔧</span>
@@ -249,7 +287,7 @@
       <span class="tag">Java</span><span class="tag orange">Skript</span><span class="tag blue">Spigot</span>
     </div>
 
-    <div class="project-card purple-box reveal" onclick="openModal('unity')">
+    <div class="project-card pixel-box reveal" onclick="openModal('unity')">
       <span class="project-icon">🎮</span>
       <div class="project-name">Unity Games</div>
       <p class="project-desc">2–3 years of game development in Unity with C#. Personal projects, never released.</p>
@@ -267,12 +305,13 @@
       <span class="project-icon">🪨</span>
       <div class="project-name">Bedrock Breaking</div>
       <p class="project-desc">Technical Minecraft research — obtaining bedrock in survival using game mechanic exploits in 1.12.2.</p>
-      <span class="tag obsidian">Technical MC</span><span class="tag blue">1.12.2</span><span class="tag purple">Game Mechanics</span>
+      <span class="tag obsidian">Technical MC</span><span class="tag blue">1.12.2</span><span class="tag purple">Research</span>
     </div>
 
   </div>
 </section>
 
+<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
   <div class="modal pixel-box" id="modal-box">
     <button class="modal-close" onclick="closeModal()">✕ Close</button>
@@ -286,6 +325,7 @@
 
 <div class="divider stone"></div>
 
+<!-- DEVLOG -->
 <section id="devlog">
   <h2 class="section-title reveal">Devlog</h2>
   <div class="devlog-list">
@@ -294,11 +334,19 @@
       <div class="devlog-date">23 MAR<br>2026</div>
       <div>
         <div class="devlog-title">Portfolio is live!</div>
-        <p class="devlog-text">Launched this site. Plain HTML/CSS/JS, no frameworks. Minecraft pixel aesthetic because of course. More posts incoming.</p>
+        <p class="devlog-text">Launched this site. Plain HTML/CSS/JS, no frameworks. Minecraft pixel aesthetic because of course.</p>
       </div>
     </div>
 
     <div class="devlog-entry dirt-box reveal">
+      <div class="devlog-date">MAR<br>2026</div>
+      <div>
+        <div class="devlog-title">Setting up the SMP</div>
+        <p class="devlog-text">Running a private Minecraft server for me and my friends off a laptop with 16GB RAM. Custom plugin setup, world config, and optimizations to keep it smooth.</p>
+      </div>
+    </div>
+
+    <div class="devlog-entry purple-box reveal">
       <div class="devlog-date">MAR<br>2026</div>
       <div>
         <div class="devlog-title">Unworthiest Client UI overhaul</div>
@@ -310,7 +358,7 @@
       <div class="devlog-date">2024</div>
       <div>
         <div class="devlog-title">Bedrock in survival — actually got it</div>
-        <p class="devlog-text">Spent a long time studying Minecraft's chunk and block update systems in 1.12.2. Used game mechanic exploits involving update order and block interactions to obtain bedrock in a solo survival world. Same category of research SciCraft has done publicly for years.</p>
+        <p class="devlog-text">Spent a long time studying Minecraft's chunk and block update systems in 1.12.2. Used game mechanic exploits involving update order and block interactions to obtain bedrock in a solo world. Same category of research SciCraft has done publicly for years.</p>
       </div>
     </div>
 
@@ -318,7 +366,7 @@
       <div class="devlog-date">FEB<br>2026</div>
       <div>
         <div class="devlog-title">ngrok Discord bot</div>
-        <p class="devlog-text">Batch script that starts the server, grabs the ngrok URL, and posts it to Discord. Done in under an hour.</p>
+        <p class="devlog-text">Batch script that starts the server, grabs the ngrok URL, and posts it to Discord automatically.</p>
       </div>
     </div>
 
@@ -335,25 +383,31 @@
 
 <div class="divider wood"></div>
 
+<!-- CONTACT -->
 <section id="contact">
   <h2 class="section-title reveal">Contact & Socials</h2>
   <div class="socials-grid">
+
     <a href="https://github.com/CablewayMC" target="_blank" class="social-card grass-box reveal">
       <span class="social-icon">🐙</span>
       <div><span class="social-name">GitHub</span><span class="social-handle">@CablewayMC</span></div>
     </a>
-    <a href="#" class="social-card dirt-box reveal">
+
+    <a href="https://discord.com/users/Lincnil" target="_blank" class="social-card blue-box reveal">
       <span class="social-icon">💬</span>
-      <div><span class="social-name">Discord</span><span class="social-handle">yourhandle</span></div>
+      <div><span class="social-name">Discord</span><span class="social-handle">Lincnil</span></div>
     </a>
-    <a href="#" class="social-card wood-box reveal">
+
+    <a href="https://youtube.com/@lincnil" target="_blank" class="social-card dirt-box reveal">
       <span class="social-icon">📺</span>
-      <div><span class="social-name">YouTube</span><span class="social-handle">@yourchannel</span></div>
+      <div><span class="social-name">YouTube</span><span class="social-handle">@lincnil</span></div>
     </a>
-    <a href="mailto:your@email.com" class="social-card pixel-box reveal">
+
+    <a href="mailto:lincoln200010@gmail.com" class="social-card wood-box reveal">
       <span class="social-icon">📬</span>
-      <div><span class="social-name">Email</span><span class="social-handle">your@email.com</span></div>
+      <div><span class="social-name">Email</span><span class="social-handle">lincoln200010@gmail.com</span></div>
     </a>
+
   </div>
 </section>
 
@@ -368,66 +422,83 @@
 
 <script>
 const projects = {
+  server: {
+    icon:'🖥️', title:'Friends SMP Server',
+    body:`<p>A private Minecraft SMP running for me and my friends, self-hosted on a laptop with 16GB of RAM.</p>
+          <p>Custom plugin setup, world configuration, and performance tuning to keep things running smooth. Handling everything from the server software to the network setup myself.</p>
+          <p>It's a good excuse to keep learning about server administration, Java performance, and how Minecraft handles memory at scale.</p>`,
+    tags:['Java','Spigot','Self-hosted','16GB RAM'], cls:['','blue','orange','orange'],
+    links:[], wip:true
+  },
   unworthiest: {
     icon:'⚔️', title:'Unworthiest Client',
-    body:`<p>A fully custom Fabric-based Minecraft client for 1.21.1. Built from a ported base with a complete package rename and total UI overhaul.</p><p>Features a dark theme with purple accents, smooth animations on the settings screen, and a fully configurable keybind system. Every visual element redesigned from scratch.</p><p>This is my main ongoing client project — I keep adding modules and refining the UI as I learn more about Fabric's rendering pipeline.</p>`,
+    body:`<p>A fully custom Fabric-based Minecraft client for 1.21.1. Built from a ported base with a complete package rename and total UI overhaul.</p>
+          <p>Features a dark theme with purple accents, smooth animations on the settings screen, and a fully configurable keybind system. Every visual element redesigned from scratch.</p>
+          <p>This is my main ongoing client project — I keep adding modules and refining the UI as I learn more about Fabric's rendering pipeline.</p>`,
     tags:['Fabric','Java','1.21.1','UI Design'], cls:['','','blue','blue'],
-    links:[{label:'[ GitHub ]',href:'#'},{label:'[ Download ]',href:'#',cls:'ghost'}]
+    links:[{label:'[ GitHub ]',href:'#'},{label:'[ Download ]',href:'#',cls:'ghost'}], wip:true
   },
   macroforge: {
     icon:'🔧', title:'MacroForge',
-    body:`<p>A Python macro tool for Minecraft automation. The key feature is randomized delay injection between actions to produce more human-like input patterns.</p><p>Fully configurable — actions, timings, sequences, and randomization ranges can all be tuned.</p>`,
+    body:`<p>A Python macro tool for Minecraft automation. The key feature is randomized delay injection between actions to produce more human-like input patterns.</p>
+          <p>Fully configurable — actions, timings, sequences, and randomization ranges can all be tuned.</p>`,
     tags:['Python','Automation'], cls:['','red'],
     links:[{label:'[ GitHub ]',href:'#'}]
   },
   tunnelbot: {
     icon:'🌐', title:'Server Tunnel Bot',
-    body:`<p>A batch script that automates the Minecraft server startup flow. Launches the server, starts an ngrok TCP tunnel, pulls the public URL from ngrok's local API, and posts it to a Discord channel via webhook.</p><p>Saves manually copy-pasting the tunnel URL every session. Runs automatically right after server boot.</p>`,
+    body:`<p>A batch script that automates the Minecraft server startup flow. Launches the server, starts an ngrok TCP tunnel, pulls the public URL from ngrok's local API, and posts it to a Discord channel via webhook.</p>
+          <p>Saves manually copy-pasting the tunnel URL every session. Runs automatically right after server boot.</p>`,
     tags:['Batch','ngrok','Discord','TCP'], cls:['','blue','blue','blue'],
     links:[{label:'[ GitHub ]',href:'#'}]
   },
   plugins: {
     icon:'🧩', title:'Minecraft Server Plugins',
-    body:`<p>From 2022 to 2024 I coded custom plugins and Skripts for 10–20 different Minecraft servers — from small QoL features to full custom game mechanics.</p><p>Work included custom economy systems, minigame logic, combat mechanics, NPC interactions, and event-driven scripting in Skript alongside Java plugins on Spigot/Paper.</p><p>Working on live servers with real player bases taught me a lot about performance, pressure debugging, and communicating with clients.</p>`,
+    body:`<p>From 2022 to 2024 I coded custom plugins and Skripts for 10–20 different Minecraft servers — from small QoL features to full custom game mechanics.</p>
+          <p>Work included custom economy systems, minigame logic, combat mechanics, NPC interactions, and event-driven scripting in Skript alongside Java plugins on Spigot/Paper.</p>
+          <p>Working on live servers with real player bases taught me a lot about performance, pressure debugging, and communicating with server owners.</p>`,
     tags:['Java','Skript','Spigot','Paper'], cls:['','orange','blue','blue'],
     links:[]
   },
   unity: {
     icon:'🎮', title:'Unity Game Projects',
-    body:`<p>Spent 2–3 years (2020–2023) building games in Unity with C#. Started learning C# at age 10 and Unity became the main way to turn ideas into reality.</p><p>Built multiple full game projects — platformers, top-down games, experimental mechanics. None were released publicly. The goal was always to build things I thought about, not to ship products.</p><p>This period built the core foundation: OOP thinking, debugging, and the satisfaction of a system actually working.</p>`,
+    body:`<p>Spent 2–3 years (2020–2023) building games in Unity with C#. Started learning C# at age 10 and Unity became the main way to turn ideas into reality.</p>
+          <p>Built multiple full game projects — platformers, top-down games, experimental mechanics. None were released publicly. The goal was always to build things I thought about, not to ship products.</p>
+          <p>This period built the core foundation: OOP thinking, debugging, and the satisfaction of a system actually working.</p>`,
     tags:['Unity','C#','Game Dev'], cls:['purple','blue',''],
     links:[]
   },
   esp32: {
     icon:'📡', title:'ESP32 Security Research',
-    body:`<p>Worked with ESP32 microcontrollers to explore WiFi and Bluetooth security concepts — scanning, probing, and understanding how wireless protocols behave at a low level.</p><p>A hands-on intro to hardware hacking and cyber security. Programming the ESP32 in C also fed into my broader interest in low-level and embedded programming.</p><p>Part of a long-term interest in cyber security I plan to pursue formally at HBO level after MBO.</p>`,
+    body:`<p>Worked with ESP32 microcontrollers to explore WiFi and Bluetooth security concepts — scanning, probing, and understanding how wireless protocols behave at a low level.</p>
+          <p>A hands-on intro to hardware hacking and cyber security. Programming the ESP32 in C also fed into my broader interest in low-level and embedded programming.</p>`,
     tags:['ESP32','C','WiFi','Bluetooth','Cyber Security'], cls:['orange','','blue','blue','red'],
     links:[]
   },
   bedrock: {
     icon:'🪨', title:'Bedrock Breaking Research',
-    body:`<p>A deep dive into Minecraft's internal block and chunk update systems in version 1.12.2. Bedrock is flagged as unbreakable by the game — but the game's own mechanics can be turned against that assumption.</p>
-    <p>By studying update order, block interaction timing, and how certain game events handle chunk data, I was able to obtain bedrock as an item in a solo survival world — no cheats, no mods, just the game's own mechanics exploited precisely.</p>
-    <p>This is the same category of technical research the SciCraft server is famous for. Their work on headless pistons, update priority, and block replacement mechanics is well-documented and referenced in Mojang's own bug tracker. Most of these methods only work in specific version windows before Mojang patches them.</p>
-    <p>Studying this stuff taught me a huge amount about how Minecraft actually works under the hood — chunk loading, entity processing, block tick scheduling. It's essentially reverse engineering a live system without access to the source code.</p>`,
+    body:`<p>A deep dive into Minecraft's internal block and chunk update systems in version 1.12.2. Bedrock is flagged as unbreakable — but the game's own mechanics can be turned against that assumption.</p>
+          <p>By studying update order, block interaction timing, and how certain game events handle chunk data, I was able to obtain bedrock as an item in a solo survival world — no cheats, no mods, just the game's own mechanics exploited precisely.</p>
+          <p>This is the same category of technical research the SciCraft server is famous for. Their work on headless pistons, update priority, and block replacement mechanics is well-documented and referenced in Mojang's own bug tracker.</p>
+          <p>Studying this taught me a huge amount about how Minecraft actually works under the hood — chunk loading, entity processing, block tick scheduling. Essentially reverse engineering a live system without source code access.</p>`,
     tags:['Technical MC','1.12.2','Game Mechanics','Research'], cls:['obsidian','blue','purple',''],
-    links:[{label:'[ MC Wiki — Breaking Bedrock ]', href:'https://minecraft.wiki/w/Tutorial:Breaking_bedrock'}]
+    links:[{label:'[ MC Wiki ]',href:'https://minecraft.wiki/w/Tutorial:Breaking_bedrock'}]
   }
 };
 
 function openModal(id) {
   const p = projects[id]; if(!p) return;
   document.getElementById('modal-icon').textContent = p.icon;
-  document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-title').innerHTML = (p.wip ? '<span style="font-size:8px;color:#f8a800;display:block;margin-bottom:8px;">⚡ IN PROGRESS</span>' : '') + p.title;
   document.getElementById('modal-body').innerHTML = p.body;
   document.getElementById('modal-tags').innerHTML = p.tags.map((t,i)=>`<span class="tag ${p.cls[i]||''}">${t}</span>`).join('');
   document.getElementById('modal-links').innerHTML = p.links.map(l=>`<a href="${l.href}" class="mc-btn ${l.cls||''}" target="_blank">${l.label}</a>`).join('');
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
-function closeModalOnBg(e) { if(e.target===document.getElementById('modal-overlay')) closeModal(); }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
+function closeModalOnBg(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); observer.unobserve(e.target); } });
