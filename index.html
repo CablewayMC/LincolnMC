@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LincolnMC — Dev Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dirt: #7a5230;
+    --dirt-light: #9b6b3a;
+    --grass: #5a8a2e;
+    --grass-light: #6db33f;
+    --stone: #888888;
+    --stone-light: #aaaaaa;
+    --stone-dark: #555555;
+    --wood: #a07840;
+    --sky: #6ca0dc;
+    --sky-dark: #3a6aa0;
+    --coal: #1a1a1a;
+    --white: #f0f0f0;
+    --yellow: #f8c81c;
+    --red: #c03020;
+    --pixel: 4px;
+    --bg: #1a1a2e;
+    --panel: #2a2a3e;
+    --border: #555577;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--white);
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    image-rendering: pixelated;
+    overflow-x: hidden;
+  }
+
+  /* ── PIXEL BORDER MIXIN ── */
+  .pixel-box {
+    border: var(--pixel) solid var(--stone-light);
+    box-shadow:
+      inset -4px -4px 0 var(--stone-dark),
+      inset 4px 4px 0 rgba(255,255,255,0.15),
+      4px 4px 0 rgba(0,0,0,0.6);
+    background: var(--panel);
+  }
+
+  .grass-box {
+    border: var(--pixel) solid var(--grass-light);
+    box-shadow:
+      inset -4px -4px 0 #3a5a1a,
+      inset 4px 4px 0 rgba(255,255,255,0.1),
+      4px 4px 0 rgba(0,0,0,0.6);
+    background: #1e2e10;
+  }
+
+  .dirt-box {
+    border: var(--pixel) solid var(--dirt-light);
+    box-shadow:
+      inset -4px -4px 0 #4a3010,
+      inset 4px 4px 0 rgba(255,255,255,0.08),
+      4px 4px 0 rgba(0,0,0,0.6);
+    background: #2a1e0e;
+  }
+
+  .wood-box {
+    border: var(--pixel) solid #c09050;
+    box-shadow:
+      inset -4px -4px 0 #6a4820,
+      inset 4px 4px 0 rgba(255,255,255,0.1),
+      4px 4px 0 rgba(0,0,0,0.6);
+    background: #201408;
+  }
+
+  /* ── PIXEL BUTTON ── */
+  .mc-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--yellow);
+    background: #5a7a28;
+    border: var(--pixel) solid #88bb44;
+    box-shadow:
+      inset -4px -4px 0 #3a5010,
+      inset 4px 4px 0 rgba(255,255,255,0.15),
+      4px 4px 0 rgba(0,0,0,0.5);
+    padding: 8px 16px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    transition: filter 0.1s, transform 0.1s;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  }
+  .mc-btn:hover {
+    filter: brightness(1.25);
+    transform: translateY(-2px);
+  }
+  .mc-btn:active {
+    transform: translateY(2px);
+    box-shadow:
+      inset -2px -2px 0 #3a5010,
+      inset 2px 2px 0 rgba(255,255,255,0.1),
+      2px 2px 0 rgba(0,0,0,0.4);
+  }
+
+  /* ── STARFIELD BG ── */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(2px 2px at 40% 8%, rgba(255,255,255,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(2px 2px at 85% 70%, rgba(255,255,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 35%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(2px 2px at 60% 90%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 32% 72%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      linear-gradient(180deg, #0a0a1a 0%, #111130 100%);
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 56px;
+    background: #111122;
+    border-bottom: 4px solid var(--grass);
+    box-shadow: 0 4px 0 #3a5010, 0 8px 0 #2a1a08;
+  }
+
+  .nav-logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px;
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 #c08000, 4px 4px 0 rgba(0,0,0,0.5);
+    letter-spacing: 2px;
+  }
+
+  .nav-logo span { color: var(--grass-light); }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--stone-light);
+    text-decoration: none;
+    padding: 6px 10px;
+    transition: color 0.15s, text-shadow 0.15s;
+  }
+
+  .nav-links a:hover {
+    color: var(--yellow);
+    text-shadow: 0 0 8px rgba(248,200,28,0.5);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    text-align: center;
+    padding: 60px 24px;
+  }
+
+  .hero-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(18px, 4vw, 42px);
+    color: var(--yellow);
+    text-shadow:
+      3px 3px 0 #a07800,
+      6px 6px 0 rgba(0,0,0,0.5);
+    line-height: 1.5;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .hero-sub {
+    font-family: 'VT323', monospace;
+    font-size: clamp(20px, 3vw, 30px);
+    color: var(--grass-light);
+    letter-spacing: 2px;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    font-size: 22px;
+    color: var(--stone-light);
+    line-height: 1.6;
+    animation: fadeDown 0.6s 0.35s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeDown 0.6s 0.5s ease both;
+  }
+
+  /* Creeper face decoration */
+  .creeper {
+    font-size: 80px;
+    line-height: 1;
+    animation: float 3s ease-in-out infinite, fadeDown 0.6s 0.1s ease both;
+    filter: drop-shadow(0 0 16px rgba(90,200,50,0.4));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PIXEL DIVIDER ── */
+  .divider {
+    position: relative;
+    z-index: 1;
+    height: 32px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--grass) 0px, var(--grass) 32px,
+      var(--grass-light) 32px, var(--grass-light) 64px
+    );
+    border-top: 4px solid #88cc44;
+    border-bottom: 4px solid #3a5010;
+    margin: 0;
+  }
+  .divider.dirt {
+    background: repeating-linear-gradient(
+      90deg,
+      var(--dirt) 0px, var(--dirt) 32px,
+      var(--dirt-light) 32px, var(--dirt-light) 64px
+    );
+    border-top-color: var(--dirt-light);
+    border-bottom-color: #3a2008;
+  }
+  .divider.stone {
+    background: repeating-linear-gradient(
+      90deg,
+      var(--stone-dark) 0px, var(--stone-dark) 32px,
+      var(--stone) 32px, var(--stone) 64px
+    );
+    border-top-color: var(--stone-light);
+    border-bottom-color: #333;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 72px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(12px, 2.5vw, 22px);
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 #a07800, 4px 4px 0 rgba(0,0,0,0.4);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-title::before {
+    content: '▶';
+    color: var(--grass-light);
+    font-size: 0.8em;
+  }
+
+  /* ── PROJECTS GRID ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    padding: 20px;
+    transition: transform 0.15s, filter 0.15s;
+    cursor: pointer;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.1);
+  }
+
+  .project-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .project-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--yellow);
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #a07800;
+  }
+
+  .project-desc {
+    font-size: 19px;
+    color: var(--stone-light);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 4px 8px;
+    background: #2a3a18;
+    border: 2px solid var(--grass);
+    color: var(--grass-light);
+    margin: 3px 3px 3px 0;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+  }
+
+  .tag.blue {
+    background: #101830;
+    border-color: #4488cc;
+    color: #88aaff;
+  }
+
+  .tag.red {
+    background: #2a1010;
+    border-color: #cc4444;
+    color: #ff8888;
+  }
+
+  /* ── DEVLOG ── */
+  .devlog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .devlog-entry {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px 24px;
+    align-items: start;
+  }
+
+  .devlog-date {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--grass-light);
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  .devlog-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--yellow);
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #a07800;
+  }
+
+  .devlog-text {
+    color: var(--stone-light);
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  /* ── CONTACT / SOCIALS ── */
+  .socials-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .social-card {
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    transition: transform 0.15s, filter 0.15s;
+  }
+
+  .social-card:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.15);
+  }
+
+  .social-icon { font-size: 36px; }
+
+  .social-info {}
+
+  .social-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--yellow);
+    display: block;
+    margin-bottom: 6px;
+    text-shadow: 1px 1px 0 #a07800;
+  }
+
+  .social-handle {
+    color: var(--stone-light);
+    font-size: 20px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 32px 16px;
+    background: #0a0a15;
+    border-top: 4px solid var(--stone-dark);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--stone);
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+
+  /* ── HEALTH BAR DECORATION ── */
+  .healthbar {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .heart { font-size: 18px; animation: heartbeat 1.5s ease-in-out infinite; }
+  .heart:nth-child(2) { animation-delay: 0.1s; }
+  .heart:nth-child(3) { animation-delay: 0.2s; }
+  .heart:nth-child(4) { animation-delay: 0.3s; }
+  .heart:nth-child(5) { animation-delay: 0.4s; }
+
+  @keyframes heartbeat {
+    0%, 90%, 100% { transform: scale(1); }
+    95% { transform: scale(1.2); }
+  }
+
+  /* ── PIXEL CURSOR ── */
+  body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='4' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='8' width='4' height='4' fill='%23f8c81c'/%3E%3Crect y='4' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='12' y='4' width='4' height='4' fill='%23f8c81c'/%3E%3Crect y='8' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='12' y='8' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='4' y='12' width='4' height='4' fill='%23f8c81c'/%3E%3Crect x='8' y='12' width='4' height='4' fill='%23f8c81c'/%3E%3C/svg%3E") 8 8, crosshair; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── TYPING CURSOR ── */
+  .cursor-blink {
+    display: inline-block;
+    width: 10px;
+    height: 22px;
+    background: var(--yellow);
+    vertical-align: middle;
+    margin-left: 4px;
+    animation: blink 1s step-start infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Lincoln<span>MC</span></span>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#devlog">Devlog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="creeper">🟩</div>
+  <h1 class="hero-title">Hey, I'm Lincoln<span class="cursor-blink"></span></h1>
+  <p class="hero-sub">// Minecraft Dev & Builder</p>
+  <p class="hero-desc">
+    I build Minecraft clients, servers, tools, and mods. Dutch dev, 15 years old, learning C and low-level programming on the side.
+  </p>
+  <div class="hero-btns">
+    <a href="#projects" class="mc-btn">[ View Projects ]</a>
+    <a href="#contact" class="mc-btn" style="background:#3a5888; border-color:#6688cc; box-shadow: inset -4px -4px 0 #1a2848, inset 4px 4px 0 rgba(255,255,255,0.15), 4px 4px 0 rgba(0,0,0,0.5);">[ Contact Me ]</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title reveal">Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card grass-box reveal">
+      <span class="project-icon">⚔️</span>
+      <div class="project-name">Unworthiest Client</div>
+      <p class="project-desc">A custom Fabric client for Minecraft 1.21.1 with a dark UI, purple accents, and configurable keybinds. Built from the ground up.</p>
+      <span class="tag">Fabric</span>
+      <span class="tag">Java</span>
+      <span class="tag blue">1.21.1</span>
+      <br><br>
+      <a href="#" class="mc-btn" style="font-size:7px;">[ View on GitHub ]</a>
+    </div>
+
+    <div class="project-card dirt-box reveal">
+      <span class="project-icon">🔧</span>
+      <div class="project-name">MacroForge</div>
+      <p class="project-desc">Python macro tool for Minecraft automation with randomized delays to avoid detection. Highly configurable.</p>
+      <span class="tag">Python</span>
+      <span class="tag red">Automation</span>
+      <br><br>
+      <a href="#" class="mc-btn" style="font-size:7px;">[ View on GitHub ]</a>
+    </div>
+
+    <div class="project-card wood-box reveal">
+      <span class="project-icon">🌐</span>
+      <div class="project-name">Server Tunnel Bot</div>
+      <p class="project-desc">Batch script that starts an ngrok TCP tunnel, grabs the URL, and posts it to a Discord webhook automatically.</p>
+      <span class="tag">Batch</span>
+      <span class="tag blue">ngrok</span>
+      <span class="tag blue">Discord</span>
+      <br><br>
+      <a href="#" class="mc-btn" style="font-size:7px;">[ View on GitHub ]</a>
+    </div>
+
+    <div class="project-card pixel-box reveal">
+      <span class="project-icon">🪨</span>
+      <div class="project-name">Your Project Here</div>
+      <p class="project-desc">Got another project? Drop it in. This card is waiting to be filled with something awesome.</p>
+      <span class="tag">???</span>
+      <br><br>
+      <a href="#" class="mc-btn" style="font-size:7px; background:#444; border-color:#666; box-shadow: inset -4px -4px 0 #222, inset 4px 4px 0 rgba(255,255,255,0.1), 4px 4px 0 rgba(0,0,0,0.4); color:#aaa;">[ Coming Soon ]</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider dirt"></div>
+
+<!-- DEVLOG -->
+<section id="devlog">
+  <h2 class="section-title reveal">Devlog</h2>
+  <div class="devlog-list">
+
+    <div class="devlog-entry grass-box reveal">
+      <div class="devlog-date">23 MAR<br>2026</div>
+      <div>
+        <div class="devlog-title">Site is live!</div>
+        <p class="devlog-text">Launched this portfolio. Built with plain HTML, CSS and JS — no frameworks, no bloat. Pixel aesthetic because Minecraft. More posts incoming as I keep building stuff.</p>
+      </div>
+    </div>
+
+    <div class="devlog-entry dirt-box reveal">
+      <div class="devlog-date">15 MAR<br>2026</div>
+      <div>
+        <div class="devlog-title">Unworthiest Client UI overhaul</div>
+        <p class="devlog-text">Spent a week rebuilding the entire UI of my Fabric client. Dark theme, purple accents, smooth animations on the settings screen. Keybind config now works properly. Package rename is done too.</p>
+      </div>
+    </div>
+
+    <div class="devlog-entry wood-box reveal">
+      <div class="devlog-date">02 MAR<br>2026</div>
+      <div>
+        <div class="devlog-title">ngrok Discord webhook automation</div>
+        <p class="devlog-text">Got tired of manually copy-pasting the tunnel URL every time I started the server. Wrote a batch script that does it automatically — starts server, grabs ngrok URL, posts to Discord. Done in under an hour.</p>
+      </div>
+    </div>
+
+    <div class="devlog-entry pixel-box reveal">
+      <div class="devlog-date">10 FEB<br>2026</div>
+      <div>
+        <div class="devlog-title">Started learning C</div>
+        <p class="devlog-text">Terry Davis and TempleOS got me interested in low-level programming. Moved past Python basics into C — pointers, memory, bit arithmetic. WSL2 on Windows 11 for the dev environment. Wild how much you learn by going lower level.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider stone"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="section-title reveal">Contact & Socials</h2>
+  <div class="socials-grid">
+
+    <a href="https://github.com/" target="_blank" class="social-card grass-box reveal">
+      <span class="social-icon">🐙</span>
+      <div class="social-info">
+        <span class="social-name">GitHub</span>
+        <span class="social-handle">@yourhandle</span>
+      </div>
+    </a>
+
+    <a href="https://discord.com/" target="_blank" class="social-card dirt-box reveal">
+      <span class="social-icon">💬</span>
+      <div class="social-info">
+        <span class="social-name">Discord</span>
+        <span class="social-handle">yourhandle</span>
+      </div>
+    </a>
+
+    <a href="https://youtube.com/" target="_blank" class="social-card wood-box reveal">
+      <span class="social-icon">📺</span>
+      <div class="social-info">
+        <span class="social-name">YouTube</span>
+        <span class="social-handle">@yourchannel</span>
+      </div>
+    </a>
+
+    <a href="mailto:your@email.com" class="social-card pixel-box reveal">
+      <span class="social-icon">📬</span>
+      <div class="social-info">
+        <span class="social-name">Email</span>
+        <span class="social-handle">your@email.com</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="divider"></div>
+<footer>
+  <div class="healthbar">
+    <span class="heart">❤️</span>
+    <span class="heart">❤️</span>
+    <span class="heart">❤️</span>
+    <span class="heart">❤️</span>
+    <span class="heart">❤️</span>
+  </div>
+  <div>LincolnMC · Made with 🧱 and too much coffee</div>
+  <div style="margin-top:8px; color:#444;">Built in plain HTML — no frameworks needed</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
