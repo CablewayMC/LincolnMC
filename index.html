@@ -1,153 +1,538 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="day">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CablewayMC — Dev Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --dirt: #7a5230; --dirt-light: #9b6b3a;
-    --grass: #5a8a2e; --grass-light: #6db33f;
-    --stone: #888888; --stone-light: #aaaaaa; --stone-dark: #555555;
-    --wood: #a07840; --yellow: #f8c81c; --red: #c03020;
-    --pixel: 4px; --bg: #1a1a2e; --panel: #2a2a3e;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:#f0f0f0; font-family:'VT323',monospace; font-size:20px; overflow-x:hidden; }
+/* ══════════════════════════════════════════
+   THEME VARIABLES
+══════════════════════════════════════════ */
+:root {
+  --pixel: 4px;
+  --grass: #5a8a2e; --grass-light: #6db33f;
+  --dirt: #7a5230; --dirt-light: #9b6b3a;
+  --stone: #888; --stone-light: #aaa; --stone-dark: #555;
+  --wood: #a07840; --yellow: #f8c81c; --red: #c03020;
+}
 
-  .pixel-box    { border:var(--pixel) solid var(--stone-light); box-shadow:inset -4px -4px 0 var(--stone-dark),inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.6); background:var(--panel); }
-  .grass-box    { border:var(--pixel) solid var(--grass-light); box-shadow:inset -4px -4px 0 #3a5a1a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#1e2e10; }
-  .dirt-box     { border:var(--pixel) solid var(--dirt-light); box-shadow:inset -4px -4px 0 #4a3010,inset 4px 4px 0 rgba(255,255,255,0.08),4px 4px 0 rgba(0,0,0,0.6); background:#2a1e0e; }
-  .wood-box     { border:var(--pixel) solid #c09050; box-shadow:inset -4px -4px 0 #6a4820,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#201408; }
-  .blue-box     { border:var(--pixel) solid #4488cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#0e1828; }
-  .purple-box   { border:var(--pixel) solid #8855cc; box-shadow:inset -4px -4px 0 #3a1a5a,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.6); background:#180e28; }
-  .obsidian-box { border:var(--pixel) solid #6644aa; box-shadow:inset -4px -4px 0 #1a0a2a,inset 4px 4px 0 rgba(255,255,255,0.08),4px 4px 0 rgba(0,0,0,0.7); background:#0e0818; }
+/* DAY */
+[data-theme="day"] {
+  --bg:        #87CEEB;
+  --bg2:       #5aabdc;
+  --panel:     #f5e8c0;
+  --panel2:    #e8d4a0;
+  --text:      #2a1a08;
+  --text-sub:  #5a4020;
+  --nav-bg:    #6db33f;
+  --nav-border:#3a5a1a;
+  --nav-text:  #1a3008;
+  --card-bg:   #f0dea0;
+  --card-border:#8ab040;
+  --card-shadow:#3a5010;
+  --tag-bg:    #d4e8a0;
+  --section-bg:#e8f4c8;
+  --footer-bg: #5a8a2e;
+  --footer-text:#1a3008;
+  --sky-grad: linear-gradient(180deg, #87CEEB 0%, #b8e0f7 60%, #d4eeaa 85%, #6db33f 100%);
+  --ground:   #6db33f;
+}
 
-  .mc-btn { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); background:#5a7a28; border:var(--pixel) solid #88bb44; box-shadow:inset -4px -4px 0 #3a5010,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.5); padding:8px 16px; cursor:pointer; display:inline-block; text-decoration:none; transition:filter 0.1s,transform 0.1s; letter-spacing:1px; text-shadow:2px 2px 0 rgba(0,0,0,0.5); }
-  .mc-btn:hover { filter:brightness(1.25); transform:translateY(-2px); }
-  .mc-btn.blue  { background:#3a5888; border-color:#6688cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.5); }
-  .mc-btn.ghost { background:#333; border-color:#666; color:#aaa; box-shadow:inset -4px -4px 0 #222,inset 4px 4px 0 rgba(255,255,255,0.05),4px 4px 0 rgba(0,0,0,0.4); }
+/* NIGHT */
+[data-theme="night"] {
+  --bg:        #0a0a1a;
+  --bg2:       #111130;
+  --panel:     #1e1e2e;
+  --panel2:    #2a2a3e;
+  --text:      #e0e0f0;
+  --text-sub:  #aaaacc;
+  --nav-bg:    #111122;
+  --nav-border:#222244;
+  --nav-text:  #aaaadd;
+  --card-bg:   #1e2030;
+  --card-border:#444466;
+  --card-shadow:#000010;
+  --tag-bg:    #1a1a2a;
+  --section-bg:#181828;
+  --footer-bg: #0a0a15;
+  --footer-text:#555577;
+  --sky-grad: linear-gradient(180deg, #020210 0%, #0a0a1a 50%, #1a1a10 85%, #2a2a10 100%);
+  --ground:   #1a1a08;
+}
 
-  .stars { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(1px 1px at 10% 15%,rgba(255,255,255,0.8) 0%,transparent 100%),radial-gradient(2px 2px at 40% 8%,rgba(255,255,255,0.9) 0%,transparent 100%),radial-gradient(1px 1px at 70% 20%,rgba(255,255,255,0.7) 0%,transparent 100%),radial-gradient(2px 2px at 85% 70%,rgba(255,255,255,0.8) 0%,transparent 100%),radial-gradient(1px 1px at 32% 72%,rgba(255,255,255,0.4) 0%,transparent 100%),linear-gradient(180deg,#0a0a1a 0%,#111130 100%); }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-  nav { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:56px; background:#111122; border-bottom:4px solid var(--grass); box-shadow:0 4px 0 #3a5010,0 8px 0 #2a1a08; }
-  .nav-logo { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); text-shadow:2px 2px 0 #c08000,4px 4px 0 rgba(0,0,0,0.5); }
-  .nav-logo span { color:var(--grass-light); }
-  .nav-links { display:flex; gap:20px; list-style:none; }
-  .nav-links a { font-family:'Press Start 2P',monospace; font-size:7px; color:var(--stone-light); text-decoration:none; padding:6px 8px; transition:color 0.15s; }
-  .nav-links a:hover { color:var(--yellow); }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  overflow-x: hidden;
+  transition: background 1s ease, color 0.5s ease;
+}
 
-  #hero { position:relative; z-index:1; min-height:90vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; text-align:center; padding:60px 24px; }
-  .hero-title { font-family:'Press Start 2P',monospace; font-size:clamp(18px,4vw,42px); color:var(--yellow); text-shadow:3px 3px 0 #a07800,6px 6px 0 rgba(0,0,0,0.5); line-height:1.5; animation:fadeDown 0.6s ease both; }
-  .hero-sub { font-size:clamp(20px,3vw,30px); color:var(--grass-light); letter-spacing:2px; animation:fadeDown 0.6s 0.2s ease both; }
-  .hero-desc { max-width:600px; font-size:22px; color:var(--stone-light); line-height:1.6; animation:fadeDown 0.6s 0.35s ease both; }
-  .hero-btns { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; animation:fadeDown 0.6s 0.5s ease both; }
-  .creeper { font-size:80px; animation:float 3s ease-in-out infinite,fadeDown 0.6s 0.1s ease both; filter:drop-shadow(0 0 16px rgba(90,200,50,0.4)); }
+/* ══════════════════════════════════════════
+   SKY SCENE
+══════════════════════════════════════════ */
+.sky-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--sky-grad);
+  transition: background 1.5s ease;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+/* SUN */
+.sun {
+  position: absolute;
+  top: 60px; right: 120px;
+  width: 64px; height: 64px;
+  background: #f8c81c;
+  box-shadow: 0 0 0 8px #fada5e, 0 0 32px 16px rgba(248,200,28,0.5);
+  image-rendering: pixelated;
+  animation: sun-bob 8s ease-in-out infinite;
+  transition: opacity 1s ease;
+}
+[data-theme="night"] .sun { opacity: 0; }
 
-  .divider { position:relative; z-index:1; height:32px; background:repeating-linear-gradient(90deg,var(--grass) 0px,var(--grass) 32px,var(--grass-light) 32px,var(--grass-light) 64px); border-top:4px solid #88cc44; border-bottom:4px solid #3a5010; }
-  .divider.dirt     { background:repeating-linear-gradient(90deg,var(--dirt) 0px,var(--dirt) 32px,var(--dirt-light) 32px,var(--dirt-light) 64px); border-top-color:var(--dirt-light); border-bottom-color:#3a2008; }
-  .divider.stone    { background:repeating-linear-gradient(90deg,var(--stone-dark) 0px,var(--stone-dark) 32px,var(--stone) 32px,var(--stone) 64px); border-top-color:var(--stone-light); border-bottom-color:#333; }
-  .divider.wood     { background:repeating-linear-gradient(90deg,#6a4820 0px,#6a4820 32px,var(--wood) 32px,var(--wood) 64px); border-top-color:#c09050; border-bottom-color:#3a2008; }
-  .divider.obsidian { background:repeating-linear-gradient(90deg,#1a0a2a 0px,#1a0a2a 32px,#2a1040 32px,#2a1040 64px); border-top-color:#6644aa; border-bottom-color:#0a0010; }
+@keyframes sun-bob {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
+}
 
-  section { position:relative; z-index:1; padding:72px 24px; max-width:1100px; margin:0 auto; }
+/* MOON */
+.moon {
+  position: absolute;
+  top: 60px; right: 120px;
+  width: 64px; height: 64px;
+  background: #ddeeff;
+  box-shadow: 0 0 0 4px #aabbcc, 0 0 24px 8px rgba(200,220,255,0.3);
+  opacity: 0;
+  transition: opacity 1s ease;
+  image-rendering: pixelated;
+}
+/* pixel crater details */
+.moon::before {
+  content:'';
+  position:absolute;
+  width:12px;height:12px;
+  background:#bbc8d8;
+  top:16px;left:12px;
+  box-shadow: 20px 20px 0 8px #bbc8d8;
+}
+[data-theme="night"] .moon { opacity: 1; }
 
-  .section-title { font-family:'Press Start 2P',monospace; font-size:clamp(12px,2.5vw,22px); color:var(--yellow); text-shadow:2px 2px 0 #a07800,4px 4px 0 rgba(0,0,0,0.4); margin-bottom:48px; display:flex; align-items:center; gap:16px; }
-  .section-title::before { content:'▶'; color:var(--grass-light); font-size:0.8em; }
+/* CLOUDS */
+.cloud {
+  position: absolute;
+  background: white;
+  opacity: 0.9;
+  animation: cloud-drift linear infinite;
+  transition: opacity 1s ease;
+}
+[data-theme="night"] .cloud { opacity: 0.15; }
 
-  /* subsection label */
-  .sub-label { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--stone-light); margin-bottom:20px; margin-top:48px; display:flex; align-items:center; gap:10px; letter-spacing:1px; }
-  .sub-label::before { content:''; display:inline-block; width:24px; height:4px; background:var(--grass-light); }
-  .sub-label.old::before { background:var(--stone); }
+.cloud::before,.cloud::after { content:''; position:absolute; background:white; }
 
-  /* WIP badge */
-  .wip-badge { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 10px; background:#3a2200; border:2px solid #f8a800; color:#f8c81c; margin-bottom:12px; animation:wip-pulse 1.5s ease-in-out infinite; box-shadow:0 0 8px rgba(248,200,28,0.3); }
-  @keyframes wip-pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.c1 { top:80px; left:-200px; width:80px; height:24px; animation-duration:40s; animation-delay:-10s; }
+.c1::before { width:48px;height:24px;top:-20px;left:12px; }
+.c1::after  { width:24px;height:16px;top:-32px;left:28px; }
 
-  /* ABOUT */
-  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-  @media(max-width:700px){.about-grid{grid-template-columns:1fr}}
-  .about-bio { padding:24px; font-size:21px; line-height:1.7; color:var(--stone-light); }
-  .about-bio p { margin-bottom:14px; }
-  .about-bio strong { color:var(--yellow); }
-  .skills-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
-  .skill-badge { font-family:'Press Start 2P',monospace; font-size:7px; padding:8px 12px; display:flex; align-items:center; gap:6px; }
+.c2 { top:140px; left:-200px; width:100px; height:28px; animation-duration:55s; animation-delay:-28s; }
+.c2::before { width:60px;height:28px;top:-22px;left:16px; }
+.c2::after  { width:32px;height:20px;top:-38px;left:36px; }
 
-  /* TIMELINE */
-  .timeline { display:flex; flex-direction:column; }
-  .timeline-item { display:grid; grid-template-columns:80px 1fr; gap:0 16px; }
-  .timeline-year { font-family:'Press Start 2P',monospace; font-size:7px; color:var(--grass-light); text-align:right; padding-top:6px; white-space:nowrap; }
-  .timeline-body { border-left:4px solid var(--grass); padding:4px 0 24px 20px; position:relative; }
-  .timeline-body::before { content:''; position:absolute; left:-10px; top:6px; width:16px; height:16px; background:var(--grass-light); border:3px solid var(--bg); }
-  .timeline-label { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--yellow); margin-bottom:6px; }
-  .timeline-text { font-size:19px; color:var(--stone-light); line-height:1.5; }
+.c3 { top:60px; left:-200px; width:64px; height:20px; animation-duration:65s; animation-delay:-50s; }
+.c3::before { width:40px;height:20px;top:-16px;left:10px; }
 
-  /* PROJECTS */
-  .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; }
-  .project-card { padding:20px; transition:transform 0.15s,filter 0.15s; cursor:pointer; position:relative; }
-  .project-card:hover { transform:translateY(-4px); filter:brightness(1.1); }
-  .project-card::after { content:'[ click for details ]'; font-family:'Press Start 2P',monospace; font-size:6px; color:var(--grass-light); opacity:0; position:absolute; bottom:12px; right:14px; transition:opacity 0.2s; }
-  .project-card:hover::after { opacity:1; }
-  .project-icon { font-size:40px; margin-bottom:12px; display:block; }
-  .project-name { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; text-shadow:1px 1px 0 #a07800; }
-  .project-desc { font-size:19px; color:var(--stone-light); line-height:1.5; margin-bottom:16px; }
+@keyframes cloud-drift { from{left:-200px} to{left:110vw} }
 
-  .tag { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 8px; background:#2a3a18; border:2px solid var(--grass); color:var(--grass-light); margin:3px 3px 3px 0; box-shadow:2px 2px 0 rgba(0,0,0,0.4); }
-  .tag.blue    { background:#101830; border-color:#4488cc; color:#88aaff; }
-  .tag.red     { background:#2a1010; border-color:#cc4444; color:#ff8888; }
-  .tag.purple  { background:#1a1030; border-color:#8855cc; color:#bb88ff; }
-  .tag.orange  { background:#2a1800; border-color:#cc8844; color:#ffaa66; }
-  .tag.obsidian{ background:#0e0818; border-color:#6644aa; color:#cc99ff; }
+/* STARS */
+.stars {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  background:
+    radial-gradient(1px 1px at 8% 12%,#fff 0%,transparent 100%),
+    radial-gradient(2px 2px at 22% 8%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 38% 18%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 55% 6%,#fff 0%,transparent 100%),
+    radial-gradient(2px 2px at 68% 14%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 80% 9%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 91% 20%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 30%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 44% 28%,rgba(255,255,255,0.6) 0%,transparent 100%),
+    radial-gradient(1px 1px at 72% 35%,rgba(255,255,255,0.5) 0%,transparent 100%),
+    radial-gradient(2px 2px at 93% 40%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 5%  45%,rgba(255,255,255,0.4) 0%,transparent 100%);
+}
+[data-theme="night"] .stars { opacity: 1; }
 
-  /* MODAL */
-  .modal-overlay { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity 0.2s; }
-  .modal-overlay.open { opacity:1; pointer-events:all; }
-  .modal { max-width:620px; width:100%; padding:28px; position:relative; transform:translateY(20px); transition:transform 0.2s; max-height:85vh; overflow-y:auto; }
-  .modal-overlay.open .modal { transform:translateY(0); }
-  .modal-close { position:absolute; top:14px; right:14px; font-family:'Press Start 2P',monospace; font-size:10px; background:var(--red); border:3px solid #ff4444; color:#fff; padding:6px 10px; cursor:pointer; }
-  .modal-close:hover { filter:brightness(1.2); }
-  .modal-icon  { font-size:48px; margin-bottom:12px; display:block; }
-  .modal-title { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); margin-bottom:16px; text-shadow:2px 2px 0 #a07800; line-height:1.5; }
-  .modal-body  { font-size:20px; color:var(--stone-light); line-height:1.65; margin-bottom:20px; }
-  .modal-body p { margin-bottom:10px; }
-  .modal-tags  { margin-bottom:20px; }
-  .modal-links { display:flex; gap:12px; flex-wrap:wrap; }
+/* GROUND STRIP */
+.ground-strip {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  z-index: 1;
+  pointer-events: none;
+  transition: background 1s ease;
+}
+[data-theme="day"]   .ground-strip { background: repeating-linear-gradient(90deg,#5a8a2e 0,#5a8a2e 32px,#6db33f 32px,#6db33f 64px); border-top:4px solid #88cc44; }
+[data-theme="night"] .ground-strip { background: repeating-linear-gradient(90deg,#1a1a08 0,#1a1a08 32px,#2a2a10 32px,#2a2a10 64px); border-top:4px solid #3a3a18; }
 
-  /* DEVLOG */
-  .devlog-list { display:flex; flex-direction:column; gap:20px; }
-  .devlog-entry { padding:20px 24px; display:grid; grid-template-columns:auto 1fr; gap:16px 24px; align-items:start; }
-  .devlog-date  { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--grass-light); white-space:nowrap; margin-top:4px; }
-  .devlog-title { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; }
-  .devlog-text  { color:var(--stone-light); font-size:20px; line-height:1.55; }
+/* ══════════════════════════════════════════
+   WALKING ANIMALS / MOBS
+══════════════════════════════════════════ */
+.creature {
+  position: fixed;
+  bottom: 80px;
+  z-index: 2;
+  pointer-events: none;
+  font-size: 36px;
+  line-height: 1;
+  image-rendering: pixelated;
+  filter: drop-shadow(2px 4px 0 rgba(0,0,0,0.3));
+}
 
-  /* CONTACT */
-  .socials-grid { display:flex; flex-wrap:wrap; gap:20px; }
-  .social-card  { padding:20px 28px; display:flex; align-items:center; gap:16px; text-decoration:none; transition:transform 0.15s,filter 0.15s; }
-  .social-card:hover { transform:translateY(-4px); filter:brightness(1.15); }
-  .social-icon  { font-size:36px; }
-  .social-name  { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); display:block; margin-bottom:6px; }
-  .social-handle{ color:var(--stone-light); font-size:20px; }
+/* DAY animals */
+.animal { transition: opacity 0.8s ease; }
+[data-theme="night"] .animal { opacity: 0; pointer-events:none; }
 
-  footer { position:relative; z-index:1; text-align:center; padding:32px 16px; background:#0a0a15; border-top:4px solid var(--stone-dark); font-family:'Press Start 2P',monospace; font-size:7px; color:var(--stone); letter-spacing:1px; line-height:2; }
-  .healthbar { display:flex; gap:4px; justify-content:center; margin-bottom:12px; }
-  .heart { font-size:18px; animation:heartbeat 1.5s ease-in-out infinite; }
-  .heart:nth-child(2){animation-delay:0.1s}.heart:nth-child(3){animation-delay:0.2s}.heart:nth-child(4){animation-delay:0.3s}.heart:nth-child(5){animation-delay:0.4s}
-  @keyframes heartbeat{0%,90%,100%{transform:scale(1)}95%{transform:scale(1.2)}}
+/* NIGHT mobs */
+.mob { opacity: 0; transition: opacity 0.8s ease; }
+[data-theme="night"] .mob { opacity: 1; }
 
-  .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.5s ease,transform 0.5s ease; }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-  .cursor-blink { display:inline-block; width:10px; height:22px; background:var(--yellow); vertical-align:middle; margin-left:4px; animation:blink 1s step-start infinite; }
-  @keyframes blink{50%{opacity:0}}
-  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#111}::-webkit-scrollbar-thumb{background:var(--grass)}
+/* Walk animations — creatures walk across screen */
+.walk-right {
+  animation: walk-r linear infinite;
+}
+.walk-left {
+  animation: walk-l linear infinite;
+  transform: scaleX(-1);
+}
+
+@keyframes walk-r {
+  from { left: -80px; }
+  to   { left: 110vw; }
+}
+@keyframes walk-l {
+  from { right: -80px; left:auto; transform:scaleX(-1); }
+  to   { right: 110vw; left:auto; transform:scaleX(-1); }
+}
+
+/* Bob up/down while walking */
+.bob { animation-name: walk-r, bob-walk; animation-timing-function: linear, ease-in-out; animation-iteration-count: infinite, infinite; }
+.bob-l { animation-name: walk-l, bob-walk; animation-timing-function: linear, ease-in-out; animation-iteration-count: infinite, infinite; }
+@keyframes bob-walk { 0%,100%{margin-bottom:0} 50%{margin-bottom:6px} }
+
+/* BEE — flies higher */
+.bee {
+  bottom: 160px;
+  animation: bee-fly 18s linear infinite, bee-bob 1.2s ease-in-out infinite;
+}
+@keyframes bee-fly { from{left:-60px} to{left:110vw} }
+@keyframes bee-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+/* ══════════════════════════════════════════
+   DAY/NIGHT TOGGLE BUTTON
+══════════════════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  z-index: 200;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border: var(--pixel) solid;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+}
+[data-theme="day"] .theme-toggle {
+  background: #1a1a2e; border-color: #4444aa; color: #aaaaff;
+}
+[data-theme="night"] .theme-toggle {
+  background: #f8c81c; border-color: #c09010; color: #1a0a00;
+}
+.theme-toggle:hover { transform: translateY(-2px); filter: brightness(1.15); }
+.toggle-icon { font-size: 18px; }
+
+/* ══════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════ */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 56px;
+  background: var(--nav-bg);
+  border-bottom: 4px solid var(--nav-border);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+  transition: background 1s, border-color 1s;
+}
+.nav-logo {
+  font-family: 'Press Start 2P', monospace; font-size: 13px;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+}
+.nav-logo span { color: #fff; }
+.nav-links { display:flex; gap:20px; list-style:none; }
+.nav-links a {
+  font-family: 'Press Start 2P', monospace; font-size: 7px;
+  color: var(--nav-text); text-decoration: none; padding: 6px 8px;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--yellow); }
+
+/* ══════════════════════════════════════════
+   PIXEL BOXES
+══════════════════════════════════════════ */
+.pixel-box {
+  border: var(--pixel) solid var(--card-border);
+  box-shadow: inset -4px -4px 0 rgba(0,0,0,0.2), inset 4px 4px 0 rgba(255,255,255,0.2), 4px 4px 0 var(--card-shadow);
+  background: var(--card-bg);
+  transition: background 0.5s, border-color 0.5s;
+}
+.grass-c  { border-color:#6db33f; background:#c8e888; }
+.dirt-c   { border-color:#9b6b3a; background:#e8c888; }
+.wood-c   { border-color:#c09050; background:#e8d0a0; }
+.stone-c  { border-color:#aaa;    background:#ddd; }
+.blue-c   { border-color:#4488cc; background:#c0d8f0; }
+.purple-c { border-color:#8855cc; background:#d8c0f0; }
+.obs-c    { border-color:#6644aa; background:#c8b0e0; }
+
+[data-theme="night"] .grass-c  { background:#1e2e10; border-color:#4a7020; }
+[data-theme="night"] .dirt-c   { background:#2a1e0e; border-color:#6a4020; }
+[data-theme="night"] .wood-c   { background:#201408; border-color:#8a6030; }
+[data-theme="night"] .stone-c  { background:#2a2a2a; border-color:#666; }
+[data-theme="night"] .blue-c   { background:#0e1828; border-color:#2a5888; }
+[data-theme="night"] .purple-c { background:#180e28; border-color:#5835aa; }
+[data-theme="night"] .obs-c    { background:#0e0818; border-color:#4424aa; }
+
+.mc-btn {
+  font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--yellow);
+  background: #5a7a28; border: var(--pixel) solid #88bb44;
+  box-shadow: inset -4px -4px 0 #3a5010, inset 4px 4px 0 rgba(255,255,255,0.15), 4px 4px 0 rgba(0,0,0,0.4);
+  padding: 8px 16px; cursor: pointer; display: inline-block; text-decoration: none;
+  transition: filter 0.1s, transform 0.1s; letter-spacing: 1px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+.mc-btn:hover { filter: brightness(1.25); transform: translateY(-2px); }
+.mc-btn.blue  { background:#3a5888; border-color:#6688cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.4); }
+.mc-btn.ghost { background:#888; border-color:#aaa; color:#fff; box-shadow:inset -4px -4px 0 #555,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.3); }
+
+/* ══════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════ */
+#hero {
+  position: relative; z-index: 5;
+  min-height: 92vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 24px; text-align: center; padding: 60px 24px 140px;
+}
+.hero-title {
+  font-family: 'Press Start 2P', monospace; font-size: clamp(18px,4vw,42px);
+  color: var(--yellow); text-shadow: 3px 3px 0 #a07800, 6px 6px 0 rgba(0,0,0,0.3);
+  line-height: 1.5; animation: fadeDown 0.6s ease both;
+}
+[data-theme="day"] .hero-title { color: #1a6000; text-shadow: 2px 2px 0 #0a3000, 4px 4px 0 rgba(0,0,0,0.2); }
+.hero-sub {
+  font-size: clamp(20px,3vw,30px); color: var(--text-sub);
+  letter-spacing: 2px; animation: fadeDown 0.6s 0.2s ease both;
+}
+.hero-desc {
+  max-width: 600px; font-size: 22px; color: var(--text-sub);
+  line-height: 1.6; animation: fadeDown 0.6s 0.35s ease both;
+}
+[data-theme="day"] .hero-desc { color: #3a2a08; }
+.hero-btns { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; animation: fadeDown 0.6s 0.5s ease both; }
+
+.creeper { font-size: 80px; animation: float 3s ease-in-out infinite, fadeDown 0.6s 0.1s ease both; filter: drop-shadow(0 4px 0 rgba(0,0,0,0.2)); }
+
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+
+/* DIVIDERS */
+.divider {
+  position: relative; z-index: 5; height: 32px;
+  background: repeating-linear-gradient(90deg,#5a8a2e 0,#5a8a2e 32px,#6db33f 32px,#6db33f 64px);
+  border-top: 4px solid #88cc44; border-bottom: 4px solid #3a5010;
+  transition: background 1s, border-color 1s;
+}
+[data-theme="night"] .divider         { background:repeating-linear-gradient(90deg,#1a1a08 0,#1a1a08 32px,#2a2a10 32px,#2a2a10 64px); border-top-color:#3a3a18; border-bottom-color:#0a0a00; }
+.divider.dirt   { background:repeating-linear-gradient(90deg,#7a5230 0,#7a5230 32px,#9b6b3a 32px,#9b6b3a 64px); border-top-color:#9b6b3a; border-bottom-color:#3a2008; }
+.divider.stone  { background:repeating-linear-gradient(90deg,#555 0,#555 32px,#888 32px,#888 64px); border-top-color:#aaa; border-bottom-color:#333; }
+.divider.wood   { background:repeating-linear-gradient(90deg,#6a4820 0,#6a4820 32px,#a07840 32px,#a07840 64px); border-top-color:#c09050; border-bottom-color:#3a2008; }
+.divider.obs    { background:repeating-linear-gradient(90deg,#1a0a2a 0,#1a0a2a 32px,#2a1040 32px,#2a1040 64px); border-top-color:#6644aa; border-bottom-color:#0a0010; }
+
+section {
+  position: relative; z-index: 5;
+  padding: 72px 24px; max-width: 1100px; margin: 0 auto;
+  transition: color 0.5s;
+}
+
+.section-title {
+  font-family: 'Press Start 2P', monospace; font-size: clamp(12px,2.5vw,22px);
+  color: var(--yellow); text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  margin-bottom: 48px; display: flex; align-items: center; gap: 16px;
+}
+[data-theme="day"] .section-title { color: #2a5000; }
+.section-title::before { content:'▶'; color: var(--grass-light); font-size:0.8em; }
+
+.sub-label {
+  font-family:'Press Start 2P',monospace; font-size:9px;
+  color: var(--text-sub); margin-bottom:20px; margin-top:48px;
+  display:flex; align-items:center; gap:10px;
+}
+.sub-label::before { content:''; display:inline-block; width:24px; height:4px; background:#6db33f; }
+.sub-label.old::before { background: var(--stone); }
+
+/* ABOUT */
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+@media(max-width:700px){.about-grid{grid-template-columns:1fr}}
+.about-bio { padding:24px; font-size:21px; line-height:1.7; color:var(--text); }
+.about-bio p { margin-bottom:14px; }
+.about-bio strong { color: var(--yellow); }
+[data-theme="day"] .about-bio strong { color:#2a5000; }
+.skills-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.skill-badge { font-family:'Press Start 2P',monospace; font-size:7px; padding:8px 12px; display:flex; align-items:center; gap:6px; }
+
+/* TIMELINE */
+.timeline { display:flex; flex-direction:column; }
+.timeline-item { display:grid; grid-template-columns:80px 1fr; gap:0 16px; }
+.timeline-year { font-family:'Press Start 2P',monospace; font-size:7px; color:#6db33f; text-align:right; padding-top:6px; white-space:nowrap; }
+[data-theme="day"] .timeline-year { color:#3a7010; }
+.timeline-body { border-left:4px solid #6db33f; padding:4px 0 24px 20px; position:relative; }
+.timeline-body::before { content:''; position:absolute; left:-10px; top:6px; width:16px; height:16px; background:#6db33f; border:3px solid var(--bg); }
+.timeline-label { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--yellow); margin-bottom:6px; }
+[data-theme="day"] .timeline-label { color:#2a5000; }
+.timeline-text { font-size:19px; color:var(--text); line-height:1.5; }
+
+/* PROJECTS */
+.projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; }
+.project-card { padding:20px; transition:transform 0.15s,filter 0.15s; cursor:pointer; position:relative; }
+.project-card:hover { transform:translateY(-4px); filter:brightness(1.05); }
+.project-card::after { content:'[ click for details ]'; font-family:'Press Start 2P',monospace; font-size:6px; color:#6db33f; opacity:0; position:absolute; bottom:12px; right:14px; transition:opacity 0.2s; }
+.project-card:hover::after { opacity:1; }
+.project-icon { font-size:40px; margin-bottom:12px; display:block; }
+.project-name { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; }
+[data-theme="day"] .project-name { color:#2a5000; }
+.project-desc { font-size:19px; color:var(--text); line-height:1.5; margin-bottom:16px; }
+
+.tag { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 8px; background:#c8e880; border:2px solid #6db33f; color:#2a5000; margin:3px 3px 3px 0; }
+[data-theme="night"] .tag { background:#1a2a08; border-color:#4a7020; color:#88bb44; }
+.tag.blue   { background:#c0d8f8; border-color:#4488cc; color:#0a2860; }
+[data-theme="night"] .tag.blue   { background:#101830; border-color:#2a5888; color:#88aaff; }
+.tag.red    { background:#f8c0c0; border-color:#cc4444; color:#600000; }
+[data-theme="night"] .tag.red    { background:#2a1010; border-color:#cc4444; color:#ff8888; }
+.tag.purple { background:#e0c8f8; border-color:#8855cc; color:#3a0a60; }
+[data-theme="night"] .tag.purple { background:#1a1030; border-color:#6635aa; color:#bb88ff; }
+.tag.orange { background:#f8e0b0; border-color:#cc8844; color:#602000; }
+[data-theme="night"] .tag.orange { background:#2a1800; border-color:#cc8844; color:#ffaa66; }
+.tag.obs    { background:#e0c8f8; border-color:#6644aa; color:#1a0060; }
+[data-theme="night"] .tag.obs    { background:#0e0818; border-color:#6644aa; color:#cc99ff; }
+
+/* WIP BADGE */
+.wip-badge { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 10px; background:#3a2200; border:2px solid #f8a800; color:#f8c81c; margin-bottom:12px; animation:wip-pulse 1.5s ease-in-out infinite; }
+@keyframes wip-pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity 0.2s; }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal { max-width:620px; width:100%; padding:28px; position:relative; transform:translateY(20px); transition:transform 0.2s; max-height:85vh; overflow-y:auto; background:var(--panel); border:4px solid var(--card-border); }
+.modal-overlay.open .modal { transform:translateY(0); }
+.modal-close { position:absolute; top:14px; right:14px; font-family:'Press Start 2P',monospace; font-size:10px; background:var(--red); border:3px solid #ff4444; color:#fff; padding:6px 10px; cursor:pointer; }
+.modal-close:hover { filter:brightness(1.2); }
+.modal-icon  { font-size:48px; margin-bottom:12px; display:block; }
+.modal-title { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); margin-bottom:16px; line-height:1.5; }
+[data-theme="day"] .modal-title { color:#2a5000; }
+.modal-body  { font-size:20px; color:var(--text); line-height:1.65; margin-bottom:20px; }
+.modal-body p { margin-bottom:10px; }
+.modal-tags  { margin-bottom:20px; }
+.modal-links { display:flex; gap:12px; flex-wrap:wrap; }
+
+/* DEVLOG */
+.devlog-list { display:flex; flex-direction:column; gap:20px; }
+.devlog-entry { padding:20px 24px; display:grid; grid-template-columns:auto 1fr; gap:16px 24px; align-items:start; }
+.devlog-date  { font-family:'Press Start 2P',monospace; font-size:8px; color:#6db33f; white-space:nowrap; margin-top:4px; }
+[data-theme="day"] .devlog-date { color:#3a7010; }
+.devlog-title { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; }
+[data-theme="day"] .devlog-title { color:#2a5000; }
+.devlog-text  { color:var(--text); font-size:20px; line-height:1.55; }
+
+/* CONTACT */
+.socials-grid { display:flex; flex-wrap:wrap; gap:20px; }
+.social-card  { padding:20px 28px; display:flex; align-items:center; gap:16px; text-decoration:none; transition:transform 0.15s,filter 0.15s; }
+.social-card:hover { transform:translateY(-4px); filter:brightness(1.08); }
+.social-icon  { font-size:36px; }
+.social-name  { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); display:block; margin-bottom:6px; }
+[data-theme="day"] .social-name { color:#2a5000; }
+.social-handle{ color:var(--text); font-size:20px; }
+
+footer {
+  position: relative; z-index: 5; text-align: center; padding: 32px 16px 80px;
+  background: var(--footer-bg);
+  border-top: 4px solid var(--card-border);
+  font-family: 'Press Start 2P', monospace; font-size: 7px;
+  color: var(--footer-text); letter-spacing: 1px; line-height: 2;
+  transition: background 1s, color 0.5s;
+}
+.healthbar { display:flex; gap:4px; justify-content:center; margin-bottom:12px; }
+.heart { font-size:18px; animation:heartbeat 1.5s ease-in-out infinite; }
+.heart:nth-child(2){animation-delay:0.1s}.heart:nth-child(3){animation-delay:0.2s}.heart:nth-child(4){animation-delay:0.3s}.heart:nth-child(5){animation-delay:0.4s}
+@keyframes heartbeat{0%,90%,100%{transform:scale(1)}95%{transform:scale(1.2)}}
+
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.5s ease,transform 0.5s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.cursor-blink { display:inline-block; width:10px; height:22px; background:var(--yellow); vertical-align:middle; margin-left:4px; animation:blink 1s step-start infinite; }
+[data-theme="day"] .cursor-blink { background:#2a5000; }
+@keyframes blink{50%{opacity:0}}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#6db33f}
 </style>
 </head>
 <body>
-<div class="stars"></div>
 
+<!-- ══ SKY SCENE ══ -->
+<div class="sky-scene">
+  <div class="stars"></div>
+  <div class="sun"></div>
+  <div class="moon"></div>
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+</div>
+
+<!-- ══ WALKING CREATURES ══ -->
+<!-- DAY animals -->
+<div class="creature animal bob"   style="animation-duration:22s,0.6s;animation-delay:-4s,0s;font-size:40px;">🐄</div>
+<div class="creature animal bob"   style="animation-duration:30s,0.7s;animation-delay:-14s,0.2s;font-size:32px;">🐑</div>
+<div class="creature animal bob"   style="animation-duration:25s,0.55s;animation-delay:-20s,0.1s;font-size:36px;">🐷</div>
+<div class="creature animal bob-l" style="animation-duration:35s,0.65s;animation-delay:-8s,0s;font-size:34px;">🐔</div>
+<div class="creature animal bee"   style="animation-delay:-5s;font-size:28px;">🐝</div>
+<div class="creature animal bee"   style="animation-delay:-15s;animation-duration:24s,1s;font-size:24px;bottom:190px;">🐝</div>
+
+<!-- NIGHT mobs -->
+<div class="creature mob bob"   style="animation-duration:18s,0.5s;animation-delay:-2s,0s;font-size:38px;">🧟</div>
+<div class="creature mob bob"   style="animation-duration:26s,0.6s;animation-delay:-10s,0s;font-size:36px;">💀</div>
+<div class="creature mob bob-l" style="animation-duration:22s,0.55s;animation-delay:-16s,0s;font-size:34px;">🕷️</div>
+<div class="creature mob bob"   style="animation-duration:32s,0.7s;animation-delay:-6s,0s;font-size:32px;">🧟</div>
+
+<!-- ══ GROUND ══ -->
+<div class="ground-strip"></div>
+
+<!-- ══ TOGGLE ══ -->
+<button class="theme-toggle" onclick="toggleTheme()">
+  <span class="toggle-icon" id="toggle-icon">🌙</span>
+  <span id="toggle-label">Night</span>
+</button>
+
+<!-- ══ NAV ══ -->
 <nav>
   <span class="nav-logo">Cableway<span>MC</span></span>
   <ul class="nav-links">
@@ -158,7 +543,7 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <div id="hero">
   <div class="creeper">🟩</div>
   <h1 class="hero-title">Hey, I'm Lincoln<span class="cursor-blink"></span></h1>
@@ -172,24 +557,24 @@
 
 <div class="divider"></div>
 
-<!-- ABOUT -->
+<!-- ══ ABOUT ══ -->
 <section id="about">
   <h2 class="section-title reveal">About Me</h2>
   <div class="about-grid">
-    <div class="about-bio grass-box reveal">
+    <div class="about-bio pixel-box grass-c reveal">
       <p>I'm <strong>Lincoln</strong>, a 15-year-old developer from <strong>The Hague, Netherlands</strong>. Got my first PC at 10 and went straight into coding — C# first, then Java, Python, and now C.</p>
       <p>I've coded plugins and scripts for <strong>10–20 live Minecraft servers</strong>, built custom clients, done hardware security work with ESP32s, and explored deep technical Minecraft mechanics like bedrock breaking.</p>
       <p>I'm finishing middelbare school (kader) and starting <strong>Software Development at ROC Mondriaan</strong> in Delft. Long term I'm aiming for HBO — Software Engineering or Cyber Security.</p>
       <p>I tried flipping a 2008 Intel laptop into a home server. It did not survive. That's just how it goes sometimes.</p>
       <div class="skills-row">
-        <span class="skill-badge grass-box">☕ Java</span>
-        <span class="skill-badge dirt-box">🐍 Python</span>
-        <span class="skill-badge pixel-box">⚙️ C</span>
-        <span class="skill-badge blue-box">🔷 C#</span>
-        <span class="skill-badge wood-box">🎮 Unity</span>
-        <span class="skill-badge purple-box">📡 ESP32</span>
-        <span class="skill-badge pixel-box">🧱 Skript</span>
-        <span class="skill-badge grass-box">🐧 Linux</span>
+        <span class="skill-badge pixel-box grass-c">☕ Java</span>
+        <span class="skill-badge pixel-box dirt-c">🐍 Python</span>
+        <span class="skill-badge pixel-box stone-c">⚙️ C</span>
+        <span class="skill-badge pixel-box blue-c">🔷 C#</span>
+        <span class="skill-badge pixel-box wood-c">🎮 Unity</span>
+        <span class="skill-badge pixel-box purple-c">📡 ESP32</span>
+        <span class="skill-badge pixel-box stone-c">🧱 Skript</span>
+        <span class="skill-badge pixel-box grass-c">🐧 Linux</span>
       </div>
     </div>
     <div class="reveal">
@@ -236,252 +621,208 @@
 
 <div class="divider dirt"></div>
 
-<!-- PROJECTS -->
+<!-- ══ PROJECTS ══ -->
 <section id="projects">
   <h2 class="section-title reveal">Projects</h2>
 
-  <!-- CURRENT -->
   <div class="sub-label reveal">Current Projects</div>
   <div class="projects-grid">
-
-    <div class="project-card grass-box reveal" onclick="openModal('server')">
+    <div class="project-card pixel-box grass-c reveal" onclick="openModal('server')">
       <div class="wip-badge">⚡ IN PROGRESS</div>
       <span class="project-icon">🖥️</span>
       <div class="project-name">Friends SMP Server</div>
-      <p class="project-desc">Private Minecraft SMP hosted on a laptop with 16GB RAM. Custom setup, plugins, and configuration for me and my friends.</p>
+      <p class="project-desc">Private Minecraft SMP hosted on a laptop with 16GB RAM. Custom setup for me and my friends.</p>
       <span class="tag">Java</span><span class="tag blue">Spigot</span><span class="tag orange">Self-hosted</span>
     </div>
-
-    <div class="project-card purple-box reveal" onclick="openModal('unworthiest')">
+    <div class="project-card pixel-box purple-c reveal" onclick="openModal('unworthiest')">
       <div class="wip-badge">⚡ IN PROGRESS</div>
       <span class="project-icon">⚔️</span>
       <div class="project-name">Unworthiest Client</div>
-      <p class="project-desc">Custom Fabric Minecraft client with a dark UI and purple accents. Ongoing development.</p>
+      <p class="project-desc">Custom Fabric Minecraft client with a dark UI and purple accents.</p>
       <span class="tag">Fabric</span><span class="tag">Java</span><span class="tag blue">1.21.1</span>
     </div>
-
   </div>
 
-  <!-- OLDER -->
   <div class="sub-label old reveal">Older Projects</div>
   <div class="projects-grid">
-
-    <div class="project-card dirt-box reveal" onclick="openModal('macroforge')">
+    <div class="project-card pixel-box dirt-c reveal" onclick="openModal('macroforge')">
       <span class="project-icon">🔧</span>
       <div class="project-name">MacroForge</div>
-      <p class="project-desc">Python macro tool for Minecraft with randomized delays and full configurability.</p>
+      <p class="project-desc">Python macro tool for Minecraft with randomized delays.</p>
       <span class="tag">Python</span><span class="tag red">Automation</span>
     </div>
-
-    <div class="project-card wood-box reveal" onclick="openModal('tunnelbot')">
+    <div class="project-card pixel-box wood-c reveal" onclick="openModal('tunnelbot')">
       <span class="project-icon">🌐</span>
       <div class="project-name">Server Tunnel Bot</div>
-      <p class="project-desc">Auto-starts an ngrok tunnel and posts the URL to Discord via webhook.</p>
+      <p class="project-desc">Auto-starts ngrok and posts the URL to Discord via webhook.</p>
       <span class="tag">Batch</span><span class="tag blue">ngrok</span><span class="tag blue">Discord</span>
     </div>
-
-    <div class="project-card blue-box reveal" onclick="openModal('plugins')">
+    <div class="project-card pixel-box blue-c reveal" onclick="openModal('plugins')">
       <span class="project-icon">🧩</span>
       <div class="project-name">Server Plugins</div>
-      <p class="project-desc">Custom plugins and Skripts built for 10–20 live Minecraft servers.</p>
+      <p class="project-desc">Custom plugins and Skripts for 10–20 live Minecraft servers.</p>
       <span class="tag">Java</span><span class="tag orange">Skript</span><span class="tag blue">Spigot</span>
     </div>
-
-    <div class="project-card pixel-box reveal" onclick="openModal('unity')">
+    <div class="project-card pixel-box stone-c reveal" onclick="openModal('unity')">
       <span class="project-icon">🎮</span>
       <div class="project-name">Unity Games</div>
-      <p class="project-desc">2–3 years of game development in Unity with C#. Personal projects, never released.</p>
+      <p class="project-desc">2–3 years of game development in Unity with C#.</p>
       <span class="tag purple">Unity</span><span class="tag blue">C#</span>
     </div>
-
-    <div class="project-card pixel-box reveal" onclick="openModal('esp32')">
+    <div class="project-card pixel-box stone-c reveal" onclick="openModal('esp32')">
       <span class="project-icon">📡</span>
       <div class="project-name">ESP32 Security</div>
       <p class="project-desc">WiFi and Bluetooth security research using ESP32 microcontrollers.</p>
       <span class="tag red">Cyber Security</span><span class="tag orange">ESP32</span><span class="tag">C</span>
     </div>
-
-    <div class="project-card obsidian-box reveal" onclick="openModal('bedrock')">
+    <div class="project-card pixel-box obs-c reveal" onclick="openModal('bedrock')">
       <span class="project-icon">🪨</span>
       <div class="project-name">Bedrock Breaking</div>
-      <p class="project-desc">Technical Minecraft research — obtaining bedrock in survival using game mechanic exploits in 1.12.2.</p>
-      <span class="tag obsidian">Technical MC</span><span class="tag blue">1.12.2</span><span class="tag purple">Research</span>
+      <p class="project-desc">Technical MC research — obtaining bedrock in survival in 1.12.2.</p>
+      <span class="tag obs">Technical MC</span><span class="tag blue">1.12.2</span><span class="tag purple">Research</span>
     </div>
-
   </div>
 </section>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
-  <div class="modal pixel-box" id="modal-box">
+  <div class="modal" id="modal-box">
     <button class="modal-close" onclick="closeModal()">✕ Close</button>
     <span class="modal-icon" id="modal-icon"></span>
     <div class="modal-title" id="modal-title"></div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-tags" id="modal-tags"></div>
+    <div class="modal-body"  id="modal-body"></div>
+    <div class="modal-tags"  id="modal-tags"></div>
     <div class="modal-links" id="modal-links"></div>
   </div>
 </div>
 
 <div class="divider stone"></div>
 
-<!-- DEVLOG -->
+<!-- ══ DEVLOG ══ -->
 <section id="devlog">
   <h2 class="section-title reveal">Devlog</h2>
   <div class="devlog-list">
-
-    <div class="devlog-entry grass-box reveal">
+    <div class="devlog-entry pixel-box grass-c reveal">
       <div class="devlog-date">23 MAR<br>2026</div>
-      <div>
-        <div class="devlog-title">Portfolio is live!</div>
-        <p class="devlog-text">Launched this site. Plain HTML/CSS/JS, no frameworks. Minecraft pixel aesthetic because of course.</p>
-      </div>
+      <div><div class="devlog-title">Portfolio is live!</div><p class="devlog-text">Launched this site. Plain HTML/CSS/JS, no frameworks. Minecraft aesthetic with a day/night switch.</p></div>
     </div>
-
-    <div class="devlog-entry dirt-box reveal">
+    <div class="devlog-entry pixel-box grass-c reveal">
       <div class="devlog-date">MAR<br>2026</div>
-      <div>
-        <div class="devlog-title">Setting up the SMP</div>
-        <p class="devlog-text">Running a private Minecraft server for me and my friends off a laptop with 16GB RAM. Custom plugin setup, world config, and optimizations to keep it smooth.</p>
-      </div>
+      <div><div class="devlog-title">Setting up the SMP</div><p class="devlog-text">Running a private Minecraft server for me and my friends off a laptop with 16GB RAM. Custom plugin setup, world config, and optimizations to keep it smooth.</p></div>
     </div>
-
-    <div class="devlog-entry purple-box reveal">
+    <div class="devlog-entry pixel-box purple-c reveal">
       <div class="devlog-date">MAR<br>2026</div>
-      <div>
-        <div class="devlog-title">Unworthiest Client UI overhaul</div>
-        <p class="devlog-text">Rebuilt the entire UI — dark theme, purple accents, smooth animations, working keybind config. Full package rename done.</p>
-      </div>
+      <div><div class="devlog-title">Unworthiest Client UI overhaul</div><p class="devlog-text">Rebuilt the entire UI — dark theme, purple accents, smooth animations, working keybind config. Full package rename done.</p></div>
     </div>
-
-    <div class="devlog-entry obsidian-box reveal">
+    <div class="devlog-entry pixel-box obs-c reveal">
       <div class="devlog-date">2024</div>
-      <div>
-        <div class="devlog-title">Bedrock in survival — actually got it</div>
-        <p class="devlog-text">Spent a long time studying Minecraft's chunk and block update systems in 1.12.2. Used game mechanic exploits involving update order and block interactions to obtain bedrock in a solo world. Same category of research SciCraft has done publicly for years.</p>
-      </div>
+      <div><div class="devlog-title">Bedrock in survival — actually got it</div><p class="devlog-text">Used game mechanic exploits involving block update order to obtain bedrock in a solo survival world. Same category of research SciCraft has done publicly for years.</p></div>
     </div>
-
-    <div class="devlog-entry wood-box reveal">
+    <div class="devlog-entry pixel-box wood-c reveal">
       <div class="devlog-date">FEB<br>2026</div>
-      <div>
-        <div class="devlog-title">ngrok Discord bot</div>
-        <p class="devlog-text">Batch script that starts the server, grabs the ngrok URL, and posts it to Discord automatically.</p>
-      </div>
+      <div><div class="devlog-title">ngrok Discord bot</div><p class="devlog-text">Batch script that starts the server, grabs the ngrok URL, and posts it to Discord automatically.</p></div>
     </div>
-
-    <div class="devlog-entry pixel-box reveal">
+    <div class="devlog-entry pixel-box stone-c reveal">
       <div class="devlog-date">FEB<br>2026</div>
-      <div>
-        <div class="devlog-title">Started learning C</div>
-        <p class="devlog-text">Terry Davis and TempleOS got me into low-level programming. Pointers, memory, bit architecture, kernel basics. It's addictive.</p>
-      </div>
+      <div><div class="devlog-title">Started learning C</div><p class="devlog-text">Terry Davis and TempleOS got me into low-level programming. Pointers, memory, bit architecture, kernel basics. It's addictive.</p></div>
     </div>
-
   </div>
 </section>
 
 <div class="divider wood"></div>
 
-<!-- CONTACT -->
+<!-- ══ CONTACT ══ -->
 <section id="contact">
   <h2 class="section-title reveal">Contact & Socials</h2>
   <div class="socials-grid">
-
-    <a href="https://github.com/CablewayMC" target="_blank" class="social-card grass-box reveal">
+    <a href="https://github.com/CablewayMC" target="_blank" class="social-card pixel-box grass-c reveal">
       <span class="social-icon">🐙</span>
       <div><span class="social-name">GitHub</span><span class="social-handle">@CablewayMC</span></div>
     </a>
-
-    <a href="https://discord.com/users/Lincnil" target="_blank" class="social-card blue-box reveal">
+    <a href="https://discord.com/users/Lincnil" target="_blank" class="social-card pixel-box blue-c reveal">
       <span class="social-icon">💬</span>
       <div><span class="social-name">Discord</span><span class="social-handle">Lincnil</span></div>
     </a>
-
-    <a href="https://youtube.com/@lincnil" target="_blank" class="social-card dirt-box reveal">
+    <a href="https://youtube.com/@lincnil" target="_blank" class="social-card pixel-box dirt-c reveal">
       <span class="social-icon">📺</span>
       <div><span class="social-name">YouTube</span><span class="social-handle">@lincnil</span></div>
     </a>
-
-    <a href="mailto:lincoln200010@gmail.com" class="social-card wood-box reveal">
+    <a href="mailto:lincoln200010@gmail.com" class="social-card pixel-box wood-c reveal">
       <span class="social-icon">📬</span>
       <div><span class="social-name">Email</span><span class="social-handle">lincoln200010@gmail.com</span></div>
     </a>
-
   </div>
 </section>
 
-<div class="divider obsidian"></div>
+<div class="divider obs"></div>
 <footer>
   <div class="healthbar">
     <span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span>
   </div>
   <div>CablewayMC · Made with 🧱 and too much coffee</div>
-  <div style="margin-top:8px;color:#444;">Built in plain HTML — no frameworks needed</div>
+  <div style="margin-top:8px;opacity:0.5;">Built in plain HTML — no frameworks needed</div>
 </footer>
 
 <script>
+/* ══ THEME ══ */
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDay = html.getAttribute('data-theme') === 'day';
+  html.setAttribute('data-theme', isDay ? 'night' : 'day');
+  document.getElementById('toggle-icon').textContent  = isDay ? '☀️' : '🌙';
+  document.getElementById('toggle-label').textContent = isDay ? 'Day'  : 'Night';
+  localStorage.setItem('theme', isDay ? 'night' : 'day');
+}
+// Restore saved theme
+const saved = localStorage.getItem('theme');
+if (saved) {
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('toggle-icon').textContent  = saved === 'night' ? '☀️' : '🌙';
+  document.getElementById('toggle-label').textContent = saved === 'night' ? 'Day' : 'Night';
+}
+
+/* ══ PROJECTS ══ */
 const projects = {
   server: {
-    icon:'🖥️', title:'Friends SMP Server',
-    body:`<p>A private Minecraft SMP running for me and my friends, self-hosted on a laptop with 16GB of RAM.</p>
-          <p>Custom plugin setup, world configuration, and performance tuning to keep things running smooth. Handling everything from the server software to the network setup myself.</p>
-          <p>It's a good excuse to keep learning about server administration, Java performance, and how Minecraft handles memory at scale.</p>`,
-    tags:['Java','Spigot','Self-hosted','16GB RAM'], cls:['','blue','orange','orange'],
-    links:[], wip:true
+    icon:'🖥️', title:'Friends SMP Server', wip:true,
+    body:`<p>A private Minecraft SMP running for me and my friends, self-hosted on a laptop with 16GB of RAM.</p><p>Custom plugin setup, world configuration, and performance tuning. Handling everything from the server software to the network setup myself.</p><p>It's a good excuse to keep learning about server administration, Java performance, and how Minecraft handles memory at scale.</p>`,
+    tags:['Java','Spigot','Self-hosted','16GB RAM'], cls:['','blue','orange','orange'], links:[]
   },
   unworthiest: {
-    icon:'⚔️', title:'Unworthiest Client',
-    body:`<p>A fully custom Fabric-based Minecraft client for 1.21.1. Built from a ported base with a complete package rename and total UI overhaul.</p>
-          <p>Features a dark theme with purple accents, smooth animations on the settings screen, and a fully configurable keybind system. Every visual element redesigned from scratch.</p>
-          <p>This is my main ongoing client project — I keep adding modules and refining the UI as I learn more about Fabric's rendering pipeline.</p>`,
+    icon:'⚔️', title:'Unworthiest Client', wip:true,
+    body:`<p>A fully custom Fabric-based Minecraft client for 1.21.1. Complete package rename and total UI overhaul from a ported base.</p><p>Dark theme with purple accents, smooth animations on the settings screen, and a fully configurable keybind system.</p><p>My main ongoing client project — constantly adding modules and refining the rendering pipeline.</p>`,
     tags:['Fabric','Java','1.21.1','UI Design'], cls:['','','blue','blue'],
-    links:[{label:'[ GitHub ]',href:'#'},{label:'[ Download ]',href:'#',cls:'ghost'}], wip:true
+    links:[{label:'[ GitHub ]',href:'#'},{label:'[ Download ]',href:'#',cls:'ghost'}]
   },
   macroforge: {
     icon:'🔧', title:'MacroForge',
-    body:`<p>A Python macro tool for Minecraft automation. The key feature is randomized delay injection between actions to produce more human-like input patterns.</p>
-          <p>Fully configurable — actions, timings, sequences, and randomization ranges can all be tuned.</p>`,
-    tags:['Python','Automation'], cls:['','red'],
-    links:[{label:'[ GitHub ]',href:'#'}]
+    body:`<p>A Python macro tool for Minecraft automation. Key feature: randomized delay injection between actions to produce more human-like input patterns.</p><p>Fully configurable — actions, timings, sequences, and randomization ranges all adjustable.</p>`,
+    tags:['Python','Automation'], cls:['','red'], links:[{label:'[ GitHub ]',href:'#'}]
   },
   tunnelbot: {
     icon:'🌐', title:'Server Tunnel Bot',
-    body:`<p>A batch script that automates the Minecraft server startup flow. Launches the server, starts an ngrok TCP tunnel, pulls the public URL from ngrok's local API, and posts it to a Discord channel via webhook.</p>
-          <p>Saves manually copy-pasting the tunnel URL every session. Runs automatically right after server boot.</p>`,
-    tags:['Batch','ngrok','Discord','TCP'], cls:['','blue','blue','blue'],
-    links:[{label:'[ GitHub ]',href:'#'}]
+    body:`<p>A batch script that automates the server startup flow. Launches the server, starts an ngrok TCP tunnel, pulls the public URL from ngrok's local API, and posts it to Discord via webhook.</p><p>Saves manually copy-pasting the tunnel URL every session.</p>`,
+    tags:['Batch','ngrok','Discord','TCP'], cls:['','blue','blue','blue'], links:[{label:'[ GitHub ]',href:'#'}]
   },
   plugins: {
     icon:'🧩', title:'Minecraft Server Plugins',
-    body:`<p>From 2022 to 2024 I coded custom plugins and Skripts for 10–20 different Minecraft servers — from small QoL features to full custom game mechanics.</p>
-          <p>Work included custom economy systems, minigame logic, combat mechanics, NPC interactions, and event-driven scripting in Skript alongside Java plugins on Spigot/Paper.</p>
-          <p>Working on live servers with real player bases taught me a lot about performance, pressure debugging, and communicating with server owners.</p>`,
-    tags:['Java','Skript','Spigot','Paper'], cls:['','orange','blue','blue'],
-    links:[]
+    body:`<p>2022–2024: coded custom plugins and Skripts for 10–20 different Minecraft servers.</p><p>Custom economy systems, minigame logic, combat mechanics, NPC interactions, event-driven scripting in Skript alongside Java plugins on Spigot/Paper.</p><p>Working on live servers with real players taught me a lot about performance and pressure debugging.</p>`,
+    tags:['Java','Skript','Spigot','Paper'], cls:['','orange','blue','blue'], links:[]
   },
   unity: {
     icon:'🎮', title:'Unity Game Projects',
-    body:`<p>Spent 2–3 years (2020–2023) building games in Unity with C#. Started learning C# at age 10 and Unity became the main way to turn ideas into reality.</p>
-          <p>Built multiple full game projects — platformers, top-down games, experimental mechanics. None were released publicly. The goal was always to build things I thought about, not to ship products.</p>
-          <p>This period built the core foundation: OOP thinking, debugging, and the satisfaction of a system actually working.</p>`,
-    tags:['Unity','C#','Game Dev'], cls:['purple','blue',''],
-    links:[]
+    body:`<p>2–3 years (2020–2023) building games in Unity with C#. Started learning C# at age 10; Unity was the main way to turn ideas into reality.</p><p>Multiple full projects — platformers, top-down games, experimental mechanics. Never released publicly. The goal was always to make ideas real, not to ship products.</p>`,
+    tags:['Unity','C#','Game Dev'], cls:['purple','blue',''], links:[]
   },
   esp32: {
     icon:'📡', title:'ESP32 Security Research',
-    body:`<p>Worked with ESP32 microcontrollers to explore WiFi and Bluetooth security concepts — scanning, probing, and understanding how wireless protocols behave at a low level.</p>
-          <p>A hands-on intro to hardware hacking and cyber security. Programming the ESP32 in C also fed into my broader interest in low-level and embedded programming.</p>`,
-    tags:['ESP32','C','WiFi','Bluetooth','Cyber Security'], cls:['orange','','blue','blue','red'],
-    links:[]
+    body:`<p>Worked with ESP32 microcontrollers to explore WiFi and Bluetooth security — scanning, probing, understanding wireless protocols at a low level.</p><p>Hands-on intro to hardware hacking and cyber security. Part of a long-term interest I plan to pursue formally at HBO level.</p>`,
+    tags:['ESP32','C','WiFi','Bluetooth','Cyber Security'], cls:['orange','','blue','blue','red'], links:[]
   },
   bedrock: {
     icon:'🪨', title:'Bedrock Breaking Research',
-    body:`<p>A deep dive into Minecraft's internal block and chunk update systems in version 1.12.2. Bedrock is flagged as unbreakable — but the game's own mechanics can be turned against that assumption.</p>
-          <p>By studying update order, block interaction timing, and how certain game events handle chunk data, I was able to obtain bedrock as an item in a solo survival world — no cheats, no mods, just the game's own mechanics exploited precisely.</p>
-          <p>This is the same category of technical research the SciCraft server is famous for. Their work on headless pistons, update priority, and block replacement mechanics is well-documented and referenced in Mojang's own bug tracker.</p>
-          <p>Studying this taught me a huge amount about how Minecraft actually works under the hood — chunk loading, entity processing, block tick scheduling. Essentially reverse engineering a live system without source code access.</p>`,
-    tags:['Technical MC','1.12.2','Game Mechanics','Research'], cls:['obsidian','blue','purple',''],
+    body:`<p>A deep dive into Minecraft's internal block and chunk update systems in 1.12.2. Bedrock is flagged unbreakable — but the game's own mechanics can be turned against that.</p><p>By studying update order, block interaction timing, and chunk data handling, I obtained bedrock as an item in a solo survival world — no cheats, no mods.</p><p>Same category of research the SciCraft server is famous for. Their work on headless pistons, update priority, and block replacement is well-documented and referenced in Mojang's own bug tracker.</p><p>Studying this taught me how Minecraft actually works under the hood — chunk loading, entity processing, block tick scheduling. Essentially reverse engineering a live system without source access.</p>`,
+    tags:['Technical MC','1.12.2','Game Mechanics','Research'], cls:['obs','blue','purple',''],
     links:[{label:'[ MC Wiki ]',href:'https://minecraft.wiki/w/Tutorial:Breaking_bedrock'}]
   }
 };
@@ -489,7 +830,7 @@ const projects = {
 function openModal(id) {
   const p = projects[id]; if(!p) return;
   document.getElementById('modal-icon').textContent = p.icon;
-  document.getElementById('modal-title').innerHTML = (p.wip ? '<span style="font-size:8px;color:#f8a800;display:block;margin-bottom:8px;">⚡ IN PROGRESS</span>' : '') + p.title;
+  document.getElementById('modal-title').innerHTML = (p.wip?'<span style="font-size:8px;color:#f8a800;display:block;margin-bottom:8px;font-family:\'Press Start 2P\',monospace;">⚡ IN PROGRESS</span>':'')+p.title;
   document.getElementById('modal-body').innerHTML = p.body;
   document.getElementById('modal-tags').innerHTML = p.tags.map((t,i)=>`<span class="tag ${p.cls[i]||''}">${t}</span>`).join('');
   document.getElementById('modal-links').innerHTML = p.links.map(l=>`<a href="${l.href}" class="mc-btn ${l.cls||''}" target="_blank">${l.label}</a>`).join('');
@@ -500,11 +841,13 @@ function closeModal(){ document.getElementById('modal-overlay').classList.remove
 function closeModalOnBg(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); observer.unobserve(e.target); } });
+/* ══ SCROLL REVEAL ══ */
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); obs.unobserve(e.target); } });
 },{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
+/* ══ SMOOTH SCROLL ══ */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{ const t=document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});} });
 });
