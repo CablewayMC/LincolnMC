@@ -1,856 +1,567 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="day">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CablewayMC — Dev Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+<title>Lincoln — dev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════
-   THEME VARIABLES
-══════════════════════════════════════════ */
-:root {
-  --pixel: 4px;
-  --grass: #5a8a2e; --grass-light: #6db33f;
-  --dirt: #7a5230; --dirt-light: #9b6b3a;
-  --stone: #888; --stone-light: #aaa; --stone-dark: #555;
-  --wood: #a07840; --yellow: #f8c81c; --red: #c03020;
+
+/* ─── THEME ─── */
+[data-theme="light"] {
+  --bg:          #ffffff;
+  --bg2:         #f7f7f7;
+  --surface:     #f0f0f0;
+  --border:      #e0e0e0;
+  --border2:     #ececec;
+  --text:        #0a0a0a;
+  --text-dim:    #555;
+  --text-faint:  #aaa;
+  --tag-bg:      #f0f0f0;
+  --tag-text:    #444;
+}
+[data-theme="dark"] {
+  --bg:          #0c0c0c;
+  --bg2:         #111;
+  --surface:     #181818;
+  --border:      #222;
+  --border2:     #1a1a1a;
+  --text:        #f0f0f0;
+  --text-dim:    #888;
+  --text-faint:  #444;
+  --tag-bg:      #1e1e1e;
+  --tag-text:    #888;
 }
 
-/* DAY */
-[data-theme="day"] {
-  --bg:        #87CEEB;
-  --bg2:       #5aabdc;
-  --panel:     #f5e8c0;
-  --panel2:    #e8d4a0;
-  --text:      #2a1a08;
-  --text-sub:  #5a4020;
-  --nav-bg:    #6db33f;
-  --nav-border:#3a5a1a;
-  --nav-text:  #1a3008;
-  --card-bg:   #f0dea0;
-  --card-border:#8ab040;
-  --card-shadow:#3a5010;
-  --tag-bg:    #d4e8a0;
-  --section-bg:#e8f4c8;
-  --footer-bg: #5a8a2e;
-  --footer-text:#1a3008;
-  --sky-grad: linear-gradient(180deg, #87CEEB 0%, #b8e0f7 60%, #d4eeaa 85%, #6db33f 100%);
-  --ground:   #6db33f;
-}
-
-/* NIGHT */
-[data-theme="night"] {
-  --bg:        #0a0a1a;
-  --bg2:       #111130;
-  --panel:     #1e1e2e;
-  --panel2:    #2a2a3e;
-  --text:      #e0e0f0;
-  --text-sub:  #aaaacc;
-  --nav-bg:    #111122;
-  --nav-border:#222244;
-  --nav-text:  #aaaadd;
-  --card-bg:   #1e2030;
-  --card-border:#444466;
-  --card-shadow:#000010;
-  --tag-bg:    #1a1a2a;
-  --section-bg:#181828;
-  --footer-bg: #0a0a15;
-  --footer-text:#555577;
-  --sky-grad: linear-gradient(180deg, #020210 0%, #0a0a1a 50%, #1a1a10 85%, #2a2a10 100%);
-  --ground:   #1a1a08;
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
+/* ─── RESET ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'VT323', monospace;
-  font-size: 20px;
-  overflow-x: hidden;
-  transition: background 1s ease, color 0.5s ease;
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  transition: background 0.25s, color 0.25s;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ══════════════════════════════════════════
-   SKY SCENE
-══════════════════════════════════════════ */
-.sky-scene {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: var(--sky-grad);
-  transition: background 1.5s ease;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-/* SUN */
-.sun {
-  position: absolute;
-  top: 60px; right: 120px;
-  width: 64px; height: 64px;
-  background: #f8c81c;
-  box-shadow: 0 0 0 8px #fada5e, 0 0 32px 16px rgba(248,200,28,0.5);
-  image-rendering: pixelated;
-  animation: sun-bob 8s ease-in-out infinite;
-  transition: opacity 1s ease;
-}
-[data-theme="night"] .sun { opacity: 0; }
-
-@keyframes sun-bob {
-  0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
-}
-
-/* MOON */
-.moon {
-  position: absolute;
-  top: 60px; right: 120px;
-  width: 64px; height: 64px;
-  background: #ddeeff;
-  box-shadow: 0 0 0 4px #aabbcc, 0 0 24px 8px rgba(200,220,255,0.3);
-  opacity: 0;
-  transition: opacity 1s ease;
-  image-rendering: pixelated;
-}
-/* pixel crater details */
-.moon::before {
-  content:'';
-  position:absolute;
-  width:12px;height:12px;
-  background:#bbc8d8;
-  top:16px;left:12px;
-  box-shadow: 20px 20px 0 8px #bbc8d8;
-}
-[data-theme="night"] .moon { opacity: 1; }
-
-/* CLOUDS */
-.cloud {
-  position: absolute;
-  background: white;
-  opacity: 0.9;
-  animation: cloud-drift linear infinite;
-  transition: opacity 1s ease;
-}
-[data-theme="night"] .cloud { opacity: 0.15; }
-
-.cloud::before,.cloud::after { content:''; position:absolute; background:white; }
-
-.c1 { top:80px; left:-200px; width:80px; height:24px; animation-duration:40s; animation-delay:-10s; }
-.c1::before { width:48px;height:24px;top:-20px;left:12px; }
-.c1::after  { width:24px;height:16px;top:-32px;left:28px; }
-
-.c2 { top:140px; left:-200px; width:100px; height:28px; animation-duration:55s; animation-delay:-28s; }
-.c2::before { width:60px;height:28px;top:-22px;left:16px; }
-.c2::after  { width:32px;height:20px;top:-38px;left:36px; }
-
-.c3 { top:60px; left:-200px; width:64px; height:20px; animation-duration:65s; animation-delay:-50s; }
-.c3::before { width:40px;height:20px;top:-16px;left:10px; }
-
-@keyframes cloud-drift { from{left:-200px} to{left:110vw} }
-
-/* STARS */
-.stars {
-  position: absolute; inset: 0;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-  background:
-    radial-gradient(1px 1px at 8% 12%,#fff 0%,transparent 100%),
-    radial-gradient(2px 2px at 22% 8%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 38% 18%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 55% 6%,#fff 0%,transparent 100%),
-    radial-gradient(2px 2px at 68% 14%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 80% 9%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 91% 20%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 15% 30%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 44% 28%,rgba(255,255,255,0.6) 0%,transparent 100%),
-    radial-gradient(1px 1px at 72% 35%,rgba(255,255,255,0.5) 0%,transparent 100%),
-    radial-gradient(2px 2px at 93% 40%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 5%  45%,rgba(255,255,255,0.4) 0%,transparent 100%);
-}
-[data-theme="night"] .stars { opacity: 1; }
-
-/* GROUND STRIP */
-.ground-strip {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: 80px;
-  z-index: 1;
-  pointer-events: none;
-  transition: background 1s ease;
-}
-[data-theme="day"]   .ground-strip { background: repeating-linear-gradient(90deg,#5a8a2e 0,#5a8a2e 32px,#6db33f 32px,#6db33f 64px); border-top:4px solid #88cc44; }
-[data-theme="night"] .ground-strip { background: repeating-linear-gradient(90deg,#1a1a08 0,#1a1a08 32px,#2a2a10 32px,#2a2a10 64px); border-top:4px solid #3a3a18; }
-
-/* ══════════════════════════════════════════
-   WALKING ANIMALS / MOBS
-══════════════════════════════════════════ */
-.creature {
-  position: fixed;
-  bottom: 80px;
-  z-index: 2;
-  pointer-events: none;
-  font-size: 36px;
-  line-height: 1;
-  image-rendering: pixelated;
-  filter: drop-shadow(2px 4px 0 rgba(0,0,0,0.3));
-}
-
-/* DAY animals */
-.animal { transition: opacity 0.8s ease; }
-[data-theme="night"] .animal { opacity: 0; pointer-events:none; }
-
-/* NIGHT mobs */
-.mob { opacity: 0; transition: opacity 0.8s ease; }
-[data-theme="night"] .mob { opacity: 1; }
-
-/* Walk animations — creatures walk across screen */
-.walk-right {
-  animation: walk-r linear infinite;
-}
-.walk-left {
-  animation: walk-l linear infinite;
-  transform: scaleX(-1);
-}
-
-@keyframes walk-r {
-  from { left: -80px; }
-  to   { left: 110vw; }
-}
-@keyframes walk-l {
-  from { right: -80px; left:auto; transform:scaleX(-1); }
-  to   { right: 110vw; left:auto; transform:scaleX(-1); }
-}
-
-/* Bob up/down while walking */
-.bob { animation-name: walk-r, bob-walk; animation-timing-function: linear, ease-in-out; animation-iteration-count: infinite, infinite; }
-.bob-l { animation-name: walk-l, bob-walk; animation-timing-function: linear, ease-in-out; animation-iteration-count: infinite, infinite; }
-@keyframes bob-walk { 0%,100%{margin-bottom:0} 50%{margin-bottom:6px} }
-
-/* BEE — flies higher */
-.bee {
-  bottom: 160px;
-  animation: bee-fly 18s linear infinite, bee-bob 1.2s ease-in-out infinite;
-}
-@keyframes bee-fly { from{left:-60px} to{left:110vw} }
-@keyframes bee-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
-
-/* ══════════════════════════════════════════
-   DAY/NIGHT TOGGLE BUTTON
-══════════════════════════════════════════ */
-.theme-toggle {
-  position: fixed;
-  top: 70px;
-  right: 20px;
-  z-index: 200;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
-  padding: 10px 14px;
-  cursor: pointer;
-  border: var(--pixel) solid;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
-}
-[data-theme="day"] .theme-toggle {
-  background: #1a1a2e; border-color: #4444aa; color: #aaaaff;
-}
-[data-theme="night"] .theme-toggle {
-  background: #f8c81c; border-color: #c09010; color: #1a0a00;
-}
-.theme-toggle:hover { transform: translateY(-2px); filter: brightness(1.15); }
-.toggle-icon { font-size: 18px; }
-
-/* ══════════════════════════════════════════
-   NAVBAR
-══════════════════════════════════════════ */
-nav {
-  position: sticky; top: 0; z-index: 100;
+/* ─── TOPBAR ─── */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  height: 52px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px; height: 56px;
-  background: var(--nav-bg);
-  border-bottom: 4px solid var(--nav-border);
-  box-shadow: 0 4px 0 rgba(0,0,0,0.3);
-  transition: background 1s, border-color 1s;
+  padding: 0 32px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.25s, border-color 0.25s;
 }
-.nav-logo {
-  font-family: 'Press Start 2P', monospace; font-size: 13px;
-  color: var(--yellow);
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+.topbar-logo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: 18px;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
-.nav-logo span { color: #fff; }
-.nav-links { display:flex; gap:20px; list-style:none; }
-.nav-links a {
-  font-family: 'Press Start 2P', monospace; font-size: 7px;
-  color: var(--nav-text); text-decoration: none; padding: 6px 8px;
+.topbar-right { display: flex; align-items: center; gap: 28px; }
+.topbar-nav { display: flex; gap: 24px; }
+.topbar-nav a {
+  font-size: 12px; color: var(--text-dim); text-decoration: none;
+  letter-spacing: 0.04em; transition: color 0.15s;
+}
+.topbar-nav a:hover { color: var(--text); }
+
+/* DARK TOGGLE */
+.theme-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  transition: background 0.25s, border-color 0.25s, transform 0.15s;
+  flex-shrink: 0;
+  color: var(--text-dim);
+}
+.theme-btn:hover { transform: scale(1.1); color: var(--text); }
+[data-theme="light"] .theme-btn::after { content: '☾'; }
+[data-theme="dark"]  .theme-btn::after { content: '☀'; }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 80px 32px 64px;
+  border-bottom: 1px solid var(--border);
+  max-width: 760px;
+}
+.hero-name {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: clamp(52px, 9vw, 96px);
+  line-height: 0.95; letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+.hero-name span { color: var(--text-faint); }
+.hero-bio {
+  font-size: 14px; color: var(--text-dim);
+  line-height: 1.8; max-width: 520px;
+  margin-bottom: 32px;
+}
+.hero-bio strong { color: var(--text); font-weight: 600; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-size: 11px; letter-spacing: 0.04em;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  background: var(--tag-bg);
+}
+
+/* ─── LAYOUT ─── */
+.page-body {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+}
+@media(max-width:860px){ .page-body{ grid-template-columns: 1fr; } }
+
+/* ─── FEED ─── */
+.feed {
+  border-right: 1px solid var(--border);
+  padding: 48px 32px;
+  min-height: 80vh;
+  transition: border-color 0.25s;
+}
+.feed-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 40px;
+}
+.feed-label {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* EMPTY STATE */
+.empty-state {
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 12px;
+  padding: 48px 0;
+}
+.empty-state .big {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: 28px; letter-spacing: -0.02em;
+  color: var(--text-faint);
+}
+.empty-state p { font-size: 12px; line-height: 1.8; max-width: 420px; color: var(--text-faint); }
+.empty-state code {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 1px 5px; color: var(--text-dim);
+}
+
+/* POST CARD */
+.post {
+  border-top: 1px solid var(--border2);
+  padding: 28px 0;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0 24px;
+  cursor: pointer;
+  position: relative;
+}
+.post:first-of-type { border-top: 1px solid var(--border); }
+.post:hover .post-title { text-decoration: underline; text-underline-offset: 4px; }
+
+.post-left {
+  display: flex; flex-direction: column;
+  gap: 8px; padding-top: 3px;
+}
+.post-date { font-size: 11px; color: var(--text-faint); line-height: 1.4; }
+.post-type {
+  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 7px; width: fit-content;
+  border: 1px solid var(--border);
+  color: var(--text-faint);
+  background: var(--tag-bg);
+}
+.type-devlog   { border-color: #d4f0a8; color: #4a8a00; background: #f4fce8; }
+.type-project  { border-color: #b8d4f8; color: #1a5fcc; background: #eef4ff; }
+.type-note     { border-color: var(--border); color: var(--text-faint); background: var(--tag-bg); }
+.type-research { border-color: #f8c8b8; color: #cc4a1a; background: #fff4f0; }
+[data-theme="dark"] .type-devlog   { border-color: #2a4410; color: #8acc44; background: #1a2408; }
+[data-theme="dark"] .type-project  { border-color: #102440; color: #6699ee; background: #0a1424; }
+[data-theme="dark"] .type-research { border-color: #401808; color: #ee7744; background: #200c04; }
+
+.post-right {}
+.post-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: 18px;
+  letter-spacing: -0.02em; line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.post-excerpt {
+  font-size: 12px; color: var(--text-dim); line-height: 1.75;
+  max-width: 500px;
+}
+.post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.post-tag { font-size: 10px; color: var(--text-faint); }
+.post-tag::before { content: '#'; }
+
+/* PINNED */
+.post.pinned {
+  background: var(--surface);
+  padding: 24px;
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+  border-top: 1px solid var(--border);
+}
+.post.pinned .post-title { font-size: 22px; }
+.pinned-label {
+  grid-column: 1/-1;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-faint); margin-bottom: 16px;
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar { padding: 48px 28px; }
+.sb-block { margin-bottom: 44px; }
+.sb-label {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-faint); margin-bottom: 18px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border2);
+}
+.sb-about {
+  font-size: 12px; color: var(--text-dim); line-height: 1.8;
+}
+.sb-about strong { color: var(--text); font-weight: 600; }
+
+.link-list { display: flex; flex-direction: column; }
+.link-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; border-bottom: 1px solid var(--border2);
+  text-decoration: none; font-size: 12px; color: var(--text-dim);
   transition: color 0.15s;
 }
-.nav-links a:hover { color: var(--yellow); }
+.link-item:last-child { border-bottom: none; }
+.link-item:hover { color: var(--text); }
+.link-arrow { font-size: 10px; color: var(--text-faint); transition: transform 0.15s; }
+.link-item:hover .link-arrow { transform: translate(2px,-2px); }
 
-/* ══════════════════════════════════════════
-   PIXEL BOXES
-══════════════════════════════════════════ */
-.pixel-box {
-  border: var(--pixel) solid var(--card-border);
-  box-shadow: inset -4px -4px 0 rgba(0,0,0,0.2), inset 4px 4px 0 rgba(255,255,255,0.2), 4px 4px 0 var(--card-shadow);
-  background: var(--card-bg);
-  transition: background 0.5s, border-color 0.5s;
+/* ─── POST OVERLAY ─── */
+.overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 48px 24px; overflow-y: auto;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
 }
-.grass-c  { border-color:#6db33f; background:#c8e888; }
-.dirt-c   { border-color:#9b6b3a; background:#e8c888; }
-.wood-c   { border-color:#c09050; background:#e8d0a0; }
-.stone-c  { border-color:#aaa;    background:#ddd; }
-.blue-c   { border-color:#4488cc; background:#c0d8f0; }
-.purple-c { border-color:#8855cc; background:#d8c0f0; }
-.obs-c    { border-color:#6644aa; background:#c8b0e0; }
-
-[data-theme="night"] .grass-c  { background:#1e2e10; border-color:#4a7020; }
-[data-theme="night"] .dirt-c   { background:#2a1e0e; border-color:#6a4020; }
-[data-theme="night"] .wood-c   { background:#201408; border-color:#8a6030; }
-[data-theme="night"] .stone-c  { background:#2a2a2a; border-color:#666; }
-[data-theme="night"] .blue-c   { background:#0e1828; border-color:#2a5888; }
-[data-theme="night"] .purple-c { background:#180e28; border-color:#5835aa; }
-[data-theme="night"] .obs-c    { background:#0e0818; border-color:#4424aa; }
-
-.mc-btn {
-  font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--yellow);
-  background: #5a7a28; border: var(--pixel) solid #88bb44;
-  box-shadow: inset -4px -4px 0 #3a5010, inset 4px 4px 0 rgba(255,255,255,0.15), 4px 4px 0 rgba(0,0,0,0.4);
-  padding: 8px 16px; cursor: pointer; display: inline-block; text-decoration: none;
-  transition: filter 0.1s, transform 0.1s; letter-spacing: 1px;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+.overlay.open { opacity: 1; pointer-events: all; }
+.post-view {
+  width: 100%; max-width: 680px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 48px;
+  transform: translateY(12px);
+  transition: transform 0.2s, background 0.25s, border-color 0.25s;
+  position: relative;
 }
-.mc-btn:hover { filter: brightness(1.25); transform: translateY(-2px); }
-.mc-btn.blue  { background:#3a5888; border-color:#6688cc; box-shadow:inset -4px -4px 0 #1a2848,inset 4px 4px 0 rgba(255,255,255,0.15),4px 4px 0 rgba(0,0,0,0.4); }
-.mc-btn.ghost { background:#888; border-color:#aaa; color:#fff; box-shadow:inset -4px -4px 0 #555,inset 4px 4px 0 rgba(255,255,255,0.1),4px 4px 0 rgba(0,0,0,0.3); }
-
-/* ══════════════════════════════════════════
-   LAYOUT
-══════════════════════════════════════════ */
-#hero {
-  position: relative; z-index: 5;
-  min-height: 92vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 24px; text-align: center; padding: 60px 24px 140px;
+.overlay.open .post-view { transform: translateY(0); }
+.pv-close {
+  position: absolute; top: 20px; right: 20px;
+  background: none; border: 1px solid var(--border);
+  color: var(--text-dim); font-family: 'Geist Mono', monospace;
+  font-size: 11px; padding: 6px 12px; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
 }
-.hero-title {
-  font-family: 'Press Start 2P', monospace; font-size: clamp(18px,4vw,42px);
-  color: var(--yellow); text-shadow: 3px 3px 0 #a07800, 6px 6px 0 rgba(0,0,0,0.3);
-  line-height: 1.5; animation: fadeDown 0.6s ease both;
+.pv-close:hover { border-color: var(--text); color: var(--text); }
+.pv-meta {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; color: var(--text-faint); margin-bottom: 20px;
 }
-[data-theme="day"] .hero-title { color: #1a6000; text-shadow: 2px 2px 0 #0a3000, 4px 4px 0 rgba(0,0,0,0.2); }
-.hero-sub {
-  font-size: clamp(20px,3vw,30px); color: var(--text-sub);
-  letter-spacing: 2px; animation: fadeDown 0.6s 0.2s ease both;
+.pv-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: clamp(22px,4vw,36px);
+  letter-spacing: -0.03em; line-height: 1.1;
+  color: var(--text); margin-bottom: 32px;
 }
-.hero-desc {
-  max-width: 600px; font-size: 22px; color: var(--text-sub);
-  line-height: 1.6; animation: fadeDown 0.6s 0.35s ease both;
+.pv-body { font-size: 13px; color: var(--text-dim); line-height: 1.9; }
+.pv-body p { margin-bottom: 16px; }
+.pv-body strong { color: var(--text); font-weight: 600; }
+.pv-body code {
+  font-family: 'Geist Mono', monospace; font-size: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 2px 6px; color: var(--text);
 }
-[data-theme="day"] .hero-desc { color: #3a2a08; }
-.hero-btns { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; animation: fadeDown 0.6s 0.5s ease both; }
-
-.creeper { font-size: 80px; animation: float 3s ease-in-out infinite, fadeDown 0.6s 0.1s ease both; filter: drop-shadow(0 4px 0 rgba(0,0,0,0.2)); }
-
-@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-@keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
-
-/* DIVIDERS */
-.divider {
-  position: relative; z-index: 5; height: 32px;
-  background: repeating-linear-gradient(90deg,#5a8a2e 0,#5a8a2e 32px,#6db33f 32px,#6db33f 64px);
-  border-top: 4px solid #88cc44; border-bottom: 4px solid #3a5010;
-  transition: background 1s, border-color 1s;
+.pv-body pre {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 20px; margin: 20px 0; overflow-x: auto;
 }
-[data-theme="night"] .divider         { background:repeating-linear-gradient(90deg,#1a1a08 0,#1a1a08 32px,#2a2a10 32px,#2a2a10 64px); border-top-color:#3a3a18; border-bottom-color:#0a0a00; }
-.divider.dirt   { background:repeating-linear-gradient(90deg,#7a5230 0,#7a5230 32px,#9b6b3a 32px,#9b6b3a 64px); border-top-color:#9b6b3a; border-bottom-color:#3a2008; }
-.divider.stone  { background:repeating-linear-gradient(90deg,#555 0,#555 32px,#888 32px,#888 64px); border-top-color:#aaa; border-bottom-color:#333; }
-.divider.wood   { background:repeating-linear-gradient(90deg,#6a4820 0,#6a4820 32px,#a07840 32px,#a07840 64px); border-top-color:#c09050; border-bottom-color:#3a2008; }
-.divider.obs    { background:repeating-linear-gradient(90deg,#1a0a2a 0,#1a0a2a 32px,#2a1040 32px,#2a1040 64px); border-top-color:#6644aa; border-bottom-color:#0a0010; }
+.pv-body pre code { background: none; border: none; padding: 0; }
+.pv-divider { height: 1px; background: var(--border2); margin: 24px 0; }
 
-section {
-  position: relative; z-index: 5;
-  padding: 72px 24px; max-width: 1100px; margin: 0 auto;
-  transition: color 0.5s;
-}
-
-.section-title {
-  font-family: 'Press Start 2P', monospace; font-size: clamp(12px,2.5vw,22px);
-  color: var(--yellow); text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
-  margin-bottom: 48px; display: flex; align-items: center; gap: 16px;
-}
-[data-theme="day"] .section-title { color: #2a5000; }
-.section-title::before { content:'▶'; color: var(--grass-light); font-size:0.8em; }
-
-.sub-label {
-  font-family:'Press Start 2P',monospace; font-size:9px;
-  color: var(--text-sub); margin-bottom:20px; margin-top:48px;
-  display:flex; align-items:center; gap:10px;
-}
-.sub-label::before { content:''; display:inline-block; width:24px; height:4px; background:#6db33f; }
-.sub-label.old::before { background: var(--stone); }
-
-/* ABOUT */
-.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-@media(max-width:700px){.about-grid{grid-template-columns:1fr}}
-.about-bio { padding:24px; font-size:21px; line-height:1.7; color:var(--text); }
-.about-bio p { margin-bottom:14px; }
-.about-bio strong { color: var(--yellow); }
-[data-theme="day"] .about-bio strong { color:#2a5000; }
-.skills-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
-.skill-badge { font-family:'Press Start 2P',monospace; font-size:7px; padding:8px 12px; display:flex; align-items:center; gap:6px; }
-
-/* TIMELINE */
-.timeline { display:flex; flex-direction:column; }
-.timeline-item { display:grid; grid-template-columns:80px 1fr; gap:0 16px; }
-.timeline-year { font-family:'Press Start 2P',monospace; font-size:7px; color:#6db33f; text-align:right; padding-top:6px; white-space:nowrap; }
-[data-theme="day"] .timeline-year { color:#3a7010; }
-.timeline-body { border-left:4px solid #6db33f; padding:4px 0 24px 20px; position:relative; }
-.timeline-body::before { content:''; position:absolute; left:-10px; top:6px; width:16px; height:16px; background:#6db33f; border:3px solid var(--bg); }
-.timeline-label { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--yellow); margin-bottom:6px; }
-[data-theme="day"] .timeline-label { color:#2a5000; }
-.timeline-text { font-size:19px; color:var(--text); line-height:1.5; }
-
-/* PROJECTS */
-.projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; }
-.project-card { padding:20px; transition:transform 0.15s,filter 0.15s; cursor:pointer; position:relative; }
-.project-card:hover { transform:translateY(-4px); filter:brightness(1.05); }
-.project-card::after { content:'[ click for details ]'; font-family:'Press Start 2P',monospace; font-size:6px; color:#6db33f; opacity:0; position:absolute; bottom:12px; right:14px; transition:opacity 0.2s; }
-.project-card:hover::after { opacity:1; }
-.project-icon { font-size:40px; margin-bottom:12px; display:block; }
-.project-name { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; }
-[data-theme="day"] .project-name { color:#2a5000; }
-.project-desc { font-size:19px; color:var(--text); line-height:1.5; margin-bottom:16px; }
-
-.tag { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 8px; background:#c8e880; border:2px solid #6db33f; color:#2a5000; margin:3px 3px 3px 0; }
-[data-theme="night"] .tag { background:#1a2a08; border-color:#4a7020; color:#88bb44; }
-.tag.blue   { background:#c0d8f8; border-color:#4488cc; color:#0a2860; }
-[data-theme="night"] .tag.blue   { background:#101830; border-color:#2a5888; color:#88aaff; }
-.tag.red    { background:#f8c0c0; border-color:#cc4444; color:#600000; }
-[data-theme="night"] .tag.red    { background:#2a1010; border-color:#cc4444; color:#ff8888; }
-.tag.purple { background:#e0c8f8; border-color:#8855cc; color:#3a0a60; }
-[data-theme="night"] .tag.purple { background:#1a1030; border-color:#6635aa; color:#bb88ff; }
-.tag.orange { background:#f8e0b0; border-color:#cc8844; color:#602000; }
-[data-theme="night"] .tag.orange { background:#2a1800; border-color:#cc8844; color:#ffaa66; }
-.tag.obs    { background:#e0c8f8; border-color:#6644aa; color:#1a0060; }
-[data-theme="night"] .tag.obs    { background:#0e0818; border-color:#6644aa; color:#cc99ff; }
-
-/* WIP BADGE */
-.wip-badge { display:inline-block; font-family:'Press Start 2P',monospace; font-size:7px; padding:4px 10px; background:#3a2200; border:2px solid #f8a800; color:#f8c81c; margin-bottom:12px; animation:wip-pulse 1.5s ease-in-out infinite; }
-@keyframes wip-pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-
-/* MODAL */
-.modal-overlay { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity 0.2s; }
-.modal-overlay.open { opacity:1; pointer-events:all; }
-.modal { max-width:620px; width:100%; padding:28px; position:relative; transform:translateY(20px); transition:transform 0.2s; max-height:85vh; overflow-y:auto; background:var(--panel); border:4px solid var(--card-border); }
-.modal-overlay.open .modal { transform:translateY(0); }
-.modal-close { position:absolute; top:14px; right:14px; font-family:'Press Start 2P',monospace; font-size:10px; background:var(--red); border:3px solid #ff4444; color:#fff; padding:6px 10px; cursor:pointer; }
-.modal-close:hover { filter:brightness(1.2); }
-.modal-icon  { font-size:48px; margin-bottom:12px; display:block; }
-.modal-title { font-family:'Press Start 2P',monospace; font-size:13px; color:var(--yellow); margin-bottom:16px; line-height:1.5; }
-[data-theme="day"] .modal-title { color:#2a5000; }
-.modal-body  { font-size:20px; color:var(--text); line-height:1.65; margin-bottom:20px; }
-.modal-body p { margin-bottom:10px; }
-.modal-tags  { margin-bottom:20px; }
-.modal-links { display:flex; gap:12px; flex-wrap:wrap; }
-
-/* DEVLOG */
-.devlog-list { display:flex; flex-direction:column; gap:20px; }
-.devlog-entry { padding:20px 24px; display:grid; grid-template-columns:auto 1fr; gap:16px 24px; align-items:start; }
-.devlog-date  { font-family:'Press Start 2P',monospace; font-size:8px; color:#6db33f; white-space:nowrap; margin-top:4px; }
-[data-theme="day"] .devlog-date { color:#3a7010; }
-.devlog-title { font-family:'Press Start 2P',monospace; font-size:10px; color:var(--yellow); margin-bottom:10px; }
-[data-theme="day"] .devlog-title { color:#2a5000; }
-.devlog-text  { color:var(--text); font-size:20px; line-height:1.55; }
-
-/* CONTACT */
-.socials-grid { display:flex; flex-wrap:wrap; gap:20px; }
-.social-card  { padding:20px 28px; display:flex; align-items:center; gap:16px; text-decoration:none; transition:transform 0.15s,filter 0.15s; }
-.social-card:hover { transform:translateY(-4px); filter:brightness(1.08); }
-.social-icon  { font-size:36px; }
-.social-name  { font-family:'Press Start 2P',monospace; font-size:9px; color:var(--yellow); display:block; margin-bottom:6px; }
-[data-theme="day"] .social-name { color:#2a5000; }
-.social-handle{ color:var(--text); font-size:20px; }
-
+/* ─── FOOTER ─── */
 footer {
-  position: relative; z-index: 5; text-align: center; padding: 32px 16px 80px;
-  background: var(--footer-bg);
-  border-top: 4px solid var(--card-border);
-  font-family: 'Press Start 2P', monospace; font-size: 7px;
-  color: var(--footer-text); letter-spacing: 1px; line-height: 2;
-  transition: background 1s, color 0.5s;
+  border-top: 1px solid var(--border);
+  padding: 24px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: var(--text-faint);
+  transition: border-color 0.25s;
 }
-.healthbar { display:flex; gap:4px; justify-content:center; margin-bottom:12px; }
-.heart { font-size:18px; animation:heartbeat 1.5s ease-in-out infinite; }
-.heart:nth-child(2){animation-delay:0.1s}.heart:nth-child(3){animation-delay:0.2s}.heart:nth-child(4){animation-delay:0.3s}.heart:nth-child(5){animation-delay:0.4s}
-@keyframes heartbeat{0%,90%,100%{transform:scale(1)}95%{transform:scale(1.2)}}
 
-.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.5s ease,transform 0.5s ease; }
-.reveal.visible { opacity:1; transform:translateY(0); }
-.cursor-blink { display:inline-block; width:10px; height:22px; background:var(--yellow); vertical-align:middle; margin-left:4px; animation:blink 1s step-start infinite; }
-[data-theme="day"] .cursor-blink { background:#2a5000; }
-@keyframes blink{50%{opacity:0}}
-::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#6db33f}
+/* ─── ANIMATIONS ─── */
+.fade-in {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.fade-in.visible { opacity: 1; transform: none; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
 </style>
 </head>
 <body>
 
-<!-- ══ SKY SCENE ══ -->
-<div class="sky-scene">
-  <div class="stars"></div>
-  <div class="sun"></div>
-  <div class="moon"></div>
-  <div class="cloud c1"></div>
-  <div class="cloud c2"></div>
-  <div class="cloud c3"></div>
-</div>
-
-<!-- ══ WALKING CREATURES ══ -->
-<!-- DAY animals -->
-<div class="creature animal bob"   style="animation-duration:22s,0.6s;animation-delay:-4s,0s;font-size:40px;">🐄</div>
-<div class="creature animal bob"   style="animation-duration:30s,0.7s;animation-delay:-14s,0.2s;font-size:32px;">🐑</div>
-<div class="creature animal bob"   style="animation-duration:25s,0.55s;animation-delay:-20s,0.1s;font-size:36px;">🐷</div>
-<div class="creature animal bob-l" style="animation-duration:35s,0.65s;animation-delay:-8s,0s;font-size:34px;">🐔</div>
-<div class="creature animal bee"   style="animation-delay:-5s;font-size:28px;">🐝</div>
-<div class="creature animal bee"   style="animation-delay:-15s;animation-duration:24s,1s;font-size:24px;bottom:190px;">🐝</div>
-
-<!-- NIGHT mobs -->
-<div class="creature mob bob"   style="animation-duration:18s,0.5s;animation-delay:-2s,0s;font-size:38px;">🧟</div>
-<div class="creature mob bob"   style="animation-duration:26s,0.6s;animation-delay:-10s,0s;font-size:36px;">💀</div>
-<div class="creature mob bob-l" style="animation-duration:22s,0.55s;animation-delay:-16s,0s;font-size:34px;">🕷️</div>
-<div class="creature mob bob"   style="animation-duration:32s,0.7s;animation-delay:-6s,0s;font-size:32px;">🧟</div>
-
-<!-- ══ GROUND ══ -->
-<div class="ground-strip"></div>
-
-<!-- ══ TOGGLE ══ -->
-<button class="theme-toggle" onclick="toggleTheme()">
-  <span class="toggle-icon" id="toggle-icon">🌙</span>
-  <span id="toggle-label">Night</span>
-</button>
-
-<!-- ══ NAV ══ -->
-<nav>
-  <span class="nav-logo">Cableway<span>MC</span></span>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#devlog">Devlog</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- ══ HERO ══ -->
-<div id="hero">
-  <div class="creeper">🟩</div>
-  <h1 class="hero-title">Hey, I'm Lincoln<span class="cursor-blink"></span></h1>
-  <p class="hero-sub">// Minecraft Dev & Low-Level Programmer</p>
-  <p class="hero-desc">Dutch developer from The Hague. I build Minecraft clients, plugins, and tools — and I'm diving into C, kernels, and low-level programming on the side.</p>
-  <div class="hero-btns">
-    <a href="#projects" class="mc-btn">[ View Projects ]</a>
-    <a href="#contact" class="mc-btn blue">[ Contact Me ]</a>
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-logo">Lincoln</div>
+  <div class="topbar-right">
+    <nav class="topbar-nav">
+      <a href="#feed">Posts</a>
+      <a href="#contact-anchor">Contact</a>
+    </nav>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme"></button>
   </div>
-</div>
+</header>
 
-<div class="divider"></div>
+<!-- HERO -->
+<section class="hero fade-in">
+  <h1 class="hero-name">Lincoln<span>.</span></h1>
+  <p class="hero-bio">
+    <!-- write your bio here -->
+    Add a short bio here.
+  </p>
+  <div class="hero-chips">
+    <!-- example: <span class="chip">Java</span> -->
+  </div>
+</section>
 
-<!-- ══ ABOUT ══ -->
-<section id="about">
-  <h2 class="section-title reveal">About Me</h2>
-  <div class="about-grid">
-    <div class="about-bio pixel-box grass-c reveal">
-      <p>I'm <strong>Lincoln</strong>, a 15-year-old developer from <strong>The Hague, Netherlands</strong>. Got my first PC at 10 and went straight into coding — C# first, then Java, Python, and now C.</p>
-      <p>I've coded plugins and scripts for <strong>10–20 live Minecraft servers</strong>, built custom clients, done hardware security work with ESP32s, and explored deep technical Minecraft mechanics like bedrock breaking.</p>
-      <p>I'm finishing middelbare school (kader) and starting <strong>Software Development at ROC Mondriaan</strong> in Delft. Long term I'm aiming for HBO — Software Engineering or Cyber Security.</p>
-      <p>I tried flipping a 2008 Intel laptop into a home server. It did not survive. That's just how it goes sometimes.</p>
-      <div class="skills-row">
-        <span class="skill-badge pixel-box grass-c">☕ Java</span>
-        <span class="skill-badge pixel-box dirt-c">🐍 Python</span>
-        <span class="skill-badge pixel-box stone-c">⚙️ C</span>
-        <span class="skill-badge pixel-box blue-c">🔷 C#</span>
-        <span class="skill-badge pixel-box wood-c">🎮 Unity</span>
-        <span class="skill-badge pixel-box purple-c">📡 ESP32</span>
-        <span class="skill-badge pixel-box stone-c">🧱 Skript</span>
-        <span class="skill-badge pixel-box grass-c">🐧 Linux</span>
-      </div>
+<!-- BODY -->
+<div class="page-body" id="feed">
+
+  <!-- FEED -->
+  <main class="feed">
+    <div class="feed-header">
+      <span class="feed-label">Posts</span>
+      <span class="feed-label" id="post-count"></span>
     </div>
-    <div class="reveal">
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">2020</div>
-          <div class="timeline-body">
-            <div class="timeline-label">First PC & C#</div>
-            <div class="timeline-text">Got my first PC at age 10. Started with C# and spent 3–4 years learning programming through game dev in Unity.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2022–24</div>
-          <div class="timeline-body">
-            <div class="timeline-label">Minecraft Plugin Dev</div>
-            <div class="timeline-text">Coded plugins and Skripts for 10–20 Minecraft servers — custom economies, minigames, combat systems, and more.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2024</div>
-          <div class="timeline-body">
-            <div class="timeline-label">New PC & ESP32</div>
-            <div class="timeline-text">Built a new rig. Started ESP32 microcontroller experiments for WiFi and Bluetooth security research.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">Jan 2026</div>
-          <div class="timeline-body">
-            <div class="timeline-label">Linux experiment</div>
-            <div class="timeline-text">Ran Linux for 2 months. Learned a lot, switched back. WSL2 on Windows 11 is the sweet spot.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2026</div>
-          <div class="timeline-body">
-            <div class="timeline-label">Low-Level & Clients</div>
-            <div class="timeline-text">Building custom Fabric clients, diving into C and kernel fundamentals. Inspired by Terry Davis and TempleOS.</div>
-          </div>
+
+    <!-- empty state — delete this block once you add posts -->
+    <div class="empty-state fade-in">
+      <div class="big">Nothing here yet.</div>
+      <p>Copy the post template from the HTML comments below to add your first post. Each card links to an entry in the <code>posts</code> JS object at the bottom of the file.</p>
+    </div>
+
+    <!--
+    ══════════════════════════════════════════
+    HOW TO ADD A POST
+    ══════════════════════════════════════════
+
+    1. Copy this <article> block and paste it below (inside <main class="feed">):
+
+    <article class="post fade-in" onclick="openPost('my-post-id')">
+      <div class="post-left">
+        <span class="post-date">Mar<br>2026</span>
+        <span class="post-type type-devlog">Devlog</span>
+      </div>
+      <div class="post-right">
+        <div class="post-title">Your post title</div>
+        <p class="post-excerpt">Short one-liner shown in the feed.</p>
+        <div class="post-tags">
+          <span class="post-tag">tag1</span>
+          <span class="post-tag">tag2</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </article>
 
-<div class="divider dirt"></div>
+    Type options for the badge:
+      type-devlog | type-project | type-note | type-research
 
-<!-- ══ PROJECTS ══ -->
-<section id="projects">
-  <h2 class="section-title reveal">Projects</h2>
+    Pinned card (highlighted background):
+      <article class="post pinned fade-in" onclick="openPost('my-post-id')">
+        <div class="pinned-label">Pinned</div>
+        ... same structure ...
+      </article>
 
-  <div class="sub-label reveal">Current Projects</div>
-  <div class="projects-grid">
-    <div class="project-card pixel-box grass-c reveal" onclick="openModal('server')">
-      <div class="wip-badge">⚡ IN PROGRESS</div>
-      <span class="project-icon">🖥️</span>
-      <div class="project-name">Friends SMP Server</div>
-      <p class="project-desc">Private Minecraft SMP hosted on a laptop with 16GB RAM. Custom setup for me and my friends.</p>
-      <span class="tag">Java</span><span class="tag blue">Spigot</span><span class="tag orange">Self-hosted</span>
-    </div>
-    <div class="project-card pixel-box purple-c reveal" onclick="openModal('unworthiest')">
-      <div class="wip-badge">⚡ IN PROGRESS</div>
-      <span class="project-icon">⚔️</span>
-      <div class="project-name">Unworthiest Client</div>
-      <p class="project-desc">Custom Fabric Minecraft client with a dark UI and purple accents.</p>
-      <span class="tag">Fabric</span><span class="tag">Java</span><span class="tag blue">1.21.1</span>
-    </div>
-  </div>
+    2. Add the full content in the posts object in the <script> tag:
 
-  <div class="sub-label old reveal">Older Projects</div>
-  <div class="projects-grid">
-    <div class="project-card pixel-box dirt-c reveal" onclick="openModal('macroforge')">
-      <span class="project-icon">🔧</span>
-      <div class="project-name">MacroForge</div>
-      <p class="project-desc">Python macro tool for Minecraft with randomized delays.</p>
-      <span class="tag">Python</span><span class="tag red">Automation</span>
-    </div>
-    <div class="project-card pixel-box wood-c reveal" onclick="openModal('tunnelbot')">
-      <span class="project-icon">🌐</span>
-      <div class="project-name">Server Tunnel Bot</div>
-      <p class="project-desc">Auto-starts ngrok and posts the URL to Discord via webhook.</p>
-      <span class="tag">Batch</span><span class="tag blue">ngrok</span><span class="tag blue">Discord</span>
-    </div>
-    <div class="project-card pixel-box blue-c reveal" onclick="openModal('plugins')">
-      <span class="project-icon">🧩</span>
-      <div class="project-name">Server Plugins</div>
-      <p class="project-desc">Custom plugins and Skripts for 10–20 live Minecraft servers.</p>
-      <span class="tag">Java</span><span class="tag orange">Skript</span><span class="tag blue">Spigot</span>
-    </div>
-    <div class="project-card pixel-box stone-c reveal" onclick="openModal('unity')">
-      <span class="project-icon">🎮</span>
-      <div class="project-name">Unity Games</div>
-      <p class="project-desc">2–3 years of game development in Unity with C#.</p>
-      <span class="tag purple">Unity</span><span class="tag blue">C#</span>
-    </div>
-    <div class="project-card pixel-box stone-c reveal" onclick="openModal('esp32')">
-      <span class="project-icon">📡</span>
-      <div class="project-name">ESP32 Security</div>
-      <p class="project-desc">WiFi and Bluetooth security research using ESP32 microcontrollers.</p>
-      <span class="tag red">Cyber Security</span><span class="tag orange">ESP32</span><span class="tag">C</span>
-    </div>
-    <div class="project-card pixel-box obs-c reveal" onclick="openModal('bedrock')">
-      <span class="project-icon">🪨</span>
-      <div class="project-name">Bedrock Breaking</div>
-      <p class="project-desc">Technical MC research — obtaining bedrock in survival in 1.12.2.</p>
-      <span class="tag obs">Technical MC</span><span class="tag blue">1.12.2</span><span class="tag purple">Research</span>
-    </div>
-  </div>
-</section>
+    'my-post-id': {
+      type: 'Devlog',
+      date: 'March 2026',
+      title: 'Your post title',
+      body: `
+        <p>First paragraph.</p>
+        <div class="pv-divider"></div>
+        <p>Second paragraph. Use <code>inline code</code> or <strong>bold</strong>.</p>
+        <pre><code>code block here</code></pre>
+      `
+    }
+    ══════════════════════════════════════════
+    -->
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnBg(event)">
-  <div class="modal" id="modal-box">
-    <button class="modal-close" onclick="closeModal()">✕ Close</button>
-    <span class="modal-icon" id="modal-icon"></span>
-    <div class="modal-title" id="modal-title"></div>
-    <div class="modal-body"  id="modal-body"></div>
-    <div class="modal-tags"  id="modal-tags"></div>
-    <div class="modal-links" id="modal-links"></div>
-  </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sb-block fade-in">
+      <div class="sb-label">About</div>
+      <div class="sb-about">
+        <!-- short sidebar bio -->
+        Add a short sidebar bio here.
+      </div>
+    </div>
+
+    <div class="sb-block fade-in" id="contact-anchor">
+      <div class="sb-label">Links</div>
+      <div class="link-list">
+        <!-- example:
+        <a href="https://github.com/yourname" target="_blank" class="link-item">
+          <span>GitHub</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        -->
+        <div style="font-size:12px;color:var(--text-faint);padding:8px 0;">No links added yet.</div>
+      </div>
+    </div>
+
+  </aside>
 </div>
 
-<div class="divider stone"></div>
-
-<!-- ══ DEVLOG ══ -->
-<section id="devlog">
-  <h2 class="section-title reveal">Devlog</h2>
-  <div class="devlog-list">
-    <div class="devlog-entry pixel-box grass-c reveal">
-      <div class="devlog-date">23 MAR<br>2026</div>
-      <div><div class="devlog-title">Portfolio is live!</div><p class="devlog-text">Launched this site. Plain HTML/CSS/JS, no frameworks. Minecraft aesthetic with a day/night switch.</p></div>
-    </div>
-    <div class="devlog-entry pixel-box grass-c reveal">
-      <div class="devlog-date">MAR<br>2026</div>
-      <div><div class="devlog-title">Setting up the SMP</div><p class="devlog-text">Running a private Minecraft server for me and my friends off a laptop with 16GB RAM. Custom plugin setup, world config, and optimizations to keep it smooth.</p></div>
-    </div>
-    <div class="devlog-entry pixel-box purple-c reveal">
-      <div class="devlog-date">MAR<br>2026</div>
-      <div><div class="devlog-title">Unworthiest Client UI overhaul</div><p class="devlog-text">Rebuilt the entire UI — dark theme, purple accents, smooth animations, working keybind config. Full package rename done.</p></div>
-    </div>
-    <div class="devlog-entry pixel-box obs-c reveal">
-      <div class="devlog-date">2024</div>
-      <div><div class="devlog-title">Bedrock in survival — actually got it</div><p class="devlog-text">Used game mechanic exploits involving block update order to obtain bedrock in a solo survival world. Same category of research SciCraft has done publicly for years.</p></div>
-    </div>
-    <div class="devlog-entry pixel-box wood-c reveal">
-      <div class="devlog-date">FEB<br>2026</div>
-      <div><div class="devlog-title">ngrok Discord bot</div><p class="devlog-text">Batch script that starts the server, grabs the ngrok URL, and posts it to Discord automatically.</p></div>
-    </div>
-    <div class="devlog-entry pixel-box stone-c reveal">
-      <div class="devlog-date">FEB<br>2026</div>
-      <div><div class="devlog-title">Started learning C</div><p class="devlog-text">Terry Davis and TempleOS got me into low-level programming. Pointers, memory, bit architecture, kernel basics. It's addictive.</p></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider wood"></div>
-
-<!-- ══ CONTACT ══ -->
-<section id="contact">
-  <h2 class="section-title reveal">Contact & Socials</h2>
-  <div class="socials-grid">
-    <a href="https://github.com/CablewayMC" target="_blank" class="social-card pixel-box grass-c reveal">
-      <span class="social-icon">🐙</span>
-      <div><span class="social-name">GitHub</span><span class="social-handle">@CablewayMC</span></div>
-    </a>
-    <a href="https://discord.com/users/Lincnil" target="_blank" class="social-card pixel-box blue-c reveal">
-      <span class="social-icon">💬</span>
-      <div><span class="social-name">Discord</span><span class="social-handle">Lincnil</span></div>
-    </a>
-    <a href="https://youtube.com/@lincnil" target="_blank" class="social-card pixel-box dirt-c reveal">
-      <span class="social-icon">📺</span>
-      <div><span class="social-name">YouTube</span><span class="social-handle">@lincnil</span></div>
-    </a>
-    <a href="mailto:lincoln200010@gmail.com" class="social-card pixel-box wood-c reveal">
-      <span class="social-icon">📬</span>
-      <div><span class="social-name">Email</span><span class="social-handle">lincoln200010@gmail.com</span></div>
-    </a>
-  </div>
-</section>
-
-<div class="divider obs"></div>
+<!-- FOOTER -->
 <footer>
-  <div class="healthbar">
-    <span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span>
-  </div>
-  <div>CablewayMC · Made with 🧱 and too much coffee</div>
-  <div style="margin-top:8px;opacity:0.5;">Built in plain HTML — no frameworks needed</div>
+  <span>Lincoln · 2026</span>
+  <span>plain HTML</span>
 </footer>
 
+<!-- POST OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeOnBg(event)">
+  <div class="post-view">
+    <button class="pv-close" onclick="closePost()">esc / close</button>
+    <div class="pv-meta" id="pv-meta"></div>
+    <div class="pv-title" id="pv-title"></div>
+    <div class="pv-body" id="pv-body"></div>
+  </div>
+</div>
+
+<main class="feed" id="main-feed">
+  <div class="feed-header">
+    <span class="feed-label">Posts</span>
+    <span class="feed-label" id="post-count">0 posts</span>
+  </div>
+  
+  <div id="post-container"></div>
+</main>
+
 <script>
-/* ══ THEME ══ */
+/* ─── ADD YOUR POSTS HERE ─── */
+const posts = [
+  {
+    id: 'first-post',
+    title: 'Hello World',
+    excerpt: 'This is my first post generated automatically.',
+    date: 'Mar 2026',
+    type: 'devlog', // options: devlog, project, note, research
+    tags: ['web', 'minimal'],
+    pinned: true,
+    body: `<p>This is the full content of the post!</p>`
+  },
+  {
+    id: 'second-post',
+    title: 'Future Project',
+    excerpt: 'Exploring the depths of simple web design.',
+    date: 'Apr 2026',
+    type: 'project',
+    tags: ['design'],
+    pinned: false,
+    body: `<p>More detailed thoughts go here.</p>`
+  }
+];
+
+/* ─── AUTOMATIC RENDERER (Do not need to touch this) ─── */
+function renderPosts() {
+  const container = document.getElementById('post-container');
+  const countLabel = document.getElementById('post-count');
+  
+  if (posts.length === 0) return;
+  
+  // Clear "Empty State" if posts exist
+  container.innerHTML = '';
+  countLabel.textContent = `${posts.length} posts`;
+
+  posts.forEach(post => {
+    const postHTML = `
+      <article class="post fade-in ${post.pinned ? 'pinned' : ''}" onclick="openPost('${post.id}')">
+        ${post.pinned ? '<div class="pinned-label">Pinned</div>' : ''}
+        <div class="post-left">
+          <span class="post-date">${post.date.replace(' ', '<br>')}</span>
+          <span class="post-type type-${post.type}">${post.type}</span>
+        </div>
+        <div class="post-right">
+          <div class="post-title">${post.title}</div>
+          <p class="post-excerpt">${post.excerpt}</p>
+          <div class="post-tags">
+            ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
+          </div>
+        </div>
+      </article>
+    `;
+    container.innerHTML += postHTML;
+  });
+}
+
+/* ─── THEME & MODAL LOGIC ─── */
 function toggleTheme() {
   const html = document.documentElement;
-  const isDay = html.getAttribute('data-theme') === 'day';
-  html.setAttribute('data-theme', isDay ? 'night' : 'day');
-  document.getElementById('toggle-icon').textContent  = isDay ? '☀️' : '🌙';
-  document.getElementById('toggle-label').textContent = isDay ? 'Day'  : 'Night';
-  localStorage.setItem('theme', isDay ? 'night' : 'day');
+  const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
 }
-// Restore saved theme
+
+function openPost(id) {
+  const p = posts.find(item => item.id === id);
+  if (!p) return;
+  document.getElementById('pv-meta').innerHTML = `<span class="post-type type-${p.type}">${p.type}</span>&nbsp;·&nbsp;${p.date}`;
+  document.getElementById('pv-title').textContent = p.title;
+  document.getElementById('pv-body').innerHTML = p.body;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePost() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Initialize
 const saved = localStorage.getItem('theme');
-if (saved) {
-  document.documentElement.setAttribute('data-theme', saved);
-  document.getElementById('toggle-icon').textContent  = saved === 'night' ? '☀️' : '🌙';
-  document.getElementById('toggle-label').textContent = saved === 'night' ? 'Day' : 'Night';
-}
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+renderPosts();
 
-/* ══ PROJECTS ══ */
-const projects = {
-  server: {
-    icon:'🖥️', title:'Friends SMP Server', wip:true,
-    body:`<p>A private Minecraft SMP running for me and my friends, self-hosted on a laptop with 16GB of RAM.</p><p>Custom plugin setup, world configuration, and performance tuning. Handling everything from the server software to the network setup myself.</p><p>It's a good excuse to keep learning about server administration, Java performance, and how Minecraft handles memory at scale.</p>`,
-    tags:['Java','Spigot','Self-hosted','16GB RAM'], cls:['','blue','orange','orange'], links:[]
-  },
-  unworthiest: {
-    icon:'⚔️', title:'Unworthiest Client', wip:true,
-    body:`<p>A fully custom Fabric-based Minecraft client for 1.21.1. Complete package rename and total UI overhaul from a ported base.</p><p>Dark theme with purple accents, smooth animations on the settings screen, and a fully configurable keybind system.</p><p>My main ongoing client project — constantly adding modules and refining the rendering pipeline.</p>`,
-    tags:['Fabric','Java','1.21.1','UI Design'], cls:['','','blue','blue'],
-    links:[{label:'[ GitHub ]',href:'#'},{label:'[ Download ]',href:'#',cls:'ghost'}]
-  },
-  macroforge: {
-    icon:'🔧', title:'MacroForge',
-    body:`<p>A Python macro tool for Minecraft automation. Key feature: randomized delay injection between actions to produce more human-like input patterns.</p><p>Fully configurable — actions, timings, sequences, and randomization ranges all adjustable.</p>`,
-    tags:['Python','Automation'], cls:['','red'], links:[{label:'[ GitHub ]',href:'#'}]
-  },
-  tunnelbot: {
-    icon:'🌐', title:'Server Tunnel Bot',
-    body:`<p>A batch script that automates the server startup flow. Launches the server, starts an ngrok TCP tunnel, pulls the public URL from ngrok's local API, and posts it to Discord via webhook.</p><p>Saves manually copy-pasting the tunnel URL every session.</p>`,
-    tags:['Batch','ngrok','Discord','TCP'], cls:['','blue','blue','blue'], links:[{label:'[ GitHub ]',href:'#'}]
-  },
-  plugins: {
-    icon:'🧩', title:'Minecraft Server Plugins',
-    body:`<p>2022–2024: coded custom plugins and Skripts for 10–20 different Minecraft servers.</p><p>Custom economy systems, minigame logic, combat mechanics, NPC interactions, event-driven scripting in Skript alongside Java plugins on Spigot/Paper.</p><p>Working on live servers with real players taught me a lot about performance and pressure debugging.</p>`,
-    tags:['Java','Skript','Spigot','Paper'], cls:['','orange','blue','blue'], links:[]
-  },
-  unity: {
-    icon:'🎮', title:'Unity Game Projects',
-    body:`<p>2–3 years (2020–2023) building games in Unity with C#. Started learning C# at age 10; Unity was the main way to turn ideas into reality.</p><p>Multiple full projects — platformers, top-down games, experimental mechanics. Never released publicly. The goal was always to make ideas real, not to ship products.</p>`,
-    tags:['Unity','C#','Game Dev'], cls:['purple','blue',''], links:[]
-  },
-  esp32: {
-    icon:'📡', title:'ESP32 Security Research',
-    body:`<p>Worked with ESP32 microcontrollers to explore WiFi and Bluetooth security — scanning, probing, understanding wireless protocols at a low level.</p><p>Hands-on intro to hardware hacking and cyber security. Part of a long-term interest I plan to pursue formally at HBO level.</p>`,
-    tags:['ESP32','C','WiFi','Bluetooth','Cyber Security'], cls:['orange','','blue','blue','red'], links:[]
-  },
-  bedrock: {
-    icon:'🪨', title:'Bedrock Breaking Research',
-    body:`<p>A deep dive into Minecraft's internal block and chunk update systems in 1.12.2. Bedrock is flagged unbreakable — but the game's own mechanics can be turned against that.</p><p>By studying update order, block interaction timing, and chunk data handling, I obtained bedrock as an item in a solo survival world — no cheats, no mods.</p><p>Same category of research the SciCraft server is famous for. Their work on headless pistons, update priority, and block replacement is well-documented and referenced in Mojang's own bug tracker.</p><p>Studying this taught me how Minecraft actually works under the hood — chunk loading, entity processing, block tick scheduling. Essentially reverse engineering a live system without source access.</p>`,
-    tags:['Technical MC','1.12.2','Game Mechanics','Research'], cls:['obs','blue','purple',''],
-    links:[{label:'[ MC Wiki ]',href:'https://minecraft.wiki/w/Tutorial:Breaking_bedrock'}]
-  }
-};
-
-function openModal(id) {
-  const p = projects[id]; if(!p) return;
-  document.getElementById('modal-icon').textContent = p.icon;
-  document.getElementById('modal-title').innerHTML = (p.wip?'<span style="font-size:8px;color:#f8a800;display:block;margin-bottom:8px;font-family:\'Press Start 2P\',monospace;">⚡ IN PROGRESS</span>':'')+p.title;
-  document.getElementById('modal-body').innerHTML = p.body;
-  document.getElementById('modal-tags').innerHTML = p.tags.map((t,i)=>`<span class="tag ${p.cls[i]||''}">${t}</span>`).join('');
-  document.getElementById('modal-links').innerHTML = p.links.map(l=>`<a href="${l.href}" class="mc-btn ${l.cls||''}" target="_blank">${l.label}</a>`).join('');
-  document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
-function closeModalOnBg(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-
-/* ══ SCROLL REVEAL ══ */
-const obs = new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); obs.unobserve(e.target); } });
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-/* ══ SMOOTH SCROLL ══ */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{ const t=document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});} });
-});
+// Scroll Reveal Observer
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 50);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
